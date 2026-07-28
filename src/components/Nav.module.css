@@ -1,0 +1,119 @@
+.wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding: 16px var(--gutter);
+  transition: padding 400ms var(--ease-out);
+}
+
+.wrapScrolled {
+  padding-top: 10px;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  max-width: var(--page-max);
+  padding: 10px 12px 10px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 8px 32px rgba(0, 0, 0, 0.40);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition:
+    border-color 400ms var(--ease-out),
+    max-width 400ms var(--ease-out),
+    background-color 400ms var(--ease-out);
+}
+
+.barScrolled {
+  max-width: calc(var(--page-max) - 80px);
+  border-color: var(--glass-border-bright);
+  background: rgba(12, 16, 28, 0.72);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .bar {
+    background: rgba(11, 15, 26, 0.94);
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.mark {
+  width: 26px;
+  height: 26px;
+  flex: none;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.link {
+  position: relative;
+  display: block;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 250ms var(--ease-out);
+}
+
+.link:hover {
+  color: var(--text);
+}
+
+.linkActive {
+  color: var(--text);
+}
+
+.pill {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-pill);
+  background: rgba(110, 168, 255, 0.14);
+  border: 1px solid rgba(110, 168, 255, 0.28);
+  z-index: -1;
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 720px) {
+  .links {
+    gap: 0;
+  }
+  .link {
+    padding: 8px 9px;
+    font-size: 0.8rem;
+  }
+  .brand span {
+    display: none;
+  }
+}
