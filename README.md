@@ -84,8 +84,27 @@ GitHub Pages has no server, so client-side routes need static files to land on. 
 Adding a project to `src/data/projects.js` generates its static route automatically. Nothing
 else to do.
 
-Deploying to a project repo instead of the root user site requires one change in
-`vite.config.js`:
+### Custom domain
+
+The site serves from **jesusvelazquez.dev**. `public/CNAME` carries the domain into `dist/`,
+which is how GitHub Pages learns about it — deleting that file reverts the site to the
+`github.io` URL on the next deploy.
+
+DNS at your registrar needs to point at GitHub Pages:
+
+| Type | Name | Value |
+|---|---|---|
+| A | `@` | `185.199.108.153` |
+| A | `@` | `185.199.109.153` |
+| A | `@` | `185.199.110.153` |
+| A | `@` | `185.199.111.153` |
+| CNAME | `www` | `<username>.github.io.` |
+
+Then in **Settings → Pages → Custom domain**, enter the domain and tick **Enforce HTTPS**
+once the certificate finishes provisioning (usually minutes, occasionally up to a day).
+
+Because `base` is `'/'`, a custom domain needs no build changes. Serving from a project repo
+subpath instead would require one edit in `vite.config.js`:
 
 ```js
 base: '/<repo-name>/',

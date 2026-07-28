@@ -55,8 +55,7 @@ export function Hero() {
         </motion.p>
 
         <motion.p variants={item} className={styles.intro}>
-          Backend systems for the Department of Defense by day, co-founder of Waiver Director the
-          rest of the time. REST APIs, component libraries, and products people actually use.
+          {profile.intro}
         </motion.p>
 
         <motion.div variants={item} className={styles.ctas}>
