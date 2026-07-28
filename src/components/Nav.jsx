@@ -1,5 +1,4 @@
 import { Link, useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import { useActiveSection } from '../hooks/useActiveSection.js'
 import { useScrolled } from '../hooks/useScrolled.js'
 import styles from './Nav.module.css'
@@ -57,13 +56,6 @@ export function Nav() {
                 className={`${styles.link} ${active === s.id ? styles.linkActive : ''}`}
                 aria-current={active === s.id ? 'true' : undefined}
               >
-                {active === s.id && (
-                  <motion.span
-                    layoutId="nav-pill"
-                    className={styles.pill}
-                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                  />
-                )}
                 <span className={styles.label}>{s.label}</span>
               </Link>
             </li>

@@ -36,6 +36,17 @@ body {
   overflow-x: hidden;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 5%, rgba(111, 139, 255, 0.09), transparent 26rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent 20rem);
+}
+
 h1,
 h2,
 h3 {
@@ -55,6 +66,16 @@ img {
   display: block;
 }
 
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--void);
+}
+
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -66,6 +87,21 @@ img {
   max-width: var(--page-max);
   margin-inline: auto;
   padding-inline: var(--gutter);
+}
+
+.section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(24px, 6vw, 80px);
+  align-items: end;
+  margin-bottom: clamp(38px, 6vw, 70px);
+}
+
+@media (max-width: 760px) {
+  .section-heading {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

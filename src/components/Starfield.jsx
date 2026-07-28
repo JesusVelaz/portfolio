@@ -2,13 +2,8 @@ import { useEffect, useRef } from 'react'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
 import styles from './Starfield.module.css'
 
-const LAYERS = [
-  { density: 0.00009, size: 0.7, speed: 0.02, alpha: 0.45 },
-  { density: 0.00005, size: 1.1, speed: 0.06, alpha: 0.70 },
-  { density: 0.00002, size: 1.7, speed: 0.12, alpha: 0.95 },
-]
-
 export function Starfield() {
+  const wrapRef = useRef(null)
   const canvasRef = useRef(null)
   const reduced = useReducedMotion()
 
@@ -24,94 +19,127 @@ export function Starfield() {
     }
     if (!ctx) return
 
-    let stars = []
     let width = 0
     let height = 0
-    let frame = 0
-    let running = true
+    let dpr = 1
+    let frame = null
+    let visible = true
+    let lastDraw = 0
+    const points = Array.from({ length: 14 }, (_, index) => ({
+      angle: (Math.PI * 2 * index) / 14,
+      orbit: 0.22 + (index % 4) * 0.075,
+      speed: 0.00006 + (index % 3) * 0.000018,
+      size: index % 5 === 0 ? 3.5 : 2.2,
+    }))
 
-    function build() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5)
       width = canvas.clientWidth || window.innerWidth
       height = canvas.clientHeight || window.innerHeight
       canvas.width = Math.floor(width * dpr)
       canvas.height = Math.floor(height * dpr)
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      draw(performance.now())
+    }
 
-      stars = []
-      for (const layer of LAYERS) {
-        const count = Math.round(width * height * layer.density)
-        for (let i = 0; i < count; i += 1) {
-          stars.push({
-            x: Math.random() * width,
-            y: Math.random() * height,
-            r: layer.size * (0.6 + Math.random() * 0.8),
-            a: layer.alpha * (0.4 + Math.random() * 0.6),
-            speed: layer.speed,
-          })
+    function draw(time) {
+      ctx.clearRect(0, 0, width, height)
+      const cx = width * 0.5
+      const cy = height * 0.48
+      const radius = Math.min(width, height)
+      const positions = points.map((point) => {
+        const angle = point.angle + (reduced ? 0 : time * point.speed)
+        return {
+          ...point,
+          x: cx + Math.cos(angle) * radius * point.orbit,
+          y: cy + Math.sin(angle) * radius * point.orbit * 0.72,
+        }
+      })
+
+      ctx.lineWidth = 1
+      for (let i = 0; i < positions.length; i += 1) {
+        for (let j = i + 1; j < positions.length; j += 1) {
+          const a = positions[i]
+          const b = positions[j]
+          const distance = Math.hypot(a.x - b.x, a.y - b.y)
+          if (distance < radius * 0.29) {
+            ctx.strokeStyle = `rgba(111, 139, 255, ${0.2 * (1 - distance / (radius * 0.29))})`
+            ctx.beginPath()
+            ctx.moveTo(a.x, a.y)
+            ctx.lineTo(b.x, b.y)
+            ctx.stroke()
+          }
         }
       }
-    }
 
-    function draw() {
-      ctx.clearRect(0, 0, width, height)
-      ctx.fillStyle = '#CFE0FF'
-      const scroll = window.scrollY || 0
-      for (const s of stars) {
-        let y = (s.y - scroll * s.speed) % height
-        if (y < 0) y += height
-        ctx.globalAlpha = s.a
+      const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 0.44)
+      halo.addColorStop(0, 'rgba(72, 110, 255, 0.16)')
+      halo.addColorStop(1, 'rgba(72, 110, 255, 0)')
+      ctx.fillStyle = halo
+      ctx.fillRect(0, 0, width, height)
+
+      for (const point of positions) {
+        ctx.fillStyle = point.size > 3 ? '#99f6e4' : '#8da2ff'
         ctx.beginPath()
-        ctx.arc(s.x, y, s.r, 0, Math.PI * 2)
+        ctx.arc(point.x, point.y, point.size, 0, Math.PI * 2)
         ctx.fill()
       }
-      ctx.globalAlpha = 1
+
+      ctx.fillStyle = '#f6f7fb'
+      ctx.beginPath()
+      ctx.arc(cx, cy, 7, 0, Math.PI * 2)
+      ctx.fill()
     }
 
-    function loop() {
-      if (!running) return
-      draw()
+    function loop(time) {
+      if (!visible || document.hidden || reduced) return
+      if (time - lastDraw > 32) {
+        draw(time)
+        lastDraw = time
+      }
       frame = requestAnimationFrame(loop)
     }
 
-    function onResize() {
-      build()
-      draw()
-    }
-
     function onVisibilityChange() {
-      if (document.hidden) {
-        running = false
-        cancelAnimationFrame(frame)
-      } else if (!reduced) {
-        running = true
-        loop()
+      if (frame) cancelAnimationFrame(frame)
+      if (!document.hidden && visible && !reduced) {
+        frame = requestAnimationFrame(loop)
       }
     }
 
-    build()
-    if (reduced) {
-      draw()
-    } else {
-      loop()
+    const observer =
+      typeof IntersectionObserver === 'undefined'
+        ? null
+        : new IntersectionObserver(([entry]) => {
+            visible = entry.isIntersecting
+            if (frame) cancelAnimationFrame(frame)
+            if (visible && !document.hidden && !reduced) frame = requestAnimationFrame(loop)
+          })
+
+    resize()
+    if (!reduced) {
+      frame = requestAnimationFrame(loop)
     }
 
-    window.addEventListener('resize', onResize)
+    if (observer && wrapRef.current) observer.observe(wrapRef.current)
+    window.addEventListener('resize', resize)
     document.addEventListener('visibilitychange', onVisibilityChange)
 
     return () => {
-      running = false
-      cancelAnimationFrame(frame)
-      window.removeEventListener('resize', onResize)
+      if (frame) cancelAnimationFrame(frame)
+      observer?.disconnect()
+      window.removeEventListener('resize', resize)
       document.removeEventListener('visibilitychange', onVisibilityChange)
     }
   }, [reduced])
 
   return (
-    <div className={styles.wrap} aria-hidden="true">
+    <div ref={wrapRef} className={styles.wrap} aria-hidden="true">
       <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />
-      <div className={`${styles.aurora} ${styles.auroraA}`} />
-      <div className={`${styles.aurora} ${styles.auroraB}`} />
+      <div className={styles.label}>
+        <span>Systems thinking</span>
+        <span>Accessible by default</span>
+      </div>
     </div>
   )
 }

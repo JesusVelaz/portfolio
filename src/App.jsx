@@ -1,6 +1,5 @@
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { Starfield } from './components/Starfield.jsx'
 import { Nav } from './components/Nav.jsx'
 import { SkipLink } from './components/SkipLink.jsx'
 import { ScrollManager } from './components/ScrollManager.jsx'
@@ -13,7 +12,6 @@ export default function App() {
   return (
     <>
       <SkipLink />
-      <Starfield />
       <Nav />
       <ScrollManager />
       <main id="main">

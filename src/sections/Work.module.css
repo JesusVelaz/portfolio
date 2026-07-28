@@ -1,6 +1,7 @@
 .section {
   padding-block: var(--section-gap);
   scroll-margin-top: 110px;
+  border-top: 1px solid var(--border);
 }
 
 .eyebrow {
@@ -13,7 +14,8 @@
 }
 
 .heading {
-  font-size: clamp(2rem, 5vw, 3.1rem);
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  max-width: 16ch;
   margin-bottom: 16px;
 }
 

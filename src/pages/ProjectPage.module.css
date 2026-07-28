@@ -62,11 +62,8 @@
 
 .linkGhost {
   color: var(--text);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow: inset 0 1px 0 var(--glass-highlight);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: var(--surface);
+  border: 1px solid var(--border);
 }
 
 .hero {

@@ -7,11 +7,11 @@ export function Work() {
   return (
     <section id="work" className={`${styles.section} container`}>
       <Reveal>
-        <p className={styles.eyebrow}>Work</p>
-        <h2 className={styles.heading}>Things I&rsquo;ve built</h2>
+        <p className={styles.eyebrow}>Selected work</p>
+        <h2 className={styles.heading}>Products built around real constraints.</h2>
         <p className={styles.lede}>
-          A shipped commercial product and the project that got me comfortable with React. Each one
-          has a write-up covering the problem and what I actually built.
+          A commercial SaaS product and an earlier React application. Each case study focuses on
+          the problem, the engineering decisions, and the part I owned.
         </p>
       </Reveal>
 
