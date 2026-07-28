@@ -1,0 +1,111 @@
+.section {
+  padding-block: var(--section-gap);
+  scroll-margin-top: 110px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.heading {
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  margin-bottom: 56px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 34px;
+}
+
+.rail {
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--aurora));
+  transform-origin: top;
+  border-radius: 2px;
+  opacity: 0.55;
+}
+
+.entry {
+  position: relative;
+  padding-bottom: 48px;
+}
+
+.entry:last-child {
+  padding-bottom: 0;
+}
+
+.dot {
+  position: absolute;
+  left: -34px;
+  top: 8px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--void);
+  border: 2px solid var(--accent);
+}
+
+.dotCurrent {
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(110, 168, 255, 0.16);
+}
+
+.dates {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.role {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.company {
+  color: var(--accent);
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.bullets {
+  display: grid;
+  gap: 8px;
+  max-width: 62ch;
+}
+
+.bullet {
+  position: relative;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+.bullet::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.eduDetail {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
