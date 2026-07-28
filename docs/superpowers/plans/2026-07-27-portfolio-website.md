@@ -194,14 +194,18 @@ global.IntersectionObserver = MockIntersectionObserver
 window.scrollTo = vi.fn()
 ```
 
-**Helper for later tasks:** to simulate reduced motion in a test, override `matchMedia` inside the test:
+**Helper for later tasks:** to simulate reduced motion in a test, override `matchMedia` inside the test. Framer Motion reads `prefers-reduced-motion` through the **legacy** `addListener` API, so the double must implement both surfaces or every `motion` component throws on mount:
 
 ```js
 window.matchMedia = (query) => ({
   matches: query.includes('prefers-reduced-motion'),
   media: query,
+  onchange: null,
   addEventListener: () => {},
   removeEventListener: () => {},
+  addListener: () => {},
+  removeListener: () => {},
+  dispatchEvent: () => false,
 })
 ```
 
