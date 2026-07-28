@@ -16,7 +16,7 @@
 - Exact token values: `--void: #05070D`, `--surface: #0B0F1A`, `--text: #E8ECF5`, `--muted: #8B94A8`, `--accent: #6EA8FF`, `--aurora: #B77BFF`.
 - `--aurora` may only appear inside `linear-gradient()` / `radial-gradient()`. Never as a solid `color` or `background-color`.
 - Fonts: **Space Grotesk** (headings), **Inter** (body), **JetBrains Mono** (eyebrows, chips, dates, card numbers).
-- Base reveal animation: `opacity 0→1`, `translateY 24px→0`, `blur 6px→0`, `600ms`, `cubic-bezier(.16, 1, .3, 1)`, `60ms` stagger. Fires **once** — never re-animates on scroll-up.
+- Base reveal animation: `opacity 0→1`, `translateY 24px→0`, `600ms`, `cubic-bezier(.16, 1, .3, 1)`, `60ms` stagger. Fires **once** — never re-animates on scroll-up. (A `blur 6px→0` was part of this originally and was removed for performance — `filter` cannot be animated on the compositor. See the spec's motion section.)
 - `prefers-reduced-motion: reduce` must never hide content. Reduced motion is handled inside `Reveal` and `Starfield` only.
 - Animate only `opacity`, `transform`, and `filter`.
 - Every interactive element gets a visible focus ring in `--accent`.

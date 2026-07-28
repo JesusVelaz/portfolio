@@ -1,5 +1,12 @@
 import '@testing-library/jest-dom/vitest'
+import { configure } from '@testing-library/react'
 import { vi } from 'vitest'
+
+// findBy* defaults to a 1s ceiling. These are correctness assertions ("does this route render
+// this heading"), not speed assertions, and the suite runs 13 files in parallel — so a busy
+// machine could fail a passing test. A higher ceiling costs nothing on success and still fails
+// promptly when the behaviour is genuinely broken.
+configure({ asyncUtilTimeout: 5000 })
 
 if (!window.matchMedia) {
   window.matchMedia = vi.fn().mockImplementation((query) => ({

@@ -39,3 +39,16 @@ test('renders as the requested element', () => {
   render(<Reveal as="section">a section</Reveal>)
   expect(screen.getByText('a section').tagName).toBe('SECTION')
 })
+
+// Reveal wraps every section on the page, so its animation runs over very large areas.
+// `filter` cannot be animated on the compositor — animating it re-rasterizes the element's
+// whole area on the main thread every frame, which made scrolling crawl. Only `opacity` and
+// `transform` are compositor-friendly, so the animation must stay within those two.
+test('animates only compositor-friendly properties', () => {
+  setReducedMotion(false)
+  render(<Reveal>animated</Reveal>)
+  const el = screen.getByText('animated')
+
+  expect(el.style.filter).toBe('')
+  expect(el.getAttribute('style') ?? '').not.toMatch(/blur|filter/)
+})
