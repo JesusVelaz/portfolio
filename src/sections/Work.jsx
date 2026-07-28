@@ -10,8 +10,8 @@ export function Work() {
         <p className={styles.eyebrow}>Selected work</p>
         <h2 className={styles.heading}>Products built around real constraints.</h2>
         <p className={styles.lede}>
-          A commercial SaaS product and an earlier React application. Each case study focuses on
-          the problem, the engineering decisions, and the part I owned.
+          Products created for different audiences and stages of my career. Each case study starts
+          with the person it serves and the problem it is meant to solve.
         </p>
       </Reveal>
 

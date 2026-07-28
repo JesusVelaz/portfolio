@@ -46,7 +46,9 @@ test('experience is ordered most recent first and ends at education', () => {
   experience.forEach((role) => {
     expect(role.company).toBeTruthy()
     expect(role.role).toBeTruthy()
-    expect(role.bullets.length).toBeGreaterThan(0)
+    expect(role.summary).toBeTruthy()
+    expect(role.metric).toBeTruthy()
+    expect(role.focus.length).toBeGreaterThan(0)
   })
   expect(education.school).toMatch(/Florida International/)
 })

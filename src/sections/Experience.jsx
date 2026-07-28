@@ -11,8 +11,8 @@ export function Experience() {
           <h2 className={styles.heading}>Building across product and platform.</h2>
         </div>
         <p className={styles.lede}>
-          My experience spans public-sector software, early-stage product ownership, and operational
-          web systems. The common thread is turning complexity into dependable tools.
+          Three environments, one consistent focus: understanding what the software needs to make
+          easier for the people relying on it.
         </p>
       </Reveal>
 
@@ -39,13 +39,8 @@ export function Experience() {
 
               <div className={styles.entryBody}>
                 <p className={styles.summary}>{role.summary}</p>
-                <div className={styles.metric}>{role.metric}</div>
-                <ul className={styles.bullets}>
-                  {role.bullets.map((bullet) => (
-                    <li key={bullet}>{bullet}</li>
-                  ))}
-                </ul>
                 <ul className={styles.focus} aria-label={`${role.company} focus areas`}>
+                  <li className={styles.metric}>{role.metric}</li>
                   {role.focus.map((item) => (
                     <li key={item}>{item}</li>
                   ))}

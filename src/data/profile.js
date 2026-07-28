@@ -3,12 +3,11 @@ const profile = {
   role: 'Software Engineer',
   headline: 'I build reliable software for complex work.',
   intro:
-    'I work across interface systems and backend services for the Department of Defense, and I co-founded Waiver Director, a multi-tenant SaaS for experience operators.',
+    'I turn complex operational needs into clear, accessible web products—from shared interface systems to secure multi-tenant platforms.',
   blurb:
-    'I’m a software engineer and co-founder of Waiver Director who likes the seam between product design and systems engineering—the place where a clear interface has to meet sound data, authorization, and API decisions.',
+    'I’m a software engineer who likes the seam between product design and systems engineering—the place where a clear interface has to meet sound data, authorization, and API decisions.',
   story: [
-    'At the Department of Defense, I build and maintain the React component library behind mission-critical applications, engineer REST APIs, and help teams improve accessibility at the system level. The work has taught me to design for consistency, maintainability, and users who cannot afford ambiguity.',
-    'Outside of that role, I co-founded Waiver Director. Building a product from the ground up has expanded my perspective from completing features to shaping the product itself: tenant boundaries, operator workflows, messaging automation, and every decision that turns a useful prototype into dependable software.',
+    'My work has moved between mission-critical systems, operational tools, and a product built from the ground up. That range taught me to look beyond the feature request and understand the workflow, the people using it, and the consequence of getting it wrong.',
     'I earned a Computer Science degree from Florida International University and have been writing production software since 2023. I’m most interested in teams that value thoughtful engineering, direct communication, and measurable outcomes.',
   ],
   principles: [
@@ -42,7 +41,7 @@ const profile = {
     {
       value: '0 → 1',
       label: 'Product ownership',
-      detail: 'Co-founded and built a secure, multi-tenant SaaS product.',
+      detail: 'Turned an operator pain point into a secure, multi-tenant product.',
     },
   ],
   email: 'jesusvelazquez0980@gmail.com',

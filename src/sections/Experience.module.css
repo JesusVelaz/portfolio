@@ -32,7 +32,7 @@
   display: grid;
   grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
   gap: clamp(32px, 6vw, 80px);
-  padding-block: clamp(48px, 7vw, 78px);
+  padding-block: clamp(40px, 5vw, 58px);
   border-bottom: 1px solid var(--border);
 }
 
@@ -74,52 +74,16 @@
 .summary {
   color: var(--text);
   font-family: var(--font-display);
-  font-size: clamp(1.12rem, 2vw, 1.38rem);
+  font-size: clamp(1.08rem, 1.8vw, 1.28rem);
   line-height: 1.45;
   max-width: 50ch;
-}
-
-.metric {
-  width: fit-content;
-  margin-block: 24px 30px;
-  padding: 8px 12px;
-  color: var(--mint);
-  background: rgba(153, 246, 228, 0.07);
-  border: 1px solid rgba(153, 246, 228, 0.2);
-  border-radius: 8px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-}
-
-.bullets {
-  display: grid;
-  gap: 14px;
-  max-width: 68ch;
-}
-
-.bullets li {
-  position: relative;
-  padding-left: 20px;
-  color: var(--muted);
-  font-size: 0.94rem;
-}
-
-.bullets li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.68em;
-  width: 6px;
-  height: 1px;
-  background: var(--accent);
 }
 
 .focus {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 28px;
+  margin-top: 24px;
 }
 
 .focus li {
@@ -128,6 +92,13 @@
   border-radius: var(--radius-pill);
   color: var(--muted);
   font-size: 0.72rem;
+}
+
+.focus .metric {
+  color: var(--mint);
+  background: rgba(153, 246, 228, 0.07);
+  border-color: rgba(153, 246, 228, 0.22);
+  font-family: var(--font-mono);
 }
 
 .education {

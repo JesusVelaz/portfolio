@@ -16,7 +16,7 @@ export function ProjectCard({ project, index }) {
         </p>
         <p className={styles.tagline}>{project.tagline}</p>
         <StackChips items={project.stack} />
-        <span className={styles.cta}>Read the case study →</span>
+        <span className={styles.cta}>Explore the problem →</span>
       </div>
 
       <div className={`${styles.mediaWrap} ${styles.mediaOrder}`}>
