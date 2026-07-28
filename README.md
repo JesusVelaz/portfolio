@@ -72,8 +72,17 @@ resumeUrl: '/resume/jesus-velazquez-resume.pdf',
 
 Pushing to `main` runs `.github/workflows/deploy.yml`: tests, build, deploy to GitHub Pages.
 
-The build copies `index.html` to `404.html`. GitHub Pages serves `404.html` for any unmatched
-path, which is the SPA shell, so `/work/pokedex` resolves correctly on a direct load or refresh.
+GitHub Pages has no server, so client-side routes need static files to land on. The build
+(`emitStaticRoutes` in `vite.config.js`) emits two things:
+
+- `404.html` — a copy of the SPA shell. Pages serves it for any unmatched path, so the router
+  can still resolve the URL. It is served with a **404 status**, which is right for a genuinely
+  unknown URL and wrong for a real page.
+- `work/<slug>/index.html` — one per project, also a copy of the shell. These return **200**,
+  so a shared project link previews correctly and is not treated as missing by crawlers.
+
+Adding a project to `src/data/projects.js` generates its static route automatically. Nothing
+else to do.
 
 Deploying to a project repo instead of the root user site requires one change in
 `vite.config.js`:

@@ -261,9 +261,11 @@ Fires **once**. Re-animating on scroll-up is the tell of a cheap portfolio.
 
 - **Vite + React**, `base: '/'`
 - **GitHub Actions** on push to `main`: build, then deploy to Pages
-- **SPA routing fix:** the build copies `index.html` → `404.html`. GitHub Pages serves
-  `404.html` for unmatched paths; that file is the SPA shell, so the router resolves
-  `/work/pokedex` correctly on direct load and refresh. Clean URLs, no hash router.
+- **SPA routing:** the build emits `404.html` (a copy of the SPA shell) as the catch-all for
+  unmatched paths, plus `work/<slug>/index.html` per project. The per-project files exist so
+  real project URLs return **200** rather than the 404 status a bare `404.html` fallback would
+  give them — a shared portfolio link must not look missing to crawlers and link previews.
+  `404.html` then only serves genuinely unknown URLs. Clean URLs, no hash router.
 - Deploying to a project repo instead requires changing `base` to `'/<repo-name>/'` —
   a one-line change.
 
