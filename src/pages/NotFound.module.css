@@ -1,0 +1,36 @@
+.wrap {
+  min-height: 78vh;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 18px;
+  padding-block: 160px 80px;
+}
+
+.code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+
+.heading {
+  font-size: clamp(2rem, 6vw, 3.4rem);
+}
+
+.text {
+  color: var(--muted);
+  max-width: 42ch;
+  margin-inline: auto;
+}
+
+.back {
+  justify-self: center;
+  margin-top: 10px;
+  padding: 13px 26px;
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: var(--void);
+  font-weight: 600;
+  font-size: 0.9rem;
+}

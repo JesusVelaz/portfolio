@@ -29,3 +29,8 @@ window.IntersectionObserver = MockIntersectionObserver
 global.IntersectionObserver = MockIntersectionObserver
 
 window.scrollTo = vi.fn()
+
+// jsdom has no canvas implementation and logs a noisy "Not implemented" error for every
+// getContext call. Returning null is what a real browser does when a context is
+// unavailable, and it is the path Starfield already guards against.
+HTMLCanvasElement.prototype.getContext = () => null

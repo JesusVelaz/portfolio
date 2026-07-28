@@ -1,0 +1,133 @@
+.page {
+  padding-block: 160px var(--section-gap);
+}
+
+.back {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 34px;
+  transition: color 250ms var(--ease-out);
+}
+
+.back:hover {
+  color: var(--accent);
+}
+
+.title {
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  margin-bottom: 12px;
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.6vw, 1.6rem);
+  color: var(--muted);
+  max-width: 46ch;
+  margin-bottom: 26px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 26px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 56px;
+  margin-top: 26px;
+}
+
+.linkBtn {
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.linkPrimary {
+  background: var(--accent);
+  color: var(--void);
+}
+
+.linkGhost {
+  color: var(--text);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.hero {
+  aspect-ratio: 16 / 9;
+  margin-bottom: 72px;
+}
+
+.body {
+  display: grid;
+  gap: 56px;
+  max-width: 68ch;
+}
+
+.blockTitle {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.prose {
+  color: var(--muted);
+  font-size: 1.0625rem;
+}
+
+.highlights {
+  display: grid;
+  gap: 14px;
+}
+
+.highlight {
+  position: relative;
+  padding-left: 22px;
+  color: var(--muted);
+}
+
+.highlight::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--aurora));
+}
+
+.shots {
+  display: grid;
+  gap: 22px;
+  margin-top: 72px;
+}
+
+.shot {
+  aspect-ratio: 16 / 10;
+}
+
+.next {
+  margin-top: 90px;
+  padding-top: 30px;
+  border-top: 1px solid var(--glass-border);
+}
