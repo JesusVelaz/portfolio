@@ -1,0 +1,27 @@
+:root {
+  --void: #05070D;
+  --surface: #0B0F1A;
+  --text: #E8ECF5;
+  --muted: #8B94A8;
+  --accent: #6EA8FF;
+  --aurora: #B77BFF;
+
+  --glass-bg: rgba(12, 16, 28, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  --glass-border-bright: rgba(255, 255, 255, 0.18);
+  --glass-highlight: rgba(255, 255, 255, 0.14);
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --dur: 600ms;
+
+  --page-max: 1120px;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --section-gap: clamp(6rem, 14vh, 10rem);
+
+  --radius-card: 20px;
+  --radius-pill: 999px;
+}
