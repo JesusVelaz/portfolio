@@ -24,6 +24,12 @@ test('section links point at hash routes so they work from a project page', () =
   expect(work.getAttribute('href')).toBe('/#work')
 })
 
+test('marks no section as current while a project page is open', () => {
+  renderNav('/work/pokedex')
+  const current = screen.getAllByRole('link').filter((a) => a.getAttribute('aria-current'))
+  expect(current).toHaveLength(0)
+})
+
 test('exposes a labelled navigation landmark', () => {
   renderNav()
   expect(screen.getByRole('navigation', { name: /main/i })).toBeInTheDocument()

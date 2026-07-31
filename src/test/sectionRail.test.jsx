@@ -57,6 +57,12 @@ test('stays hidden while the hero is on screen', () => {
   expect(screen.getAllByRole('link').some((a) => a.getAttribute('aria-current'))).toBe(false)
 })
 
+test('stays hidden before the observer has reported anything', () => {
+  renderRail(null)
+
+  expect(screen.getByRole('navigation', { name: 'Sections' })).not.toHaveClass(styles.railVisible)
+})
+
 test('becomes visible once a real section is active', () => {
   renderRail('about')
   expect(screen.getByRole('navigation', { name: 'Sections' })).toHaveClass(styles.railVisible)

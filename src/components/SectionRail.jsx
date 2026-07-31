@@ -9,11 +9,13 @@ const OBSERVED_IDS = ['hero', ...SECTIONS.map((section) => section.id)]
 
 export function SectionRail() {
   const active = useActiveSection(OBSERVED_IDS)
+  // No answer yet reads the same as the hero — the rail has nothing to point at.
+  const hidden = !active || active === 'hero'
 
   return (
     <nav
       aria-label="Sections"
-      className={active === 'hero' ? styles.rail : `${styles.rail} ${styles.railVisible}`}
+      className={hidden ? styles.rail : `${styles.rail} ${styles.railVisible}`}
     >
       <ul className={styles.list}>
         {SECTIONS.map((section) => (

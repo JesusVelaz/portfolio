@@ -1,3 +1,8 @@
+/* Liquid Glass: the bar is a lens, not a panel.
+   Three layers do the work — a blurred tint that carries almost no fill of its
+   own, a specular that follows the pointer, and a rim where light refracts
+   through the curved edge. Everything else stays quiet so the glass reads. */
+
 .wrap {
   position: fixed;
   top: 0;
@@ -10,8 +15,29 @@
   transition: padding 400ms var(--ease-out);
 }
 
+/* Scroll edge effect. Page content dissolves as it passes under the bar
+   instead of colliding with it, which is what lets the bar itself stay this
+   transparent: legibility comes from the edge, not from a heavy fill. */
+.wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -34px;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  transition: opacity 400ms var(--ease-out);
+}
+
 .wrapScrolled {
   padding-top: 10px;
+}
+
+.wrapScrolled::before {
+  opacity: 1;
 }
 
 .bar {
@@ -26,63 +52,89 @@
   max-width: var(--page-max);
   padding: 10px 12px 10px 18px;
   border-radius: var(--radius-pill);
-  background:
-    linear-gradient(
-      115deg,
-      rgba(255, 255, 255, 0.12),
-      rgba(255, 255, 255, 0.025) 34%,
-      rgba(141, 162, 255, 0.08) 68%,
-      rgba(255, 255, 255, 0.07)
-    ),
-    rgba(18, 21, 28, 0.52);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(16, 19, 26, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
-    0 18px 44px rgba(0, 0, 0, 0.3),
-    0 2px 10px rgba(141, 162, 255, 0.08);
-  backdrop-filter: blur(24px) saturate(180%) contrast(108%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%) contrast(108%);
+    0 18px 44px rgba(0, 0, 0, 0.34),
+    0 2px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(26px) saturate(190%) brightness(1.04);
+  -webkit-backdrop-filter: blur(26px) saturate(190%) brightness(1.04);
+  translate: 0 0;
+  scale: 1;
   transition:
-    border-color 400ms var(--ease-out),
-    max-width 400ms var(--ease-out),
-    background-color 400ms var(--ease-out),
-    box-shadow 400ms var(--ease-out);
+    max-width 460ms var(--ease-out),
+    background-color 460ms var(--ease-out),
+    border-color 460ms var(--ease-out),
+    box-shadow 460ms var(--ease-out),
+    translate 520ms var(--ease-out),
+    scale 520ms var(--ease-out);
 }
 
+/* Specular. Positioned from --gx/--gy, which the pointer writes directly onto
+   the element; --glow fades the whole thing in and out on enter and leave. */
 .bar::before {
   content: '';
   position: absolute;
-  inset: 1px 14% auto;
-  height: 1px;
-  z-index: -1;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
-  opacity: 0.8;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--glow, 0);
+  background: radial-gradient(
+    circle 260px at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.16),
+    rgba(141, 162, 255, 0.09) 45%,
+    transparent 72%
+  );
+  transition: opacity 480ms var(--ease-out);
 }
 
+/* Refracted rim. A one-pixel gradient border — bright where a curved edge
+   would catch the light, tinted with the page's own accents in between,
+   near-invisible on the flanks. The mask punches out the middle. */
 .bar::after {
   content: '';
   position: absolute;
-  width: 150px;
-  height: 80px;
-  right: 14%;
-  top: -64px;
-  z-index: -1;
-  border-radius: 50%;
-  background: rgba(153, 246, 228, 0.24);
-  filter: blur(28px);
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.62),
+    rgba(153, 246, 228, 0.3) 24%,
+    rgba(255, 255, 255, 0.05) 44%,
+    rgba(255, 255, 255, 0.05) 58%,
+    rgba(141, 162, 255, 0.36) 80%,
+    rgba(255, 255, 255, 0.5)
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
 }
 
 .barScrolled {
   max-width: calc(var(--page-max) - 80px);
-  border-color: rgba(255, 255, 255, 0.26);
-  background:
-    linear-gradient(115deg, rgba(255, 255, 255, 0.1), rgba(141, 162, 255, 0.07)),
-    rgba(18, 21, 28, 0.6);
+  background: rgba(16, 19, 26, 0.55);
+  border-color: rgba(255, 255, 255, 0.14);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.24),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
-    0 20px 46px rgba(0, 0, 0, 0.34);
+    0 22px 50px rgba(0, 0, 0, 0.4),
+    0 2px 8px rgba(0, 0, 0, 0.24);
+}
+
+/* Receding on the way down, forward again on the way up. The bar never leaves
+   — it just stops competing with whatever you are reading. Must follow
+   .barScrolled: same specificity, so source order decides. */
+.barMinimized {
+  translate: 0 -4px;
+  scale: 0.985;
+  background: rgba(16, 19, 26, 0.4);
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.26);
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
@@ -128,16 +180,31 @@
   font-size: 0.875rem;
   font-weight: 500;
   border: 1px solid transparent;
+  scale: 1;
   transition:
     color 250ms var(--ease-out),
     background-color 250ms var(--ease-out),
-    border-color 250ms var(--ease-out);
+    border-color 250ms var(--ease-out),
+    scale 220ms var(--ease-out);
 }
 
-.link:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.08);
+/* Only real pointers get a hover fill. On touch the state sticks after a tap,
+   which would leave a second background sitting under a tapped link. */
+@media (hover: hover) and (pointer: fine) {
+  /* The active link already has the travelling pill behind it. Filling it
+     again on hover just stacks two backgrounds in the same shape. */
+  .link:not(.linkActive):hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.09);
+  }
+}
+
+/* Glass answers a press in real time rather than only changing color. The
+   active link sits out again — the pill behind it holds a fixed shape, so
+   pressing only its label would read as a wobble. */
+.link:not(.linkActive):active {
+  scale: 0.955;
 }
 
 .linkActive {
@@ -153,21 +220,64 @@
   z-index: -1;
   height: 100%;
   border-radius: var(--radius-pill);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(141, 162, 255, 0.13));
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.17), rgba(141, 162, 255, 0.11));
+  border: 1px solid rgba(255, 255, 255, 0.17);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    0 4px 12px rgba(0, 0, 0, 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.14),
+    0 6px 16px rgba(0, 0, 0, 0.2);
+  backdrop-filter: brightness(1.12) saturate(150%);
+  -webkit-backdrop-filter: brightness(1.12) saturate(150%);
   pointer-events: none;
+  /* --stretch is set for a beat while the pill travels, then released. */
+  scale: var(--stretch, 1) 1;
   transition:
-    transform 420ms var(--ease-out),
-    width 420ms var(--ease-out);
+    transform 460ms var(--ease-out),
+    width 460ms var(--ease-out),
+    scale 300ms var(--ease-out);
 }
 
 .label {
   position: relative;
   z-index: 1;
+}
+
+/* Translucency is the material, not the message. When it is turned down the
+   bar becomes an ordinary opaque surface and the light effects step aside. */
+@media (prefers-reduced-transparency: reduce) {
+  .bar,
+  .barScrolled,
+  .barMinimized {
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .bar::before,
+  .wrap::before {
+    display: none;
+  }
+
+  .pill {
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar::before {
+    display: none;
+  }
+
+  .barMinimized {
+    translate: 0 0;
+    scale: 1;
+  }
+
+  .pill {
+    scale: 1 1;
+  }
 }
 
 @media (max-width: 720px) {
