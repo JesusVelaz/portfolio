@@ -85,8 +85,7 @@
   margin-bottom: 12px;
 }
 
-.principle p,
-.skillsHeader > p:last-child {
+.principle p {
   color: var(--muted);
   font-size: 0.9rem;
 }
@@ -99,61 +98,13 @@
   margin-bottom: 30px;
 }
 
-.skills {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  border-top: 1px solid var(--border);
-}
-
-.skillGroup {
-  padding: 26px 20px 26px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.skills > div:nth-child(odd) .skillGroup {
-  border-right: 1px solid var(--border);
-}
-
-.skills > div:nth-child(even) .skillGroup {
-  padding-left: clamp(20px, 4vw, 48px);
-}
-
-.groupName {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text);
-  margin-bottom: 14px;
-}
-
-.items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-}
-
-.item {
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
 @media (max-width: 760px) {
   .storyGrid,
   .skillsHeader {
     grid-template-columns: 1fr;
   }
 
-  .principles,
-  .skills {
+  .principles {
     grid-template-columns: 1fr;
-  }
-
-  .skills > div:nth-child(odd) .skillGroup {
-    border-right: 0;
-  }
-
-  .skills > div:nth-child(even) .skillGroup {
-    padding-left: 0;
   }
 }

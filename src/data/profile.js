@@ -53,7 +53,7 @@ const profile = {
   skills: [
     { group: 'Languages', items: ['JavaScript', 'TypeScript', 'Java', 'Python', 'SQL', 'C', 'C++', 'PHP'] },
     { group: 'Frontend', items: ['React', 'Svelte', 'SvelteKit', 'Angular', 'Material UI', 'HTML', 'CSS'] },
-    { group: 'Backend & Data', items: ['REST APIs', 'Node.js', 'PostgreSQL', 'MySQL', 'Convex', 'Swagger'] },
+    { group: 'Backend & API', items: ['REST APIs', 'Node.js', 'PostgreSQL', 'MySQL', 'Convex', 'Swagger'] },
     { group: 'Tools & Infrastructure', items: ['Git', 'Docker', 'Kubernetes', 'AWS S3'] },
   ],
 }

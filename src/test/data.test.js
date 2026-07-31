@@ -1,6 +1,6 @@
 import profile from '../data/profile.js'
 import projects, { getProject } from '../data/projects.js'
-import experience, { education } from '../data/experience.js'
+import experience from '../data/experience.js'
 
 test('profile has the fields the UI reads', () => {
   expect(profile.name).toBe('Jesus Velazquez')
@@ -41,7 +41,7 @@ test('getProject finds by slug and returns undefined otherwise', () => {
   expect(getProject('does-not-exist')).toBeUndefined()
 })
 
-test('experience is ordered most recent first and ends at education', () => {
+test('experience is ordered most recent first and every role is complete', () => {
   expect(experience[0].end).toBeNull()
   experience.forEach((role) => {
     expect(role.company).toBeTruthy()
@@ -50,5 +50,4 @@ test('experience is ordered most recent first and ends at education', () => {
     expect(role.metric).toBeTruthy()
     expect(role.focus.length).toBeGreaterThan(0)
   })
-  expect(education.school).toMatch(/Florida International/)
 })

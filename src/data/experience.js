@@ -34,11 +34,4 @@ const experience = [
   },
 ]
 
-export const education = {
-  school: 'Florida International University',
-  degree: 'Bachelor of Arts in Computer Science',
-  graduated: 'May 2023',
-  detail: "3.66 GPA · Dean's List, 2019–2023",
-}
-
 export default experience

@@ -1,0 +1,99 @@
+.rail {
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  z-index: 20;
+  transform: translateY(-50%);
+  /* Only the ticks themselves should catch the pointer, never the gap
+     between them, which sits over the page content. */
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 400ms var(--ease-out),
+    visibility 400ms var(--ease-out);
+}
+
+.railVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.list {
+  display: grid;
+  gap: 2px;
+  justify-items: end;
+}
+
+.tick {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* Padding does the work of making a 1px rule a real click target. */
+  padding: 12px 4px 12px 12px;
+  pointer-events: auto;
+}
+
+.label {
+  /* Out of flow on purpose. In flow it widened every tick to the width of its
+     own text, putting an invisible click-catching strip over the page content
+     at the sizes where the label is not actually shown. */
+  position: absolute;
+  right: 100%;
+  pointer-events: none;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(6px);
+  transition:
+    opacity 300ms var(--ease-out),
+    transform 300ms var(--ease-out);
+}
+
+.line {
+  width: 14px;
+  height: 1px;
+  background: var(--border-strong);
+  transition:
+    width 300ms var(--ease-out),
+    background-color 300ms var(--ease-out);
+}
+
+/* Three steps of brightness, dimmest to brightest: idle, hovered, active.
+   Hover has to stay clearly below active so pointing at a section never reads
+   as being in it. These rules stay above the .tickActive ones deliberately —
+   they match on specificity, so source order is what keeps the active tick at
+   full strength while it is itself being hovered. */
+.tick:hover .label,
+.tick:focus-visible .label {
+  opacity: 1;
+  transform: none;
+  color: var(--muted);
+}
+
+.tick:hover .line,
+.tick:focus-visible .line {
+  width: 34px;
+  background: var(--muted);
+}
+
+.tickActive .line {
+  width: 34px;
+  background: var(--text);
+}
+
+.tickActive .label {
+  color: var(--text);
+}
+
+/* Measured: narrower than this the ticks themselves overlap the content. */
+@media (max-width: 1220px) {
+  .rail {
+    display: none;
+  }
+}

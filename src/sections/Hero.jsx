@@ -8,7 +8,7 @@ export function Hero() {
     <section id="hero" className={`${styles.hero} container`}>
       <div className={styles.primary}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>{profile.role} · Miami, FL</p>
+          <p className={styles.eyebrow}>{profile.role} · Full-Stack </p>
           <h1 className={styles.name}>
             <span>{profile.name}</span>
             {profile.headline}

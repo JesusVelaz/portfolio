@@ -1,5 +1,6 @@
 import profile from '../data/profile.js'
 import { Reveal } from '../components/Reveal.jsx'
+import { SkillGrid } from '../components/SkillGrid.jsx'
 import styles from './About.module.css'
 
 export function About() {
@@ -45,27 +46,11 @@ export function About() {
 
       <Reveal>
         <div className={styles.skillsHeader}>
-          <p className={styles.storyLabel}>Technical toolkit</p>
-          <p>Technologies I use to move comfortably from interface to infrastructure.</p>
+          <p className={styles.storyLabel}>Technical skills</p>
         </div>
       </Reveal>
 
-      <div className={styles.skills}>
-        {profile.skills.map((group) => (
-          <Reveal key={group.group}>
-            <div className={styles.skillGroup}>
-              <p className={styles.groupName}>{group.group}</p>
-              <ul className={styles.items}>
-                {group.items.map((item) => (
-                  <li key={item} className={styles.item}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        ))}
-      </div>
+      <SkillGrid />
     </section>
   )
 }

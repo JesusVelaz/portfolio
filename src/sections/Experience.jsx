@@ -1,4 +1,4 @@
-import experience, { education } from '../data/experience.js'
+import experience from '../data/experience.js'
 import { Reveal } from '../components/Reveal.jsx'
 import styles from './Experience.module.css'
 
@@ -50,21 +50,6 @@ export function Experience() {
           </Reveal>
         ))}
       </div>
-
-      <Reveal>
-        <aside className={styles.education}>
-          <div>
-            <p className={styles.eyebrow}>Education</p>
-            <h3>{education.degree}</h3>
-          </div>
-          <div>
-            <p>{education.school}</p>
-            <span>
-              Graduated {education.graduated} · {education.detail}
-            </span>
-          </div>
-        </aside>
-      </Reveal>
     </section>
   )
 }

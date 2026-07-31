@@ -142,12 +142,27 @@
 
 .linkActive {
   color: var(--text);
+}
+
+/* The highlight itself, lifted off the links so it can travel between them.
+   Sits behind the labels; .label already raises them above it. */
+.pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  height: 100%;
+  border-radius: var(--radius-pill);
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(141, 162, 255, 0.13));
-  border-color: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.13);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.14),
     0 4px 12px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+  transition:
+    transform 420ms var(--ease-out),
+    width 420ms var(--ease-out);
 }
 
 .label {

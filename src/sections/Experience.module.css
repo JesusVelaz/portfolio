@@ -101,34 +101,8 @@
   font-family: var(--font-mono);
 }
 
-.education {
-  display: grid;
-  grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
-  gap: clamp(32px, 6vw, 80px);
-  padding: clamp(30px, 5vw, 52px);
-  margin-top: clamp(48px, 7vw, 78px);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-card);
-}
-
-.education h3 {
-  font-size: 1.25rem;
-}
-
-.education > div:last-child p {
-  color: var(--text);
-  margin-bottom: 6px;
-}
-
-.education > div:last-child span {
-  color: var(--muted);
-  font-size: 0.88rem;
-}
-
 @media (max-width: 760px) {
-  .entry,
-  .education {
+  .entry {
     grid-template-columns: 1fr;
   }
 }
