@@ -63,19 +63,3 @@
   --glass-tint-strong: rgba(24, 24, 27, 0.55);
   --shadow-color: rgba(0, 0, 0, 0.34);
 }
-
-/* Legacy names. Every module still referencing these is migrated in Tasks
-   4–8; this block is deleted in Task 8. */
-:root {
-  --void: var(--background);
-  --surface: var(--card);
-  --surface-raised: var(--card-raised);
-  --text: var(--foreground);
-  --accent: var(--foreground);
-  --accent-strong: var(--foreground);
-  --mint: var(--muted-foreground);
-  --glass-bg: var(--card);
-  --glass-border: var(--border);
-  --glass-border-bright: var(--border-strong);
-  --glass-highlight: transparent;
-}

@@ -11,7 +11,7 @@
   font-family: var(--font-mono);
   font-size: 0.8rem;
   letter-spacing: 0.16em;
-  color: var(--accent);
+  color: var(--muted-foreground);
 }
 
 .heading {
@@ -29,8 +29,8 @@
   margin-top: 10px;
   padding: 13px 26px;
   border-radius: var(--radius-pill);
-  background: var(--accent);
-  color: var(--void);
+  background: var(--foreground);
+  color: var(--background);
   font-weight: 600;
   font-size: 0.9rem;
 }

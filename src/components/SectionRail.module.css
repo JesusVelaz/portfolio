@@ -42,7 +42,7 @@
   position: absolute;
   right: 100%;
   pointer-events: none;
-  color: var(--text);
+  color: var(--foreground);
   font-family: var(--font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.22em;
@@ -84,11 +84,11 @@
 
 .tickActive .line {
   width: 34px;
-  background: var(--text);
+  background: var(--foreground);
 }
 
 .tickActive .label {
-  color: var(--text);
+  color: var(--foreground);
 }
 
 /* Measured: narrower than this the ticks themselves overlap the content. */

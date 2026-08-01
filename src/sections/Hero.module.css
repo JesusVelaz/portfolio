@@ -16,7 +16,7 @@
   font-size: 0.76rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--mint);
+  color: var(--muted-foreground);
   margin-bottom: 26px;
 }
 
@@ -70,22 +70,22 @@
 }
 
 .btnPrimary {
-  background: var(--text);
-  color: var(--void);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 .btnPrimary:hover {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .btnGhost {
-  color: var(--text);
+  color: var(--foreground);
   background: transparent;
   border: 1px solid var(--border-strong);
 }
 
 .btnGhost:hover {
-  border-color: var(--accent);
+  border-color: var(--border-strong);
 }
 
 .visual {
@@ -98,7 +98,7 @@
   left: 22px;
   z-index: 1;
   max-width: 19ch;
-  color: var(--text);
+  color: var(--foreground);
   font-family: var(--font-display);
   font-size: 0.9rem;
   line-height: 1.35;
@@ -126,7 +126,7 @@
 
 .proofCard strong {
   display: block;
-  color: var(--text);
+  color: var(--foreground);
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 3.6vw, 2.7rem);
   line-height: 1;
@@ -136,7 +136,7 @@
 
 .proofCard span {
   display: block;
-  color: var(--mint);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.67rem;
   letter-spacing: 0.09em;

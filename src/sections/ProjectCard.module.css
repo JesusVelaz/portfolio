@@ -6,7 +6,7 @@
   align-items: center;
   padding: clamp(22px, 3vw, 34px);
   border-radius: var(--radius-card);
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--border);
   color: inherit;
   transition:
@@ -17,10 +17,10 @@
 
 .card:hover {
   transform: translateY(-6px);
-  border-color: rgba(110, 168, 255, 0.38);
+  border-color: var(--border-strong);
   box-shadow:
-    0 22px 60px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(141, 162, 255, 0.12);
+    0 22px 60px var(--shadow-color),
+    0 0 0 1px var(--border);
 }
 
 .card:hover .media {
@@ -30,7 +30,7 @@
 .number {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--accent);
+  color: var(--muted-foreground);
   margin-bottom: 14px;
   display: block;
 }
@@ -70,7 +70,7 @@
   margin-top: 22px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--accent);
+  color: var(--muted-foreground);
 }
 
 @media (max-width: 860px) {

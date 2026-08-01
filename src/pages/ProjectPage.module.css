@@ -12,7 +12,7 @@
 }
 
 .back:hover {
-  color: var(--accent);
+  color: var(--muted-foreground);
 }
 
 .title {
@@ -56,13 +56,13 @@
 }
 
 .linkPrimary {
-  background: var(--accent);
-  color: var(--void);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 .linkGhost {
-  color: var(--text);
-  background: var(--surface);
+  color: var(--foreground);
+  background: var(--card);
   border: 1px solid var(--border);
 }
 
@@ -81,7 +81,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--muted-foreground);
   margin-bottom: 14px;
 }
 
@@ -109,19 +109,19 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--foreground);
 }
 
 .story {
   padding: clamp(30px, 5vw, 64px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  background: var(--surface);
+  background: var(--card);
 }
 
 .storyEyebrow {
   margin-bottom: 14px;
-  color: var(--accent);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.14em;
@@ -146,18 +146,18 @@
   gap: 1px;
   margin-top: clamp(36px, 5vw, 58px);
   overflow: hidden;
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--border);
   border-radius: 14px;
-  background: var(--glass-border);
+  background: var(--border);
 }
 
 .pillar {
   padding: clamp(22px, 3vw, 30px);
-  background: var(--void);
+  background: var(--background);
 }
 
 .pillarNumber {
-  color: var(--accent);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
@@ -260,7 +260,7 @@
 .next {
   margin-top: 90px;
   padding-top: 30px;
-  border-top: 1px solid var(--glass-border);
+  border-top: 1px solid var(--border);
 }
 
 @media (max-width: 760px) {

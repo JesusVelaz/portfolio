@@ -29,7 +29,7 @@
 }
 
 .chip:hover {
-  color: var(--text);
+  color: var(--foreground);
   border-color: var(--border-strong);
 }
 
@@ -60,7 +60,7 @@
   padding: 14px 8px;
   border: 1px solid var(--border);
   border-radius: 12px;
-  background: var(--surface);
+  background: var(--card);
   animation: cardIn 260ms var(--ease-out) backwards;
   animation-delay: calc(var(--i) * 18ms);
 }

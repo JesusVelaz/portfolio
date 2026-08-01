@@ -10,8 +10,8 @@
   position: relative;
   overflow: hidden;
   border-radius: 14px;
-  background: var(--surface);
-  border: 1px solid var(--glass-border);
+  background: var(--card);
+  border: 1px solid var(--border);
 }
 
 .natural .img {
@@ -37,7 +37,7 @@
   min-height: 200px;
   padding: 24px;
   text-align: center;
-  background: var(--surface-raised);
+  background: var(--card-raised);
 }
 
 .fallbackLabel {
@@ -56,7 +56,7 @@
 }
 
 .captionTitle {
-  color: var(--text);
+  color: var(--foreground);
   font-size: 1.05rem;
   margin-bottom: 8px;
 }
@@ -70,15 +70,15 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid var(--glass-border);
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background: var(--surface);
+  background: var(--card);
 }
 
 .compact > .frame {
   height: auto;
   border: 0;
-  border-bottom: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--border);
   border-radius: 0;
 }
 
@@ -110,7 +110,7 @@
   width: calc(var(--shot-height) * var(--ratio, 1.6));
   max-width: 100%;
   border: 0;
-  border-right: 1px solid var(--glass-border);
+  border-right: 1px solid var(--border);
   border-radius: 0;
 }
 
@@ -141,7 +141,7 @@
     width: 100%;
     max-width: 100%;
     border-right: 0;
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--border);
   }
 
   .split .caption {

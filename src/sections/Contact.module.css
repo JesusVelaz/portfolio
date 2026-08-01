@@ -33,23 +33,23 @@
   gap: 24px;
   padding: 18px 18px 18px 30px;
   border-radius: var(--radius-pill);
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--border);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 8px 32px var(--shadow-color);
 }
 
 .email {
   font-family: var(--font-mono);
   font-size: 0.9rem;
-  color: var(--text);
+  color: var(--foreground);
   word-break: break-all;
 }
 
 .go {
   padding: 12px 26px;
   border-radius: var(--radius-pill);
-  background: var(--text);
-  color: var(--void);
+  background: var(--foreground);
+  color: var(--background);
   font-weight: 600;
   font-size: 0.9rem;
   white-space: nowrap;
@@ -57,7 +57,7 @@
 }
 
 .go:hover {
-  box-shadow: 0 8px 30px rgba(110, 168, 255, 0.45);
+  box-shadow: 0 8px 30px var(--shadow-color);
 }
 
 .socials {
@@ -74,13 +74,13 @@
 }
 
 .social:hover {
-  color: var(--text);
+  color: var(--foreground);
 }
 
 .footer {
   margin-top: clamp(110px, 18vh, 170px);
   padding-top: 34px;
-  border-top: 1px solid var(--glass-border);
+  border-top: 1px solid var(--border);
   color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.72rem;

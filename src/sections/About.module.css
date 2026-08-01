@@ -19,7 +19,7 @@
 }
 
 .blurb {
-  color: var(--text);
+  color: var(--foreground);
   font-family: var(--font-display);
   font-size: clamp(1.2rem, 2.4vw, 1.65rem);
   line-height: 1.45;
@@ -48,9 +48,9 @@
 .resume {
   width: fit-content;
   margin-top: 10px;
-  color: var(--text);
+  color: var(--foreground);
   font-weight: 600;
-  border-bottom: 1px solid var(--accent);
+  border-bottom: 1px solid var(--foreground);
 }
 
 .principles {
@@ -68,12 +68,12 @@
   height: 100%;
   min-height: 220px;
   padding: clamp(24px, 3vw, 34px);
-  background: var(--surface);
+  background: var(--card);
 }
 
 .principle span {
   display: block;
-  color: var(--accent);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.7rem;
   margin-bottom: 50px;
