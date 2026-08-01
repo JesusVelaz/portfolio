@@ -27,29 +27,6 @@ const projects = [
       'Follow-up is addressed to every individual signer rather than the booking lead, which is the entire reason the product exists.',
       'Built on SvelteKit and Convex, which keeps authorization checks next to the data layer instead of scattered across API handlers.',
     ],
-    story: {
-      eyebrow: 'From required paperwork to repeat business',
-      headline: 'Every signature starts a customer relationship.',
-      summary:
-        'Waiver Director turns a routine waiver into a connected customer journey — capturing every participant, automating the right follow-up, and giving operators a clear view of what happens next.',
-      pillars: [
-        {
-          number: '01',
-          title: 'Capture the whole audience',
-          text: 'Build a direct, permissioned customer list from every participant who signs — not only the person who booked.',
-        },
-        {
-          number: '02',
-          title: 'Follow up while it matters',
-          text: 'Turn completed experiences into timely thank-yous, feedback requests, reviews, and reasons to return.',
-        },
-        {
-          number: '03',
-          title: 'Run it with confidence',
-          text: 'Keep waiver history, workspace data, integrations, and outbound email activity visible and under control.',
-        },
-      ],
-    },
     productHeadline: 'One connected workflow, from signature to follow-up.',
     gallerySections: [
       {
@@ -180,29 +157,6 @@ const projects = [
       'The Pokédex supports search and type filtering, with detailed entries for abilities, physical attributes, cries, shiny forms, and base stats.',
       'A dedicated team builder lets trainers create, name, and organize multiple six-Pokémon lineups from their favorites.',
     ],
-    story: {
-      eyebrow: 'A field guide built for discovery',
-      headline: 'Find new favorites. Build the team you want.',
-      summary:
-        'The Pokédex turns a large catalog of species into an approachable daily experience — combining quick challenges, detailed research, and team planning in one playful interface.',
-      pillars: [
-        {
-          number: '01',
-          title: 'Discover something daily',
-          text: 'Start with a mystery challenge, research objectives, and fresh nearby sightings.',
-        },
-        {
-          number: '02',
-          title: 'Research every species',
-          text: 'Search and filter the full Pokédex, then open a complete statistical profile.',
-        },
-        {
-          number: '03',
-          title: 'Build your lineup',
-          text: 'Save favorites and organize them into named teams of up to six Pokémon.',
-        },
-      ],
-    },
     productHeadline: 'Three connected views, from discovery to team building.',
     gallerySections: [
       {

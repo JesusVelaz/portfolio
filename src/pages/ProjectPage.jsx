@@ -70,28 +70,8 @@ export default function ProjectPage() {
         </div>
       </Reveal>
 
-      {project.story ? (
+      {project.gallerySections ? (
         <>
-          <Reveal>
-            <section className={styles.story} aria-labelledby="project-story-title">
-              <p className={styles.storyEyebrow}>{project.story.eyebrow}</p>
-              <h2 id="project-story-title" className={styles.storyHeadline}>
-                {project.story.headline}
-              </h2>
-              <p className={styles.storySummary}>{project.story.summary}</p>
-
-              <div className={styles.pillars}>
-                {project.story.pillars.map((pillar) => (
-                  <div className={styles.pillar} key={pillar.number}>
-                    <span className={styles.pillarNumber}>{pillar.number}</span>
-                    <h3 className={styles.pillarTitle}>{pillar.title}</h3>
-                    <p className={styles.pillarText}>{pillar.text}</p>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </Reveal>
-
           <section className={styles.product} aria-labelledby="product-title">
             <Reveal>
               <p className={styles.storyEyebrow}>Inside the product</p>

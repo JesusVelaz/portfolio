@@ -45,7 +45,6 @@ test('Waiver Director includes the complete product walkthrough', () => {
   const waiverDirector = getProject('waiver-director')
 
   expect(waiverDirector.screenshots).toHaveLength(7)
-  expect(waiverDirector.story.pillars).toHaveLength(3)
   expect(waiverDirector.gallerySections.map((section) => section.id)).toEqual([
     'overview',
     'capture',
@@ -80,7 +79,6 @@ test('PokeDex includes the complete three-screen product walkthrough', () => {
 
   expect(pokedex.thumb).toBe('/projects/pokedex/01-trainer-field-desk.png')
   expect(pokedex.screenshots).toHaveLength(3)
-  expect(pokedex.story.pillars).toHaveLength(3)
   expect(pokedex.gallerySections.map((section) => section.id)).toEqual([
     'field-desk',
     'pokedex',

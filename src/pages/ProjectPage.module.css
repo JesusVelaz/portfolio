@@ -112,13 +112,6 @@
   background: var(--foreground);
 }
 
-.story {
-  padding: clamp(30px, 5vw, 64px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-card);
-  background: var(--card);
-}
-
 .storyEyebrow {
   margin-bottom: 14px;
   color: var(--muted-foreground);
@@ -128,54 +121,8 @@
   text-transform: uppercase;
 }
 
-.storyHeadline {
-  max-width: 14ch;
-  font-size: clamp(2rem, 5vw, 3.6rem);
-}
-
-.storySummary {
-  max-width: 68ch;
-  margin-top: 24px;
-  color: var(--muted-foreground);
-  font-size: clamp(1rem, 2vw, 1.18rem);
-}
-
-.pillars {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  margin-top: clamp(36px, 5vw, 58px);
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: var(--border);
-}
-
-.pillar {
-  padding: clamp(22px, 3vw, 30px);
-  background: var(--background);
-}
-
-.pillarNumber {
-  color: var(--muted-foreground);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-}
-
-.pillarTitle {
-  margin-top: 24px;
-  font-size: 1.08rem;
-}
-
-.pillarText {
-  margin-top: 10px;
-  color: var(--muted-foreground);
-  font-size: 0.9rem;
-}
-
 .product {
-  margin-top: clamp(72px, 10vw, 112px);
+  margin-top: 0;
 }
 
 .productTitle {
@@ -263,7 +210,6 @@
 }
 
 @media (max-width: 760px) {
-  .pillars,
   .galleryRow {
     grid-template-columns: 1fr;
   }
