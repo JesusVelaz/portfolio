@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SkillGrid } from '../components/SkillGrid.jsx'
-import { legibleBrandColor } from '../lib/legibleBrandColor.js'
+import { legibleBrandColor, LIGHT_SURFACE_LUMINANCE } from '../lib/legibleBrandColor.js'
 import profile from '../data/profile.js'
 
 const [first, second] = profile.skills
@@ -58,7 +58,13 @@ test('a skill with no simple-icons mark falls back to a monogram', () => {
   expect(screen.getByText('Java').closest('article')).toHaveTextContent('JA')
 })
 
-test('brand colours too dark for the surface are lifted to a legible one', () => {
+test('brand colours too dark for a dark surface are lifted to a legible one', () => {
   expect(legibleBrandColor('#61DAFB')).toBe('#61dafb')
   expect(legibleBrandColor('#0F0F11')).not.toBe('#0f0f11')
+})
+
+test('brand colours too light for a light surface are darkened instead', () => {
+  // React's cyan clears 3:1 against near-black but only manages ~1.6:1 on white.
+  expect(legibleBrandColor('#61DAFB', LIGHT_SURFACE_LUMINANCE)).not.toBe('#61dafb')
+  expect(legibleBrandColor('#0F0F11', LIGHT_SURFACE_LUMINANCE)).toBe('#0f0f11')
 })

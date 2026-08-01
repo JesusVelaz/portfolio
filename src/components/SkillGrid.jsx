@@ -1,8 +1,13 @@
 import { useMemo, useRef, useState } from 'react'
 import profile from '../data/profile.js'
 import { skillIcons } from '../data/skillIcons.js'
-import { legibleBrandColor } from '../lib/legibleBrandColor.js'
+import {
+  legibleBrandColor,
+  DARK_SURFACE_LUMINANCE,
+  LIGHT_SURFACE_LUMINANCE,
+} from '../lib/legibleBrandColor.js'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
+import { useTheme } from '../hooks/useTheme.js'
 import styles from './SkillGrid.module.css'
 
 const ALL = 'All'
@@ -22,6 +27,8 @@ function monogram(name) {
 export function SkillGrid() {
   const [active, setActive] = useState(ALL)
   const reduced = useReducedMotion()
+  const { theme } = useTheme()
+  const surface = theme === 'dark' ? DARK_SURFACE_LUMINANCE : LIGHT_SURFACE_LUMINANCE
   const chipRefs = useRef([])
 
   const categories = useMemo(() => [ALL, ...profile.skills.map((group) => group.group)], [])
@@ -95,7 +102,7 @@ export function SkillGrid() {
                   className={styles.icon}
                   viewBox="0 0 24 24"
                   aria-hidden="true"
-                  style={{ fill: legibleBrandColor(icon.hex) }}
+                  style={{ fill: legibleBrandColor(icon.hex, surface) }}
                 >
                   <path d={icon.path} />
                 </svg>

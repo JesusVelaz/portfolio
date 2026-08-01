@@ -35,9 +35,9 @@
 
 .chipActive,
 .chipActive:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--void);
+  background: var(--foreground);
+  border-color: var(--foreground);
+  color: var(--background);
 }
 
 .grid {
@@ -75,7 +75,7 @@
   place-items: center;
   width: 22px;
   height: 22px;
-  color: var(--accent);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 600;
