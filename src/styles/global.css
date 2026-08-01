@@ -27,8 +27,8 @@ html {
 }
 
 body {
-  background: var(--void);
-  color: var(--text);
+  background: var(--background);
+  color: var(--foreground);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.65;
@@ -46,7 +46,7 @@ h3 {
 }
 
 a {
-  color: var(--accent);
+  color: var(--foreground);
   text-decoration: none;
 }
 
@@ -61,12 +61,12 @@ section {
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--void);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--ring);
   outline-offset: 3px;
   border-radius: 4px;
 }
