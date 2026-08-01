@@ -97,7 +97,7 @@ export function Nav() {
               cy="16"
               r="15"
               fill="none"
-              stroke="var(--accent)"
+              stroke="var(--foreground)"
               strokeWidth="1.5"
               opacity="0.55"
             />
@@ -105,7 +105,7 @@ export function Nav() {
               x="16"
               y="21"
               textAnchor="middle"
-              fill="var(--text)"
+              fill="var(--foreground)"
               fontFamily="var(--font-display)"
               fontSize="12"
               fontWeight="700"
