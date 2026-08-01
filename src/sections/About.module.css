@@ -41,6 +41,26 @@
   gap: 22px;
 }
 
+.portraitColumn {
+  align-self: start;
+}
+
+.portraitFrame {
+  max-width: 420px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--card);
+}
+
+.portrait {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center top;
+}
+
 .story p {
   color: var(--muted-foreground);
   font-size: 1.02rem;
@@ -68,5 +88,9 @@
   .storyGrid,
   .skillsHeader {
     grid-template-columns: 1fr;
+  }
+
+  .portraitFrame {
+    max-width: 360px;
   }
 }

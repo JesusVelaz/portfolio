@@ -15,8 +15,18 @@ export function About() {
       </Reveal>
 
       <div className={styles.storyGrid}>
-        <Reveal>
+        <Reveal className={styles.portraitColumn}>
           <p className={styles.storyLabel}>Background</p>
+          <figure className={styles.portraitFrame}>
+            <img
+              className={styles.portrait}
+              src="/profile/jesus-velazquez.png"
+              alt="Jesus Velazquez"
+              width="1290"
+              height="1243"
+              loading="lazy"
+            />
+          </figure>
         </Reveal>
         <div className={styles.story}>
           {profile.story.map((paragraph) => (
@@ -26,7 +36,7 @@ export function About() {
           ))}
           {profile.resumeUrl && (
             <a className={styles.resume} href={profile.resumeUrl} target="_blank" rel="noreferrer">
-              View resume ↗
+              View résumé ↗
             </a>
           )}
         </div>

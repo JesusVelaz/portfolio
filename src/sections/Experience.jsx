@@ -39,6 +39,7 @@ export function Experience() {
 
               <div className={styles.entryBody}>
                 <p className={styles.summary}>{role.summary}</p>
+                <p className={styles.narrative}>{role.narrative}</p>
                 <ul className={styles.focus} aria-label={`${role.company} focus areas`}>
                   <li className={styles.metric}>{role.metric}</li>
                   {role.focus.map((item) => (

@@ -28,7 +28,7 @@ const profile = {
     },
   ],
   email: 'jesusvelazquez0980@gmail.com',
-  resumeUrl: null,
+  resumeUrl: '/resume/jesus-velazquez-resume.pdf',
   socials: [
     { label: 'GitHub', url: 'https://github.com/JesusVelaz' },
     { label: 'LinkedIn', url: 'https://linkedin.com/in/jesusvelazquez980' },

@@ -5,6 +5,10 @@ import profile from '../data/profile.js'
 test('renders the blurb and every skill group with its items', () => {
   render(<About />)
   expect(screen.getByText(/product design and systems engineering/i)).toBeInTheDocument()
+  expect(screen.getByRole('img', { name: /jesus velazquez/i })).toHaveAttribute(
+    'src',
+    '/profile/jesus-velazquez.png'
+  )
   profile.skills.forEach((group) => {
     expect(screen.getByText(group.group)).toBeInTheDocument()
     group.items.forEach((item) => {
@@ -13,14 +17,9 @@ test('renders the blurb and every skill group with its items', () => {
   })
 })
 
-test('hides the resume button when no resume is configured', () => {
+test('links to the configured résumé', () => {
   render(<About />)
-  const button = screen.queryByRole('link', { name: /resume/i })
-  if (profile.resumeUrl) {
-    expect(button).toBeInTheDocument()
-  } else {
-    expect(button).toBeNull()
-  }
+  expect(screen.getByRole('link', { name: /résumé/i })).toHaveAttribute('href', profile.resumeUrl)
 })
 
 test('the about section carries the id the nav targets', () => {

@@ -90,6 +90,14 @@
   max-width: 50ch;
 }
 
+.narrative {
+  max-width: 64ch;
+  margin-top: 16px;
+  color: var(--muted-foreground);
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
 .focus {
   display: flex;
   flex-wrap: wrap;

@@ -8,6 +8,7 @@ test('renders every role with its company, purpose, and focus chips', () => {
     expect(screen.getByText(role.role)).toBeInTheDocument()
     expect(screen.getAllByText(new RegExp(role.company, 'i')).length).toBeGreaterThan(0)
     expect(screen.getByText(role.summary)).toBeInTheDocument()
+    expect(screen.getByText(role.narrative)).toBeInTheDocument()
     expect(screen.getByText(role.metric)).toBeInTheDocument()
     role.focus.forEach((item) => {
       expect(screen.getByText(item)).toBeInTheDocument()
