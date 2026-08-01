@@ -448,12 +448,13 @@ test('is decoration, so it stays out of the accessibility tree', () => {
   const { container } = render(<GridFrame />)
   expect(container.firstChild).toHaveAttribute('aria-hidden', 'true')
 })
-
-test('never catches the pointer over page content', () => {
-  const { container } = render(<GridFrame />)
-  expect(container.firstChild.className).toMatch(/frame/)
-})
 ```
+
+This file has exactly one test. `pointer-events: none` is the other thing worth
+guaranteeing here — a mistake there makes the entire page unclickable — but jsdom
+does not compute CSS module styles, so it cannot be asserted in this suite. It is
+covered by the browser check in Step 8 instead. Do not add a test that asserts a
+class name as a stand-in; it would pass even if the component were broken.
 
 - [ ] **Step 2: Run the test to verify it fails**
 
@@ -542,7 +543,7 @@ Expected: PASS.
 - [ ] **Step 7: Run the full suite**
 
 Run: `npm test`
-Expected: 20 files, 83 tests, all PASS.
+Expected: 20 files, 82 tests, all PASS.
 
 - [ ] **Step 8: Verify alignment in the browser**
 
@@ -1046,7 +1047,7 @@ export function legibleBrandColor(hex, surfaceLuminance = DARK_SURFACE_LUMINANCE
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `npx vitest run src/test/skills.test.jsx`
-Expected: PASS — 6 tests.
+Expected: PASS — 7 tests (the file had 6; Step 1 splits the contrast test in two).
 
 - [ ] **Step 5: Feed the current surface in from SkillGrid**
 
