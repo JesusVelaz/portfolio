@@ -50,6 +50,7 @@ const projects = [
         },
       ],
     },
+    productHeadline: 'One connected workflow, from signature to follow-up.',
     gallerySections: [
       {
         id: 'overview',
@@ -89,7 +90,7 @@ const projects = [
         alt: 'Waiver Director marketing website showing a live participant session dashboard',
         title: 'Workspace Dashboard',
         caption:
-          'The daily operating view: KPI tiles for bookings, submissions, follow-ups sent, and new customers, each with a sparkline trend and comparison against the prior period. Below the KPIs, a live email pipeline breakdown and a feed of the next queued follow-ups show exactly what is about to go out.',
+          'See bookings, submissions, customer growth, and the next scheduled follow-ups in one daily operating view.',
       },
       {
         group: 'capture',
@@ -99,7 +100,7 @@ const projects = [
         alt: 'Waiver Director editor for creating a digital waiver with custom fields and signer details',
         title: 'Waiver Builder',
         caption:
-          'A drag-and-build waiver editor where businesses compose their own signing form from typed fields — text, checkbox, select, and date — each configurable as required or optional. Waivers are versioned on publish, so historical submissions always render against the exact terms the customer actually signed.',
+          'Build custom signing forms from typed fields, then publish versioned waivers that preserve exactly what each customer signed.',
       },
       {
         group: 'capture',
@@ -109,7 +110,7 @@ const projects = [
         alt: 'Waiver Director integrations settings for booking and email platforms',
         title: 'Integrations Settings',
         caption:
-          'A connection hub for linking the platform to external booking and marketing systems such as Bookeo and Mailchimp. It handles the full lifecycle — OAuth or API-key connection, live sync status, webhook event history, and safe disconnect — with encrypted credential storage and per-workspace scoping.',
+          'Connect booking and marketing tools, monitor sync health, and review webhook activity from one workspace-scoped hub.',
       },
       {
         group: 'follow-ups',
@@ -119,7 +120,7 @@ const projects = [
         alt: 'Follow-up email editor with scheduling, variables, templates, and AI review tools',
         title: 'Follow-Up Email Editor',
         caption:
-          'A composer for post-visit follow-up emails with a subject, rich body, and merge variables, plus a delay control that schedules sending a set number of minutes, hours, or days after a waiver is signed. Templates can be saved and reused across the workspace.',
+          'Compose reusable follow-ups with rich text, merge variables, and precise send delays after a waiver is signed.',
       },
       {
         group: 'follow-ups',
@@ -129,7 +130,7 @@ const projects = [
         alt: 'AI email review comparing the original message with suggested improvements',
         title: 'AI Email Review',
         caption:
-          'A Gemini-powered reviewer that scores any email template from 0–100 across a seven-part rubric: clarity, tone, personalization, usefulness, variable usage, CTA strength, and deliverability. It returns concrete issues, suggestions, and a rewritten subject and body the user can accept in one click, gated by workspace-owner permissions and per-workspace rate limiting.',
+          'Score templates for clarity, tone, personalization, calls to action, and deliverability, then apply an improved draft in one click.',
       },
       {
         group: 'follow-ups',
@@ -139,7 +140,7 @@ const projects = [
         alt: 'Follow-up email queue showing scheduled, sent, failed, and unscheduled messages',
         title: 'Follow-Up Queue',
         caption:
-          'An operations queue showing every scheduled follow-up and its state: queued, sent, unscheduled, blocked, or failed. Each row carries the recipient, send time, and failure reason when applicable, with search across the queue — giving businesses a single place to audit and recover their outbound email.',
+          'Audit every queued, sent, blocked, or failed message with recipient details, timing, search, and clear recovery context.',
       },
       {
         group: 'measure',
@@ -149,7 +150,7 @@ const projects = [
         alt: 'Waiver Director analytics dashboard showing bookings, submissions, follow-ups, customers, and recent activity',
         title: 'Analytics Dashboard',
         caption:
-          'A time-series analytics view that tracks waiver submissions, bookings, and customer activity over a selectable date range, with period-over-period comparisons on every metric. New vs. returning customers are broken out in a stacked chart, and email performance is split across sent, queued, failed, and blocked states so operators can spot delivery problems at a glance.',
+          'Track submissions, bookings, customer growth, and email delivery trends over time with period-over-period comparisons.',
       },
     ],
   },
@@ -179,33 +180,83 @@ const projects = [
       'The Pokédex supports search and type filtering, with detailed entries for abilities, physical attributes, cries, shiny forms, and base stats.',
       'A dedicated team builder lets trainers create, name, and organize multiple six-Pokémon lineups from their favorites.',
     ],
+    story: {
+      eyebrow: 'A field guide built for discovery',
+      headline: 'Find new favorites. Build the team you want.',
+      summary:
+        'The Pokédex turns a large catalog of species into an approachable daily experience — combining quick challenges, detailed research, and team planning in one playful interface.',
+      pillars: [
+        {
+          number: '01',
+          title: 'Discover something daily',
+          text: 'Start with a mystery challenge, research objectives, and fresh nearby sightings.',
+        },
+        {
+          number: '02',
+          title: 'Research every species',
+          text: 'Search and filter the full Pokédex, then open a complete statistical profile.',
+        },
+        {
+          number: '03',
+          title: 'Build your lineup',
+          text: 'Save favorites and organize them into named teams of up to six Pokémon.',
+        },
+      ],
+    },
+    productHeadline: 'Three connected views, from discovery to team building.',
+    gallerySections: [
+      {
+        id: 'field-desk',
+        eyebrow: '01 / Field desk',
+        title: 'Begin with something new to discover.',
+        description:
+          'A daily starting point for challenges, research progress, sightings, and trainer activity.',
+      },
+      {
+        id: 'pokedex',
+        eyebrow: '02 / Pokédex',
+        title: 'Every species in one searchable guide.',
+        description:
+          'Browse the full catalog, narrow it by type, and inspect the details that make each Pokémon distinct.',
+      },
+      {
+        id: 'teams',
+        eyebrow: '03 / Team builder',
+        title: 'Turn favorites into a complete lineup.',
+        description:
+          'Create multiple named teams and keep every six-Pokémon roster organized at a glance.',
+      },
+    ],
     screenshots: [
       {
+        group: 'field-desk',
         src: '/projects/pokedex/01-trainer-field-desk.png',
         width: 1900,
         height: 909,
         alt: 'Pokédex Trainer Field Desk with a mystery Pokémon challenge, research objectives, trainer report, and nearby sightings',
         title: 'Trainer Field Desk',
         caption:
-          'The home screen turns exploration into a daily routine. Trainers can solve a “Who’s That Pokémon?” challenge, complete research objectives, check nearby sightings, and track their Pokédex and team progress from one field-ready dashboard.',
+          'Solve a daily mystery, complete research objectives, check nearby sightings, and track trainer progress from one field-ready dashboard.',
       },
       {
+        group: 'pokedex',
         src: '/projects/pokedex/02-pokedex-browser.png',
         width: 1903,
         height: 909,
         alt: 'Searchable Pokédex browser with Pokémon cards and a detailed Dragonite entry showing abilities and base stats',
         title: 'Searchable Pokédex',
         caption:
-          'A complete Pokédex browser makes every species easy to explore with search, type filters, favorites, and pagination. Opening an entry reveals its types, abilities, height, weight, cry, shiny form, and base stats without leaving the grid.',
+          'Search and filter every species, then inspect abilities, dimensions, cries, shiny forms, and base stats without leaving the grid.',
       },
       {
+        group: 'teams',
         src: '/projects/pokedex/03-team-builder.png',
         width: 1897,
         height: 909,
         alt: 'Pokémon team builder showing three named teams with six available slots each',
         title: 'Pokémon Team Builder',
         caption:
-          'Trainers can create and name multiple teams, fill each lineup with up to six Pokémon, and quickly see which slots are still open. The result is a simple workspace for organizing favorites and planning the next adventure.',
+          'Create and name multiple teams, fill each six-Pokémon lineup, and see open roster slots at a glance.',
       },
     ],
   },

@@ -80,6 +80,12 @@ test('PokeDex includes the complete three-screen product walkthrough', () => {
 
   expect(pokedex.thumb).toBe('/projects/pokedex/01-trainer-field-desk.png')
   expect(pokedex.screenshots).toHaveLength(3)
+  expect(pokedex.story.pillars).toHaveLength(3)
+  expect(pokedex.gallerySections.map((section) => section.id)).toEqual([
+    'field-desk',
+    'pokedex',
+    'teams',
+  ])
   expect(pokedex.screenshots.map((screenshot) => screenshot.title)).toEqual([
     'Trainer Field Desk',
     'Searchable Pokédex',
@@ -91,6 +97,7 @@ test('PokeDex includes the complete three-screen product walkthrough', () => {
     expect(screenshot.height).toBeGreaterThan(0)
     expect(screenshot.alt).toBeTruthy()
     expect(screenshot.caption).toBeTruthy()
+    expect(pokedex.gallerySections.some((section) => section.id === screenshot.group)).toBe(true)
   })
 })
 

@@ -96,7 +96,7 @@ export default function ProjectPage() {
             <Reveal>
               <p className={styles.storyEyebrow}>Inside the product</p>
               <h2 id="product-title" className={styles.productTitle}>
-                One connected workflow, from signature to follow-up.
+                {project.productHeadline}
               </h2>
             </Reveal>
 
