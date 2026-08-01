@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { Work } from '../sections/Work.jsx'
 import projects from '../data/projects.js'
@@ -35,19 +35,4 @@ test('renders stack chips for each project', () => {
 test('the work section carries the id the nav targets', () => {
   const { container } = renderWork()
   expect(container.querySelector('#work')).not.toBeNull()
-})
-
-test('shows one secondary screenshot as a hover teaser', () => {
-  renderWork()
-  const projectLink = screen.getByRole('link', { name: /waiver director/i })
-  const card = projectLink.closest('article')
-
-  expect(within(card).getByText('Workspace Dashboard')).toBeInTheDocument()
-
-  fireEvent.mouseEnter(card)
-  expect(within(card).getByText('Waiver Builder')).toBeInTheDocument()
-  expect(within(card).getByText(/view full case study/i)).toBeInTheDocument()
-
-  fireEvent.mouseLeave(card)
-  expect(within(card).getByText('Workspace Dashboard')).toBeInTheDocument()
 })

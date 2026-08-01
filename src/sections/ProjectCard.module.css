@@ -23,6 +23,10 @@
     0 0 0 1px var(--border);
 }
 
+.card:hover .media {
+  transform: scale(1.04);
+}
+
 .number {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -66,71 +70,18 @@
 }
 
 .mediaWrap {
-  position: relative;
   overflow: hidden;
   border-radius: 14px;
-  aspect-ratio: 21 / 9;
-  background: var(--card-raised);
 }
 
 .media {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  opacity: 0;
-  transform: scale(1.025);
+  aspect-ratio: 21 / 9;
   transform-origin: center top;
-  transition:
-    opacity 500ms ease,
-    transform 900ms var(--ease-out);
+  transition: transform 700ms var(--ease-out);
 }
 
-.mediaActive {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.teaserHud {
-  position: absolute;
-  inset: auto 0 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 34px 18px 14px;
-  color: #fff;
-  background: linear-gradient(to bottom, transparent, rgb(0 0 0 / 72%));
-  opacity: 0;
-  transform: translateY(6px);
-  transition:
-    opacity 300ms var(--ease-out),
-    transform 300ms var(--ease-out);
-  pointer-events: none;
-}
-
-.card:is(:hover, :focus-within) .teaserHud {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.teaserTitle,
-.teaserCta {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.teaserCta {
-  flex: 0 0 auto;
-  padding: 8px 11px;
-  border: 1px solid rgb(255 255 255 / 45%);
-  border-radius: 999px;
-  color: #111;
-  background: #fff;
+.media img {
+  object-position: center top;
 }
 
 .footer {
@@ -154,7 +105,7 @@
 }
 
 @media (max-width: 860px) {
-  .mediaWrap {
+  .media {
     aspect-ratio: 16 / 10;
   }
 
@@ -170,12 +121,7 @@
     transform: none;
   }
 
-  .media {
-    transition: none;
-  }
-
-  .teaserHud {
+  .card:hover .media {
     transform: none;
-    transition: none;
   }
 }
