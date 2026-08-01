@@ -37,8 +37,13 @@
 
 /* The last entry's rule used to collide with the next section's top border.
    The section border is gone now, but a trailing rule under the final entry
-   would still read as a boundary the section does not have. */
-.entry:last-child {
+   would still read as a boundary the section does not have. Every entry is
+   wrapped in its own <Reveal> element, so each .entry is the *only* child of
+   its wrapper — `.entry:last-child` would therefore match all of them, not
+   just the final one. Reaching through the wrapper with
+   `.roles > :last-child .entry` targets the entry inside the last wrapper
+   instead, so the hairlines between peer entries are preserved. */
+.roles > :last-child .entry {
   border-bottom: 0;
 }
 
