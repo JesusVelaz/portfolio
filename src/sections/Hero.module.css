@@ -85,7 +85,7 @@
 }
 
 .btnGhost:hover {
-  border-color: var(--border-strong);
+  border-color: var(--foreground);
 }
 
 .visual {

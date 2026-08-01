@@ -12,7 +12,7 @@
 }
 
 .back:hover {
-  color: var(--muted-foreground);
+  color: var(--foreground);
 }
 
 .title {
