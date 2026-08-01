@@ -23,6 +23,35 @@
   max-width: 55ch;
 }
 
+.introAside {
+  display: grid;
+  justify-items: start;
+}
+
+.resumeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin-top: 20px;
+  padding: 12px 22px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition:
+    border-color 250ms var(--ease-out),
+    background-color 250ms var(--ease-out);
+}
+
+.resumeButton:hover,
+.resumeButton:focus-visible {
+  border-color: var(--foreground);
+  background: var(--overlay-hover);
+}
+
 .roles {
   border-top: 1px solid var(--border);
 }

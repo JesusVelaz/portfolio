@@ -1,4 +1,5 @@
 import experience from '../data/experience.js'
+import profile from '../data/profile.js'
 import { Reveal } from '../components/Reveal.jsx'
 import styles from './Experience.module.css'
 
@@ -10,10 +11,23 @@ export function Experience() {
           <p className={styles.eyebrow}>03 — Experience</p>
           <h2 className={styles.heading}>Building across product and platform.</h2>
         </div>
-        <p className={styles.lede}>
-          Three environments, one consistent focus: understanding what the software needs to make
-          easier for the people relying on it.
-        </p>
+        <div className={styles.introAside}>
+          <p className={styles.lede}>
+            Three environments, one consistent focus: understanding what the software needs to make
+            easier for the people relying on it.
+          </p>
+          {profile.resumeUrl && (
+            <a
+              className={styles.resumeButton}
+              href={profile.resumeUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>View résumé</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </div>
       </Reveal>
 
       <div className={styles.roles}>

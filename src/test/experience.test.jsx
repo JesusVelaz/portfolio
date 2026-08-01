@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Experience } from '../sections/Experience.jsx'
 import experience from '../data/experience.js'
+import profile from '../data/profile.js'
 
 test('renders every role with its company, purpose, and focus chips', () => {
   render(<Experience />)
@@ -19,6 +20,11 @@ test('renders every role with its company, purpose, and focus chips', () => {
 test('renders "Present" for a role with no end date', () => {
   render(<Experience />)
   expect(screen.getAllByText(/Present/).length).toBeGreaterThan(0)
+})
+
+test('links to the configured résumé', () => {
+  render(<Experience />)
+  expect(screen.getByRole('link', { name: /résumé/i })).toHaveAttribute('href', profile.resumeUrl)
 })
 
 test('the experience section carries the id the nav targets', () => {

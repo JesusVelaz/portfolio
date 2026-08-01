@@ -26,17 +26,6 @@ export function About() {
               loading="lazy"
             />
           </figure>
-          {profile.resumeUrl && (
-            <a
-              className={styles.resumeButton}
-              href={profile.resumeUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <span>View résumé</span>
-              <span aria-hidden="true">↗</span>
-            </a>
-          )}
         </Reveal>
 
         <div className={styles.detailsColumn}>

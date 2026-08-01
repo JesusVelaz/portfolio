@@ -18,11 +18,6 @@ test('renders the profile summary and every skill group with its items', () => {
   })
 })
 
-test('links to the configured résumé', () => {
-  render(<About />)
-  expect(screen.getByRole('link', { name: /résumé/i })).toHaveAttribute('href', profile.resumeUrl)
-})
-
 test('the about section carries the id the nav targets', () => {
   const { container } = render(<About />)
   expect(container.querySelector('#about')).not.toBeNull()
