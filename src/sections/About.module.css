@@ -49,6 +49,7 @@
 
 .portraitFrame {
   width: 100%;
+  aspect-ratio: 1290 / 1236;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--border);
@@ -59,8 +60,9 @@
 .portrait {
   display: block;
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
 }
 
 .detailsColumn {
