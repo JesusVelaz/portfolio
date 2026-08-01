@@ -50,37 +50,43 @@ const projects = [
         },
       ],
     },
-    compactGallery: true,
+    gallerySections: [
+      {
+        id: 'overview',
+        eyebrow: '01 / Product overview',
+        title: 'See the entire day before it happens.',
+        description:
+          'Start with the operating picture: who has signed, what is pending, and which customer messages are already queued.',
+        layout: 'featured',
+      },
+      {
+        id: 'capture',
+        eyebrow: '02 / Capture',
+        title: 'Build the workflow once.',
+        description:
+          'Create the exact waiver experience the business needs, then connect it to the systems already driving bookings and marketing.',
+        layout: 'pair',
+      },
+      {
+        id: 'follow-ups',
+        eyebrow: '03 / Automated follow-ups',
+        title: 'Write it. Improve it. Send it.',
+        description:
+          'One continuous outbound workflow takes a message from first draft through AI review and into a fully auditable delivery queue.',
+        layout: 'sequence',
+      },
+      {
+        id: 'measure',
+        eyebrow: '04 / Measure',
+        title: 'Know what is working.',
+        description:
+          'Close the loop with performance trends, customer growth, and delivery health across the workspace.',
+        layout: 'finale',
+      },
+    ],
     screenshots: [
       {
-        src: '/projects/waiver-director/01-analytics-dashboard.png',
-        alt: 'Waiver Director analytics dashboard showing bookings, submissions, follow-ups, customers, and recent activity',
-        title: 'Analytics Dashboard',
-        caption:
-          'A time-series analytics view that tracks waiver submissions, bookings, and customer activity over a selectable date range, with period-over-period comparisons on every metric. New vs. returning customers are broken out in a stacked chart, and email performance is split across sent, queued, failed, and blocked states so operators can spot delivery problems at a glance.',
-      },
-      {
-        src: '/projects/waiver-director/02-integrations.png',
-        alt: 'Waiver Director integrations settings for booking and email platforms',
-        title: 'Integrations Settings',
-        caption:
-          'A connection hub for linking the platform to external booking and marketing systems such as Bookeo and Mailchimp. It handles the full lifecycle — OAuth or API-key connection, live sync status, webhook event history, and safe disconnect — with encrypted credential storage and per-workspace scoping.',
-      },
-      {
-        src: '/projects/waiver-director/03-waiver-builder.png',
-        alt: 'Waiver Director editor for creating a digital waiver with custom fields and signer details',
-        title: 'Waiver Builder',
-        caption:
-          'A drag-and-build waiver editor where businesses compose their own signing form from typed fields — text, checkbox, select, and date — each configurable as required or optional. Waivers are versioned on publish, so historical submissions always render against the exact terms the customer actually signed.',
-      },
-      {
-        src: '/projects/waiver-director/04-email-creator.png',
-        alt: 'Follow-up email editor with scheduling, variables, templates, and AI review tools',
-        title: 'Follow-Up Email Editor',
-        caption:
-          'A composer for post-visit follow-up emails with a subject, rich body, and merge variables, plus a delay control that schedules sending a set number of minutes, hours, or days after a waiver is signed. Templates can be saved and reused across the workspace.',
-      },
-      {
+        group: 'overview',
         src: '/projects/waiver-director/05-marketing-site.png',
         alt: 'Waiver Director marketing website showing a live participant session dashboard',
         title: 'Workspace Dashboard',
@@ -88,6 +94,31 @@ const projects = [
           'The daily operating view: KPI tiles for bookings, submissions, follow-ups sent, and new customers, each with a sparkline trend and comparison against the prior period. Below the KPIs, a live email pipeline breakdown and a feed of the next queued follow-ups show exactly what is about to go out.',
       },
       {
+        group: 'capture',
+        src: '/projects/waiver-director/03-waiver-builder.png',
+        alt: 'Waiver Director editor for creating a digital waiver with custom fields and signer details',
+        title: 'Waiver Builder',
+        caption:
+          'A drag-and-build waiver editor where businesses compose their own signing form from typed fields — text, checkbox, select, and date — each configurable as required or optional. Waivers are versioned on publish, so historical submissions always render against the exact terms the customer actually signed.',
+      },
+      {
+        group: 'capture',
+        src: '/projects/waiver-director/02-integrations.png',
+        alt: 'Waiver Director integrations settings for booking and email platforms',
+        title: 'Integrations Settings',
+        caption:
+          'A connection hub for linking the platform to external booking and marketing systems such as Bookeo and Mailchimp. It handles the full lifecycle — OAuth or API-key connection, live sync status, webhook event history, and safe disconnect — with encrypted credential storage and per-workspace scoping.',
+      },
+      {
+        group: 'follow-ups',
+        src: '/projects/waiver-director/04-email-creator.png',
+        alt: 'Follow-up email editor with scheduling, variables, templates, and AI review tools',
+        title: 'Follow-Up Email Editor',
+        caption:
+          'A composer for post-visit follow-up emails with a subject, rich body, and merge variables, plus a delay control that schedules sending a set number of minutes, hours, or days after a waiver is signed. Templates can be saved and reused across the workspace.',
+      },
+      {
+        group: 'follow-ups',
         src: '/projects/waiver-director/06-ai-review.png',
         alt: 'AI email review comparing the original message with suggested improvements',
         title: 'AI Email Review',
@@ -95,11 +126,20 @@ const projects = [
           'A Gemini-powered reviewer that scores any email template from 0–100 across a seven-part rubric: clarity, tone, personalization, usefulness, variable usage, CTA strength, and deliverability. It returns concrete issues, suggestions, and a rewritten subject and body the user can accept in one click, gated by workspace-owner permissions and per-workspace rate limiting.',
       },
       {
+        group: 'follow-ups',
         src: '/projects/waiver-director/07-follow-up-queue.png',
         alt: 'Follow-up email queue showing scheduled, sent, failed, and unscheduled messages',
         title: 'Follow-Up Queue',
         caption:
           'An operations queue showing every scheduled follow-up and its state: queued, sent, unscheduled, blocked, or failed. Each row carries the recipient, send time, and failure reason when applicable, with search across the queue — giving businesses a single place to audit and recover their outbound email.',
+      },
+      {
+        group: 'measure',
+        src: '/projects/waiver-director/01-analytics-dashboard.png',
+        alt: 'Waiver Director analytics dashboard showing bookings, submissions, follow-ups, customers, and recent activity',
+        title: 'Analytics Dashboard',
+        caption:
+          'A time-series analytics view that tracks waiver submissions, bookings, and customer activity over a selectable date range, with period-over-period comparisons on every metric. New vs. returning customers are broken out in a stacked chart, and email performance is split across sent, queued, failed, and blocked states so operators can spot delivery problems at a glance.',
       },
     ],
   },

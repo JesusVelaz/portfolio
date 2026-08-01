@@ -13,6 +13,7 @@ export function ProjectImage({
   className = '',
 }) {
   const [failed, setFailed] = useState(false)
+  const CaptionHeading = compact ? 'h4' : 'h3'
 
   return (
     <figure className={`${styles.figure} ${compact ? styles.compact : ''} ${className}`}>
@@ -35,7 +36,9 @@ export function ProjectImage({
       </div>
       {(captionTitle || caption) && (
         <figcaption className={styles.caption}>
-          {captionTitle && <h3 className={styles.captionTitle}>{captionTitle}</h3>}
+          {captionTitle && (
+            <CaptionHeading className={styles.captionTitle}>{captionTitle}</CaptionHeading>
+          )}
           {caption && <p className={styles.captionText}>{caption}</p>}
         </figcaption>
       )}

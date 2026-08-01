@@ -46,11 +46,29 @@ test('Waiver Director includes the complete product walkthrough', () => {
 
   expect(waiverDirector.screenshots).toHaveLength(7)
   expect(waiverDirector.story.pillars).toHaveLength(3)
+  expect(waiverDirector.gallerySections.map((section) => section.id)).toEqual([
+    'overview',
+    'capture',
+    'follow-ups',
+    'measure',
+  ])
+  expect(waiverDirector.screenshots.map((screenshot) => screenshot.title)).toEqual([
+    'Workspace Dashboard',
+    'Waiver Builder',
+    'Integrations Settings',
+    'Follow-Up Email Editor',
+    'AI Email Review',
+    'Follow-Up Queue',
+    'Analytics Dashboard',
+  ])
   waiverDirector.screenshots.forEach((screenshot) => {
     expect(screenshot.src).toMatch(/\.png$/)
     expect(screenshot.alt).toBeTruthy()
     expect(screenshot.title).toBeTruthy()
     expect(screenshot.caption).toBeTruthy()
+    expect(waiverDirector.gallerySections.some((section) => section.id === screenshot.group)).toBe(
+      true
+    )
   })
 })
 

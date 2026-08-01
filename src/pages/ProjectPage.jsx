@@ -82,20 +82,55 @@ export default function ProjectPage() {
               </h2>
             </Reveal>
 
-            <div className={styles.compactShots}>
-              {project.screenshots.map((shot, i) => (
-                <Reveal key={shot.src} delay={(i % 2) * 0.06}>
-                  <ProjectImage
-                    src={shot.src}
-                    alt={shot.alt}
-                    label={project.title}
-                    captionTitle={shot.title}
-                    caption={shot.caption}
-                    contain
-                    compact
-                  />
-                </Reveal>
-              ))}
+            <div className={styles.gallerySections}>
+              {project.gallerySections.map((gallerySection) => {
+                const sectionShots = project.screenshots.filter(
+                  (shot) => shot.group === gallerySection.id
+                )
+
+                return (
+                  <section
+                    className={styles.gallerySection}
+                    aria-labelledby={`gallery-${gallerySection.id}`}
+                    key={gallerySection.id}
+                  >
+                    <Reveal>
+                      <div className={styles.gallerySectionHeader}>
+                        <div>
+                          <p className={styles.storyEyebrow}>{gallerySection.eyebrow}</p>
+                          <h3
+                            id={`gallery-${gallerySection.id}`}
+                            className={styles.gallerySectionTitle}
+                          >
+                            {gallerySection.title}
+                          </h3>
+                        </div>
+                        <p className={styles.gallerySectionDescription}>
+                          {gallerySection.description}
+                        </p>
+                      </div>
+                    </Reveal>
+
+                    <div
+                      className={`${styles.galleryGrid} ${styles[gallerySection.layout]}`}
+                    >
+                      {sectionShots.map((shot, i) => (
+                        <Reveal key={shot.src} delay={(i % 3) * 0.05}>
+                          <ProjectImage
+                            src={shot.src}
+                            alt={shot.alt}
+                            label={project.title}
+                            captionTitle={shot.title}
+                            caption={shot.caption}
+                            contain
+                            compact
+                          />
+                        </Reveal>
+                      ))}
+                    </div>
+                  </section>
+                )
+              })}
             </div>
           </section>
         </>
