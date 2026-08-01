@@ -29,7 +29,6 @@ export function ProjectCard({ project, index }) {
           src={project.thumb}
           alt={`${project.title} screenshot`}
           label={project.title}
-          contain
           className={styles.media}
         />
       </div>
