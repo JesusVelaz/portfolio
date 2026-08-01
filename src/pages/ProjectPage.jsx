@@ -30,8 +30,6 @@ export default function ProjectPage() {
 
   if (!project) return <NotFound />
 
-  const projectNumber = project.slug === 'waiver-director' ? '01' : '02'
-
   return (
     <article className={`${styles.page} container-wide`}>
       <Reveal>
@@ -39,10 +37,6 @@ export default function ProjectPage() {
           <Link to="/#work" className={`${styles.back} ${styles.coverBack}`}>
             ← All work
           </Link>
-
-          <span className={styles.coverNumber} aria-hidden="true">
-            {projectNumber}
-          </span>
 
           <div className={styles.coverMain}>
             <div className={styles.coverCopy}>
