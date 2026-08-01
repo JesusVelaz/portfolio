@@ -32,6 +32,17 @@ export function Starfield() {
       size: index % 5 === 0 ? 3.5 : 2.2,
     }))
 
+    // The canvas cannot use CSS variables directly, so it reads them once per
+    // theme change and paints with the resolved values.
+    let colors = readColors()
+
+    function readColors() {
+      const root = getComputedStyle(document.documentElement)
+      return {
+        node: root.getPropertyValue('--foreground').trim() || '#fafafa',
+      }
+    }
+
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 1.5)
       width = canvas.clientWidth || window.innerWidth
@@ -57,13 +68,14 @@ export function Starfield() {
       })
 
       ctx.lineWidth = 1
+      ctx.strokeStyle = colors.node
       for (let i = 0; i < positions.length; i += 1) {
         for (let j = i + 1; j < positions.length; j += 1) {
           const a = positions[i]
           const b = positions[j]
           const distance = Math.hypot(a.x - b.x, a.y - b.y)
           if (distance < radius * 0.29) {
-            ctx.strokeStyle = `rgba(111, 139, 255, ${0.2 * (1 - distance / (radius * 0.29))})`
+            ctx.globalAlpha = 0.2 * (1 - distance / (radius * 0.29))
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
@@ -72,14 +84,17 @@ export function Starfield() {
         }
       }
 
+      // With the accent gone there is no second hue to tell the sizes apart,
+      // so weight does it instead.
+      ctx.fillStyle = colors.node
       for (const point of positions) {
-        ctx.fillStyle = point.size > 3 ? '#99f6e4' : '#8da2ff'
+        ctx.globalAlpha = point.size > 3 ? 0.85 : 0.45
         ctx.beginPath()
         ctx.arc(point.x, point.y, point.size, 0, Math.PI * 2)
         ctx.fill()
       }
 
-      ctx.fillStyle = '#f6f7fb'
+      ctx.globalAlpha = 1
       ctx.beginPath()
       ctx.arc(cx, cy, 7, 0, Math.PI * 2)
       ctx.fill()
@@ -110,6 +125,19 @@ export function Starfield() {
             if (visible && !document.hidden && !reduced) frame = requestAnimationFrame(loop)
           })
 
+    // The theme swaps the root's data attribute; the canvas has to be told.
+    const themeObserver =
+      typeof MutationObserver === 'undefined'
+        ? null
+        : new MutationObserver(() => {
+            colors = readColors()
+            draw(performance.now())
+          })
+    themeObserver?.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+    })
+
     resize()
     if (!reduced) {
       frame = requestAnimationFrame(loop)
@@ -122,6 +150,7 @@ export function Starfield() {
     return () => {
       if (frame) cancelAnimationFrame(frame)
       observer?.disconnect()
+      themeObserver?.disconnect()
       window.removeEventListener('resize', resize)
       document.removeEventListener('visibilitychange', onVisibilityChange)
     }
