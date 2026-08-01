@@ -5,10 +5,10 @@ import styles from './About.module.css'
 
 export function About() {
   return (
-    <section id="about" className={`${styles.section} container`}>
+    <section id="about" className={`${styles.section} section-mark container`}>
       <Reveal className="section-heading">
         <div>
-          <p className={styles.eyebrow}>About</p>
+          <p className={styles.eyebrow}>02 — About</p>
           <h2 className={styles.heading}>How I approach the work.</h2>
         </div>
         <p className={styles.blurb}>{profile.blurb}</p>

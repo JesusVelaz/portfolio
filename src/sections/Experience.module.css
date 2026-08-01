@@ -1,7 +1,6 @@
 .section {
   padding-block: var(--section-gap);
   scroll-margin-top: 110px;
-  border-top: 1px solid var(--border);
 }
 
 .eyebrow {
@@ -9,7 +8,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--mint);
+  color: var(--muted-foreground);
   margin-bottom: 14px;
 }
 
@@ -34,6 +33,13 @@
   gap: clamp(32px, 6vw, 80px);
   padding-block: clamp(40px, 5vw, 58px);
   border-bottom: 1px solid var(--border);
+}
+
+/* The last entry's rule used to collide with the next section's top border.
+   The section border is gone now, but a trailing rule under the final entry
+   would still read as a boundary the section does not have. */
+.entry:last-child {
+  border-bottom: 0;
 }
 
 .entryHeader {

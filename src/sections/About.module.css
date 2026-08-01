@@ -1,7 +1,6 @@
 .section {
   padding-block: var(--section-gap);
   scroll-margin-top: 110px;
-  border-top: 1px solid var(--border);
 }
 
 .eyebrow,
@@ -10,7 +9,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--mint);
+  color: var(--muted-foreground);
   margin-bottom: 14px;
 }
 
@@ -32,7 +31,7 @@
   grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
   gap: clamp(24px, 6vw, 80px);
   padding-block: clamp(38px, 6vw, 64px);
-  border-block: 1px solid var(--border);
+  border-top: 1px solid var(--border);
 }
 
 .story {

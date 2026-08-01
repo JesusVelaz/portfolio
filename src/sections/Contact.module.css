@@ -2,7 +2,6 @@
   padding-block: clamp(9rem, 18vh, 13rem) clamp(4rem, 8vh, 7rem);
   scroll-margin-top: 110px;
   text-align: center;
-  border-top: 1px solid var(--border);
 }
 
 .eyebrow {
@@ -10,7 +9,7 @@
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--muted-foreground);
   margin-bottom: 22px;
 }
 

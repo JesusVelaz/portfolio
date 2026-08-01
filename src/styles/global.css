@@ -98,6 +98,44 @@ main {
   }
 }
 
+/* Section starts register against the GridFrame rails instead of being fenced
+   off by a full-width rule. The crosshair is the only part that scrolls — the
+   rails behind it are fixed — so a new section reads as clicking into place. */
+.section-mark {
+  position: relative;
+}
+
+.section-mark::before,
+.section-mark::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 9px;
+  height: 9px;
+  background:
+    linear-gradient(var(--border-strong) 0 0) center / 100% 1px no-repeat,
+    linear-gradient(var(--border-strong) 0 0) center / 1px 100% no-repeat;
+}
+
+.section-mark::before {
+  left: var(--gutter);
+  transform: translate(-50%, -50%);
+}
+
+.section-mark::after {
+  right: var(--gutter);
+  transform: translate(50%, -50%);
+}
+
+/* Matches the GridFrame breakpoint — a crosshair with no rail to sit on is
+   just a speck. */
+@media (max-width: 900px) {
+  .section-mark::before,
+  .section-mark::after {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

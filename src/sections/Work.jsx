@@ -5,9 +5,9 @@ import styles from './Work.module.css'
 
 export function Work() {
   return (
-    <section id="work" className={`${styles.section} container`}>
+    <section id="work" className={`${styles.section} section-mark container`}>
       <Reveal>
-        <p className={styles.eyebrow}>Selected work</p>
+        <p className={styles.eyebrow}>01 — Selected work</p>
         <h2 className={styles.heading}>Products built around real constraints.</h2>
         <p className={styles.lede}>
           Products created for different audiences and stages of my career. Each case study starts
