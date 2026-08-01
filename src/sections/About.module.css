@@ -49,7 +49,7 @@
 
 .portraitFrame {
   width: 100%;
-  aspect-ratio: 1290 / 1236;
+  aspect-ratio: 1290 / 1233;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--border);
