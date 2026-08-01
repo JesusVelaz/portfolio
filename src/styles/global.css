@@ -78,6 +78,11 @@ section {
   padding-inline: var(--gutter);
 }
 
+main {
+  position: relative;
+  z-index: 1;
+}
+
 .section-heading {
   display: grid;
   grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);

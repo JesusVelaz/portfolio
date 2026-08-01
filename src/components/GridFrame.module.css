@@ -1,0 +1,24 @@
+.frame {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.frame > :global(.container) {
+  height: 100%;
+}
+
+.rails {
+  height: 100%;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+/* At gutter width the rails sit inside the text's breathing room. Mobile
+   boundaries are carried by whitespace and the numbered eyebrow instead. */
+@media (max-width: 900px) {
+  .frame {
+    display: none;
+  }
+}

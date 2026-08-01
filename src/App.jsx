@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { GridFrame } from './components/GridFrame.jsx'
 import { Nav } from './components/Nav.jsx'
 import { ScrollManager } from './components/ScrollManager.jsx'
 import Home from './pages/Home.jsx'
@@ -10,6 +11,7 @@ const NotFound = lazy(() => import('./pages/NotFound.jsx'))
 export default function App() {
   return (
     <>
+      <GridFrame />
       <Nav />
       <ScrollManager />
       <main id="main">
