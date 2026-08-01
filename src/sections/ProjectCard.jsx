@@ -1,14 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { StackChips } from '../components/StackChips.jsx'
-import { useReducedMotion } from '../hooks/useReducedMotion.js'
 import styles from './ProjectCard.module.css'
 
 export function ProjectCard({ project, index }) {
   const number = String(index + 1).padStart(2, '0')
-  const reducedMotion = useReducedMotion()
-  const [isCycling, setIsCycling] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [isPreviewing, setIsPreviewing] = useState(false)
   const previewImages = useMemo(() => {
     const screenshots = project.screenshots ?? []
     const ordered = screenshots.some((image) => image.src === project.thumb)
@@ -22,43 +19,30 @@ export function ProjectCard({ project, index }) {
           ...screenshots,
         ]
 
-    return ordered.filter(
-      (image, imageIndex) =>
-        ordered.findIndex((candidate) => candidate.src === image.src) === imageIndex
-    )
+    return ordered
+      .filter(
+        (image, imageIndex) =>
+          ordered.findIndex((candidate) => candidate.src === image.src) === imageIndex
+      )
+      .slice(0, 2)
   }, [project])
 
-  useEffect(() => {
-    if (!isCycling || reducedMotion || previewImages.length < 2) return undefined
-
-    const interval = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % previewImages.length)
-    }, 1500)
-
-    return () => window.clearInterval(interval)
-  }, [isCycling, previewImages.length, reducedMotion])
-
-  const startCarousel = () => {
-    if (!reducedMotion && previewImages.length > 1) setIsCycling(true)
-  }
-
-  const resetCarousel = () => {
-    setIsCycling(false)
-    setActiveIndex(0)
-  }
+  const showPreview = () => setIsPreviewing(previewImages.length > 1)
+  const resetPreview = () => setIsPreviewing(false)
 
   const handleBlur = (event) => {
-    if (!event.currentTarget.contains(event.relatedTarget)) resetCarousel()
+    if (!event.currentTarget.contains(event.relatedTarget)) resetPreview()
   }
 
+  const activeIndex = isPreviewing ? 1 : 0
   const activeImage = previewImages[activeIndex]
 
   return (
     <article
       className={styles.card}
-      onMouseEnter={startCarousel}
-      onMouseLeave={resetCarousel}
-      onFocusCapture={startCarousel}
+      onMouseEnter={showPreview}
+      onMouseLeave={resetPreview}
+      onFocusCapture={showPreview}
       onBlurCapture={handleBlur}
     >
       <div className={styles.intro}>
@@ -96,11 +80,10 @@ export function ProjectCard({ project, index }) {
         ))}
 
         {previewImages.length > 1 && (
-          <div className={styles.carouselHud} aria-hidden="true">
-            <span className={styles.carouselTitle}>{activeImage.title}</span>
-            <span className={styles.carouselProgress}>
-              {String(activeIndex + 1).padStart(2, '0')} /{' '}
-              {String(previewImages.length).padStart(2, '0')}
+          <div className={styles.teaserHud} aria-hidden="true">
+            <span className={styles.teaserTitle}>{activeImage.title}</span>
+            <span className={styles.teaserCta}>
+              View full case study <span aria-hidden="true">→</span>
             </span>
           </div>
         )}

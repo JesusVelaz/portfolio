@@ -93,7 +93,7 @@
   transform: scale(1);
 }
 
-.carouselHud {
+.teaserHud {
   position: absolute;
   inset: auto 0 0;
   display: flex;
@@ -111,22 +111,26 @@
   pointer-events: none;
 }
 
-.card:is(:hover, :focus-within) .carouselHud {
+.card:is(:hover, :focus-within) .teaserHud {
   opacity: 1;
   transform: translateY(0);
 }
 
-.carouselTitle,
-.carouselProgress {
+.teaserTitle,
+.teaserCta {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.carouselProgress {
+.teaserCta {
   flex: 0 0 auto;
-  color: rgb(255 255 255 / 70%);
+  padding: 8px 11px;
+  border: 1px solid rgb(255 255 255 / 45%);
+  border-radius: 999px;
+  color: #111;
+  background: #fff;
 }
 
 .footer {
@@ -170,7 +174,7 @@
     transition: none;
   }
 
-  .carouselHud {
+  .teaserHud {
     transform: none;
     transition: none;
   }
