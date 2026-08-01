@@ -134,7 +134,7 @@ const projects = [
   {
     slug: 'pokedex',
     title: 'PokeDex App',
-    tagline: 'A searchable Pokédex built on the PokéAPI.',
+    tagline: 'A Pokémon field companion for daily discovery, deep research, and team building.',
     role: 'Solo project',
     year: '2023',
     featured: false,
@@ -143,42 +143,38 @@ const projects = [
     repoUrl: 'https://github.com/JesusVelaz/PokeDex-App',
     thumb: '/projects/pokedex/01-trainer-field-desk.png',
     problem:
-      'The PokéAPI spreads a single Pokémon across several endpoints — sprite, types, and base ' +
-      'stats each live at a different resource. Rendering a browsable list means composing many ' +
-      'requests into one view without stalling the interface.',
-    // TODO(Jesus): these are the claims I could verify from the live site and the public repo.
-    // Replace them with the specifics of what you actually did — an interviewer will ask.
+      'Turning 1,351 species into a responsive field guide means coordinating data spread across ' +
+      'multiple PokéAPI resources while keeping search, filtering, favorites, and team state fast.',
     whatIBuilt:
-      'A React single-page app that fetches from the PokéAPI, composes each Pokémon’s details ' +
-      'from multiple resources, and turns them into a searchable field guide with daily research, ' +
-      'nearby sightings, favorites, and custom team building.',
+      'A React single-page app with a state-aware trainer dashboard, a searchable and paginated ' +
+      'Pokédex, inline species details, favorites, and a persistent multi-team roster builder.',
     highlights: [
-      'A field desk brings together a daily “Who’s That Pokémon?” challenge, research objectives, nearby sightings, and a running trainer report.',
-      'The Pokédex supports search and type filtering, with detailed entries for abilities, physical attributes, cries, shiny forms, and base stats.',
-      'A dedicated team builder lets trainers create, name, and organize multiple six-Pokémon lineups from their favorites.',
+      'A daily “Who’s That Pokémon?” challenge, live research checklist, trainer report, and randomized nearby sightings turn app state into a playable dashboard.',
+      'Debounced search, type filtering, favorites, and pagination make all 1,351 species manageable, with rich details opening inline.',
+      'Multiple six-Pokémon rosters support inline renaming, slot controls, shiny variants, and localStorage persistence across reloads.',
     ],
-    productHeadline: 'Three connected views, from discovery to team building.',
+    productHeadline: 'A complete trainer workflow, from first sighting to saved roster.',
     gallerySections: [
       {
         id: 'field-desk',
         eyebrow: '01 / Field desk',
         title: 'Begin with something new to discover.',
         description:
-          'A daily starting point for challenges, research progress, sightings, and trainer activity.',
+          'Framed as Professor Oak’s terminal, the home screen turns real app state into a daily research briefing.',
       },
       {
         id: 'pokedex',
         eyebrow: '02 / Pokédex',
         title: 'Every species in one searchable guide.',
         description:
-          'Browse the full catalog, narrow it by type, and inspect the details that make each Pokémon distinct.',
+          'A paginated browser keeps all 1,351 species fast to search, filter, favorite, and inspect.',
       },
       {
         id: 'teams',
         eyebrow: '03 / Team builder',
         title: 'Turn favorites into a complete lineup.',
         description:
-          'Create multiple named teams and keep every six-Pokémon roster organized at a glance.',
+          'Build and persist multiple named rosters, each with six configurable Pokémon slots.',
       },
     ],
     screenshots: [
@@ -190,7 +186,7 @@ const projects = [
         alt: 'Pokédex Trainer Field Desk with a mystery Pokémon challenge, research objectives, trainer report, and nearby sightings',
         title: 'Trainer Field Desk',
         caption:
-          'Solve a daily mystery, complete research objectives, check nearby sightings, and track trainer progress from one field-ready dashboard.',
+          'Guess the daily silhouette with free text, follow a three-step research checklist, review indexed species and roster totals, and scan randomized nearby sightings.',
       },
       {
         group: 'pokedex',
@@ -200,7 +196,7 @@ const projects = [
         alt: 'Searchable Pokédex browser with Pokémon cards and a detailed Dragonite entry showing abilities and base stats',
         title: 'Searchable Pokédex',
         caption:
-          'Search and filter every species, then inspect abilities, dimensions, cries, shiny forms, and base stats without leaving the grid.',
+          'Debounced search and type filters refine the grid. Each inline entry includes artwork, typing, a shiny toggle, playable cry, dimensions, abilities, and animated base-stat totals.',
       },
       {
         group: 'teams',
@@ -210,7 +206,7 @@ const projects = [
         alt: 'Pokémon team builder showing three named teams with six available slots each',
         title: 'Pokémon Team Builder',
         caption:
-          'Create and name multiple teams, fill each six-Pokémon lineup, and see open roster slots at a glance.',
+          'Rename teams inline, add or remove Pokémon, switch individual slots to shiny variants, and delete rosters. Teams and favorites persist through reloads with localStorage.',
       },
     ],
   },

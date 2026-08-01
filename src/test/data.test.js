@@ -97,6 +97,9 @@ test('PokeDex includes the complete three-screen product walkthrough', () => {
     expect(screenshot.caption).toBeTruthy()
     expect(pokedex.gallerySections.some((section) => section.id === screenshot.group)).toBe(true)
   })
+  expect(pokedex.screenshots[0].caption).toContain('three-step research checklist')
+  expect(pokedex.screenshots[1].caption).toContain('Debounced search')
+  expect(pokedex.screenshots[2].caption).toContain('localStorage')
 })
 
 test('experience is ordered most recent first and every role is complete', () => {
