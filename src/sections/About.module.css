@@ -29,7 +29,8 @@
 /* Running prose holds a narrow measure while the skill grid uses the full width. */
 .storyGrid {
   display: grid;
-  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 500px) minmax(0, 1fr);
+  justify-content: start;
   gap: clamp(48px, 7vw, 112px);
   width: 100%;
   max-width: var(--page-max);
@@ -46,10 +47,13 @@
 
 .portraitColumn {
   align-self: start;
+  justify-self: start;
+  width: 100%;
 }
 
 .portraitFrame {
-  width: min(100%, 420px);
+  width: min(100%, 500px);
+  margin: 0;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
@@ -87,8 +91,13 @@
 }
 
 @media (max-width: 760px) {
-  .storyGrid,
   .skillsHeader {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .storyGrid {
     grid-template-columns: 1fr;
   }
 }
