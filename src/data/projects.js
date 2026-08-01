@@ -27,41 +27,79 @@ const projects = [
       'Follow-up is addressed to every individual signer rather than the booking lead, which is the entire reason the product exists.',
       'Built on SvelteKit and Convex, which keeps authorization checks next to the data layer instead of scattered across API handlers.',
     ],
+    story: {
+      eyebrow: 'From required paperwork to repeat business',
+      headline: 'Every signature starts a customer relationship.',
+      summary:
+        'Waiver Director turns a routine waiver into a connected customer journey — capturing every participant, automating the right follow-up, and giving operators a clear view of what happens next.',
+      pillars: [
+        {
+          number: '01',
+          title: 'Capture the whole audience',
+          text: 'Build a direct, permissioned customer list from every participant who signs — not only the person who booked.',
+        },
+        {
+          number: '02',
+          title: 'Follow up while it matters',
+          text: 'Turn completed experiences into timely thank-yous, feedback requests, reviews, and reasons to return.',
+        },
+        {
+          number: '03',
+          title: 'Run it with confidence',
+          text: 'Keep waiver history, workspace data, integrations, and outbound email activity visible and under control.',
+        },
+      ],
+    },
+    compactGallery: true,
     screenshots: [
       {
         src: '/projects/waiver-director/01-analytics-dashboard.png',
         alt: 'Waiver Director analytics dashboard showing bookings, submissions, follow-ups, customers, and recent activity',
-        caption: 'Analytics dashboard — a live view of bookings, waiver submissions, customer growth, and follow-up performance.',
+        title: 'Analytics Dashboard',
+        caption:
+          'A time-series analytics view that tracks waiver submissions, bookings, and customer activity over a selectable date range, with period-over-period comparisons on every metric. New vs. returning customers are broken out in a stacked chart, and email performance is split across sent, queued, failed, and blocked states so operators can spot delivery problems at a glance.',
       },
       {
         src: '/projects/waiver-director/02-integrations.png',
         alt: 'Waiver Director integrations settings for booking and email platforms',
-        caption: 'Integrations — connect booking and email tools so customer data moves into Waiver Director automatically.',
+        title: 'Integrations Settings',
+        caption:
+          'A connection hub for linking the platform to external booking and marketing systems such as Bookeo and Mailchimp. It handles the full lifecycle — OAuth or API-key connection, live sync status, webhook event history, and safe disconnect — with encrypted credential storage and per-workspace scoping.',
       },
       {
         src: '/projects/waiver-director/03-waiver-builder.png',
         alt: 'Waiver Director editor for creating a digital waiver with custom fields and signer details',
-        caption: 'Waiver builder — create branded digital waivers, collect custom details, and publish a signing link.',
+        title: 'Waiver Builder',
+        caption:
+          'A drag-and-build waiver editor where businesses compose their own signing form from typed fields — text, checkbox, select, and date — each configurable as required or optional. Waivers are versioned on publish, so historical submissions always render against the exact terms the customer actually signed.',
       },
       {
         src: '/projects/waiver-director/04-email-creator.png',
         alt: 'Follow-up email editor with scheduling, variables, templates, and AI review tools',
-        caption: 'Follow-up email creator — write reusable, personalized emails and choose when they are sent after a booking.',
+        title: 'Follow-Up Email Editor',
+        caption:
+          'A composer for post-visit follow-up emails with a subject, rich body, and merge variables, plus a delay control that schedules sending a set number of minutes, hours, or days after a waiver is signed. Templates can be saved and reused across the workspace.',
       },
       {
         src: '/projects/waiver-director/05-marketing-site.png',
         alt: 'Waiver Director marketing website showing a live participant session dashboard',
-        caption: 'Marketing site — communicates how every signed waiver becomes an opportunity for a direct customer relationship.',
+        title: 'Workspace Dashboard',
+        caption:
+          'The daily operating view: KPI tiles for bookings, submissions, follow-ups sent, and new customers, each with a sparkline trend and comparison against the prior period. Below the KPIs, a live email pipeline breakdown and a feed of the next queued follow-ups show exactly what is about to go out.',
       },
       {
         src: '/projects/waiver-director/06-ai-review.png',
         alt: 'AI email review comparing the original message with suggested improvements',
-        caption: 'AI review — identifies issues, scores the message, and proposes changes that can be reviewed before applying.',
+        title: 'AI Email Review',
+        caption:
+          'A Gemini-powered reviewer that scores any email template from 0–100 across a seven-part rubric: clarity, tone, personalization, usefulness, variable usage, CTA strength, and deliverability. It returns concrete issues, suggestions, and a rewritten subject and body the user can accept in one click, gated by workspace-owner permissions and per-workspace rate limiting.',
       },
       {
         src: '/projects/waiver-director/07-follow-up-queue.png',
         alt: 'Follow-up email queue showing scheduled, sent, failed, and unscheduled messages',
-        caption: 'Follow-up queue — search, filter, schedule, and monitor every customer email from one operational view.',
+        title: 'Follow-Up Queue',
+        caption:
+          'An operations queue showing every scheduled follow-up and its state: queued, sent, unscheduled, blocked, or failed. Each row carries the recipient, send time, and failure reason when applicable, with search across the queue — giving businesses a single place to audit and recover their outbound email.',
       },
     ],
   },

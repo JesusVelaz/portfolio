@@ -45,9 +45,11 @@ test('Waiver Director includes the complete product walkthrough', () => {
   const waiverDirector = getProject('waiver-director')
 
   expect(waiverDirector.screenshots).toHaveLength(7)
+  expect(waiverDirector.story.pillars).toHaveLength(3)
   waiverDirector.screenshots.forEach((screenshot) => {
     expect(screenshot.src).toMatch(/\.png$/)
     expect(screenshot.alt).toBeTruthy()
+    expect(screenshot.title).toBeTruthy()
     expect(screenshot.caption).toBeTruthy()
   })
 })
