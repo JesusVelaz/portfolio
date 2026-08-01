@@ -46,7 +46,7 @@
 }
 
 .portraitFrame {
-  max-width: 420px;
+  width: min(100%, 280px);
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
@@ -56,9 +56,8 @@
 .portrait {
   display: block;
   width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  object-position: center top;
+  height: auto;
+  object-fit: contain;
 }
 
 .story p {
@@ -90,7 +89,4 @@
     grid-template-columns: 1fr;
   }
 
-  .portraitFrame {
-    max-width: 360px;
-  }
 }
