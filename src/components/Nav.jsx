@@ -4,6 +4,7 @@ import { useActiveSection } from '../hooks/useActiveSection.js'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
 import { useScrolled } from '../hooks/useScrolled.js'
 import { useScrollDirection } from '../hooks/useScrollDirection.js'
+import { ThemeToggle } from './ThemeToggle.jsx'
 import styles from './Nav.module.css'
 
 export const SECTIONS = [
@@ -137,6 +138,7 @@ export function Nav() {
             </li>
           ))}
         </ul>
+        <ThemeToggle />
       </nav>
     </div>
   )

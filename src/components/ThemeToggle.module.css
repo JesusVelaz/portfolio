@@ -1,0 +1,46 @@
+.toggle {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition:
+    color 250ms var(--ease-out),
+    background-color 250ms var(--ease-out),
+    border-color 250ms var(--ease-out),
+    scale 220ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .toggle:hover {
+    color: var(--foreground);
+    background: var(--overlay-hover);
+    border-color: var(--border);
+  }
+}
+
+.toggle:active {
+  scale: 0.94;
+}
+
+.icon {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The moon is a solid silhouette; stroking it as well thickens the crescent. */
+.icon path[d^='M20'] {
+  fill: currentColor;
+  stroke: none;
+}
