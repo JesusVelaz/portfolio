@@ -5,7 +5,7 @@ import styles from './Hero.module.css'
 
 export function Hero() {
   return (
-    <section id="hero" className={`${styles.hero} container`}>
+    <section id="hero" className={`${styles.hero} container-wide`}>
       <div className={styles.primary}>
         <div className={styles.copy}>
           <p className={styles.eyebrow}>{profile.role} · Full-Stack </p>

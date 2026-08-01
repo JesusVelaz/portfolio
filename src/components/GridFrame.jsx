@@ -7,7 +7,7 @@ import styles from './GridFrame.module.css'
 export function GridFrame() {
   return (
     <div className={styles.frame} aria-hidden="true">
-      <div className="container">
+      <div className="container-wide">
         <div className={styles.rails} />
       </div>
     </div>

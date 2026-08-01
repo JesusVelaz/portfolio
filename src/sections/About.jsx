@@ -5,7 +5,7 @@ import styles from './About.module.css'
 
 export function About() {
   return (
-    <section id="about" className={`${styles.section} section-mark container`}>
+    <section id="about" className={`${styles.section} section-mark container-wide`}>
       <Reveal className="section-heading">
         <div>
           <p className={styles.eyebrow}>02 — About</p>

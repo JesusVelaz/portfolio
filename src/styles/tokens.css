@@ -36,7 +36,13 @@
 
   --ease-out: cubic-bezier(.16, 1, .3, 1);
 
+  /* Two page widths. --page-max is the reading measure: headings, ledes, and
+     running prose cap here so line length stays comfortable. --page-wide is
+     the frame: sections, grids of records, and media fill it, and GridFrame
+     draws its rails on its content edge. Anything that must sit ON a rail —
+     the section crosshairs — has to live in a --page-wide box. */
   --page-max: 1180px;
+  --page-wide: 1500px;
   --gutter: clamp(1.25rem, 5vw, 3rem);
   --section-gap: clamp(6rem, 12vh, 9rem);
 

@@ -5,7 +5,7 @@
   pointer-events: none;
 }
 
-.frame > :global(.container) {
+.frame > :global(.container-wide) {
   height: 100%;
 }
 

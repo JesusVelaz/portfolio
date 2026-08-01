@@ -78,16 +78,29 @@ section {
   padding-inline: var(--gutter);
 }
 
+/* The wide frame. Sections use this so their crosshairs land on GridFrame's
+   rails, which are drawn on this same content edge. Prose inside caps itself
+   back down to --page-max rather than stretching to fill it. */
+.container-wide {
+  width: 100%;
+  max-width: var(--page-wide);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
 main {
   position: relative;
   z-index: 1;
 }
 
+/* A heading and its lede are reading copy, so they stay on the narrow measure
+   even though the section around them now runs to --page-wide. */
 .section-heading {
   display: grid;
   grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
   gap: clamp(24px, 6vw, 80px);
   align-items: end;
+  max-width: var(--page-max);
   margin-bottom: clamp(38px, 6vw, 70px);
 }
 

@@ -26,11 +26,14 @@
   max-width: 38ch;
 }
 
+/* Running prose, so it holds the narrow measure while the principles grid and
+   skill grid below it take the full width of the section. */
 .storyGrid {
   display: grid;
   grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
   gap: clamp(24px, 6vw, 80px);
   padding-block: clamp(38px, 6vw, 64px);
+  max-width: var(--page-max);
   border-top: 1px solid var(--border);
 }
 
@@ -94,6 +97,7 @@
   grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
   gap: clamp(24px, 6vw, 80px);
   align-items: start;
+  max-width: var(--page-max);
   margin-bottom: 30px;
 }
 
