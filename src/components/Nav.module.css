@@ -227,11 +227,15 @@
 }
 
 @media (max-width: 720px) {
+  .bar {
+    gap: 4px;
+    padding: 10px 8px 10px 12px;
+  }
   .links {
     gap: 0;
   }
   .link {
-    padding: 8px 9px;
+    padding: 5px 6px;
     font-size: 0.8rem;
   }
   .brand span {
