@@ -23,10 +23,6 @@
     0 0 0 1px var(--border);
 }
 
-.card:hover .media {
-  transform: scale(1.04);
-}
-
 .number {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -72,11 +68,11 @@
 .mediaWrap {
   overflow: hidden;
   border-radius: 14px;
+  background: var(--card-raised);
 }
 
 .media {
-  aspect-ratio: 21 / 9;
-  transition: transform 700ms var(--ease-out);
+  aspect-ratio: 16 / 10;
 }
 
 .footer {
@@ -100,10 +96,6 @@
 }
 
 @media (max-width: 860px) {
-  .media {
-    aspect-ratio: 16 / 10;
-  }
-
   .footer {
     align-items: flex-start;
     justify-content: flex-start;
@@ -113,9 +105,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .card:hover {
-    transform: none;
-  }
-  .card:hover .media {
     transform: none;
   }
 }
