@@ -24,7 +24,7 @@ function monogram(name) {
   return letters.toUpperCase()
 }
 
-export function SkillGrid() {
+export function SkillGrid({ compact = false }) {
   const [active, setActive] = useState(ALL)
   const reduced = useReducedMotion()
   const { theme } = useTheme()
@@ -53,7 +53,7 @@ export function SkillGrid() {
   }
 
   return (
-    <div className={styles.wrap}>
+    <div className={`${styles.wrap} ${compact ? styles.compact : ''}`}>
       <div
         className={styles.chips}
         role="tablist"

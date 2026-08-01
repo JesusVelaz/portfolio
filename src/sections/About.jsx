@@ -6,17 +6,10 @@ import styles from './About.module.css'
 export function About() {
   return (
     <section id="about" className={`${styles.section} container-wide`}>
-      <Reveal className="section-heading">
-        <div>
+      <div className={styles.aboutGrid}>
+        <Reveal className={styles.profileColumn}>
           <p className={styles.eyebrow}>02 — About</p>
           <h2 className={styles.heading}>How I approach the work.</h2>
-        </div>
-        <p className={styles.blurb}>{profile.blurb}</p>
-      </Reveal>
-
-      <div className={styles.storyGrid}>
-        <Reveal className={styles.portraitColumn}>
-          <p className={styles.storyLabel}>Background</p>
           <figure className={styles.portraitFrame}>
             <img
               className={styles.portrait}
@@ -28,27 +21,37 @@ export function About() {
             />
           </figure>
         </Reveal>
-        <div className={styles.story}>
-          {profile.story.map((paragraph) => (
-            <Reveal key={paragraph}>
-              <p>{paragraph}</p>
-            </Reveal>
-          ))}
-          {profile.resumeUrl && (
-            <a className={styles.resume} href={profile.resumeUrl} target="_blank" rel="noreferrer">
-              View résumé ↗
-            </a>
-          )}
+
+        <div className={styles.detailsColumn}>
+          <Reveal>
+            <p className={styles.blurb}>{profile.blurb}</p>
+          </Reveal>
+
+          <Reveal>
+            <div className={styles.summaryBlock}>
+              <p className={styles.storyLabel}>Background</p>
+              <p className={styles.summary}>{profile.summary}</p>
+              {profile.resumeUrl && (
+                <a
+                  className={styles.resume}
+                  href={profile.resumeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View résumé ↗
+                </a>
+              )}
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <div className={styles.skillsBlock}>
+              <p className={styles.storyLabel}>Technical skills</p>
+              <SkillGrid compact />
+            </div>
+          </Reveal>
         </div>
       </div>
-
-      <Reveal>
-        <div className={styles.skillsHeader}>
-          <p className={styles.storyLabel}>Technical skills</p>
-        </div>
-      </Reveal>
-
-      <SkillGrid />
     </section>
   )
 }

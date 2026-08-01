@@ -1,5 +1,5 @@
 .section {
-  padding-block: var(--section-gap);
+  padding-block: clamp(72px, 10vh, 110px);
   scroll-margin-top: 110px;
 }
 
@@ -16,6 +16,7 @@
 .heading {
   font-size: clamp(2.3rem, 5vw, 4rem);
   max-width: 12ch;
+  margin-bottom: clamp(28px, 4vw, 44px);
 }
 
 .blurb {
@@ -26,33 +27,21 @@
   max-width: 38ch;
 }
 
-/* Running prose holds a narrow measure while the skill grid uses the full width. */
-.storyGrid {
+.aboutGrid {
   display: grid;
-  grid-template-columns: minmax(0, 500px) minmax(0, 1fr);
-  justify-content: start;
-  gap: clamp(48px, 7vw, 112px);
-  width: 100%;
-  max-width: var(--page-max);
-  padding-block: clamp(52px, 8vw, 96px);
+  grid-template-columns: minmax(340px, 430px) minmax(0, 1fr);
+  gap: clamp(48px, 7vw, 120px);
+  max-width: 1400px;
   margin-inline: auto;
-  border-top: 1px solid var(--border);
+  align-items: start;
 }
 
-.story {
-  display: grid;
-  gap: 22px;
-  align-content: start;
-}
-
-.portraitColumn {
-  align-self: start;
-  justify-self: start;
+.profileColumn {
   width: 100%;
 }
 
 .portraitFrame {
-  width: min(100%, 500px);
+  width: 100%;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--border);
@@ -67,10 +56,21 @@
   object-fit: contain;
 }
 
-.story p {
+.detailsColumn {
+  display: grid;
+  gap: clamp(22px, 3vh, 30px);
+}
+
+.summaryBlock,
+.skillsBlock {
+  padding-top: clamp(20px, 3vh, 28px);
+  border-top: 1px solid var(--border);
+}
+
+.summary {
+  max-width: 68ch;
   color: var(--muted-foreground);
-  font-size: 1.02rem;
-  max-width: 66ch;
+  font-size: 0.98rem;
 }
 
 .resume {
@@ -81,23 +81,23 @@
   border-bottom: 1px solid var(--foreground);
 }
 
-.skillsHeader {
-  display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
-  gap: clamp(24px, 6vw, 80px);
-  align-items: start;
-  max-width: var(--page-max);
-  margin-bottom: 30px;
+.skillsBlock .storyLabel {
+  margin-bottom: 16px;
 }
 
-@media (max-width: 760px) {
-  .skillsHeader {
-    grid-template-columns: 1fr;
+@media (max-width: 1100px) {
+  .aboutGrid {
+    grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+    gap: clamp(36px, 5vw, 64px);
   }
 }
 
 @media (max-width: 900px) {
-  .storyGrid {
+  .aboutGrid {
     grid-template-columns: 1fr;
+  }
+
+  .profileColumn {
+    max-width: 500px;
   }
 }

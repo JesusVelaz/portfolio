@@ -6,10 +6,8 @@ const profile = {
     'I turn complex operational needs into clear, accessible web products—from shared interface systems to secure multi-tenant platforms.',
   blurb:
     'I’m a software engineer who likes the seam between product design and systems engineering—the place where a clear interface has to meet sound data, authorization, and API decisions.',
-  story: [
-    'My work has moved between mission-critical systems, operational tools, and a product built from the ground up. That range taught me to look beyond the feature request and understand the workflow, the people using it, and the consequence of getting it wrong.',
-    'I earned a Computer Science degree from Florida International University and have been writing production software since 2023. I’m most interested in teams that value thoughtful engineering, direct communication, and measurable outcomes.',
-  ],
+  summary:
+    'My work spans mission-critical systems, operational tools, and products built from the ground up. I earned a Computer Science degree from Florida International University and have been writing production software since 2023, with a focus on understanding the workflow behind a feature and building software teams can trust and extend.',
   highlights: [
     {
       value: '+35%',

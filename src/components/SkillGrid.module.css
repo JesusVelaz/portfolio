@@ -88,6 +88,35 @@
   text-align: center;
 }
 
+.compact {
+  gap: 14px;
+}
+
+.compact .chips {
+  justify-content: flex-start;
+}
+
+.compact .grid {
+  grid-template-columns: repeat(auto-fill, minmax(82px, 1fr));
+  gap: 8px;
+}
+
+.compact .card {
+  min-height: 62px;
+  gap: 6px;
+  padding: 9px 6px;
+}
+
+.compact .icon,
+.compact .monogram {
+  width: 18px;
+  height: 18px;
+}
+
+.compact .name {
+  font-size: 0.68rem;
+}
+
 @keyframes cardIn {
   from {
     opacity: 0;
