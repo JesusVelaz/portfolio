@@ -1,14 +1,21 @@
-/* The row itself carries no chrome. Only the copy sits on a panel, so the
-   screenshot beside it is free to run larger without a box having to grow to
-   contain it — which is what forced all the empty space around the text. */
+/* One panel holding the whole project: identity, then the screenshot, then
+   the stack and the CTA. The image sits in the content flow rather than in a
+   column beside it, so nothing has to stretch to match anything else. */
 .card {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-  gap: clamp(24px, 3.5vw, 56px);
-  align-items: stretch;
+  gap: clamp(22px, 2.4vw, 32px);
+  padding: clamp(24px, 2.4vw, 40px);
+  border-radius: var(--radius-card);
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition:
+    transform 450ms var(--ease-out),
+    border-color 450ms var(--ease-out),
+    box-shadow 450ms var(--ease-out);
 }
 
-.card:hover .copy {
+.card:hover {
   transform: translateY(-6px);
   border-color: var(--border-strong);
   box-shadow:
@@ -33,6 +40,21 @@
   margin-bottom: 10px;
 }
 
+.titleLink {
+  color: inherit;
+}
+
+/* Stretches the title link's hit area over the entire panel. The z-index is
+   load-bearing: the screenshot is a later sibling, so without it the image
+   paints above this overlay and clicking the screenshot does nothing. */
+.titleLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
 .role {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -44,62 +66,53 @@
 
 .tagline {
   color: var(--muted-foreground);
-  max-width: 44ch;
-}
-
-.copyFooter {
-  display: grid;
-  gap: 20px;
-}
-
-/* The panel is the copy, not the whole row. It stretches to the screenshot's
-   height and distributes its two groups against it, so matching the image
-   does not just leave a taller box with the text floating at the top. */
-.copy {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: clamp(28px, 3vw, 48px);
-  padding: clamp(24px, 2.4vw, 40px);
-  border-radius: var(--radius-card);
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: inherit;
-  transition:
-    transform 450ms var(--ease-out),
-    border-color 450ms var(--ease-out),
-    box-shadow 450ms var(--ease-out);
+  max-width: 60ch;
 }
 
 .mediaWrap {
   overflow: hidden;
-  border-radius: var(--radius-card);
+  border-radius: 14px;
 }
 
 .media {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 21 / 9;
   transition: transform 700ms var(--ease-out);
 }
 
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 32px;
+}
+
 .cta {
-  display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--muted-foreground);
+  white-space: nowrap;
+  transition: color 250ms var(--ease-out);
+}
+
+.card:hover .cta {
+  color: var(--foreground);
 }
 
 @media (max-width: 860px) {
-  .card {
-    grid-template-columns: 1fr;
+  .media {
+    aspect-ratio: 16 / 10;
   }
-  .mediaOrder {
-    order: -1;
+
+  .footer {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card:hover .copy {
+  .card:hover {
     transform: none;
   }
   .card:hover .media {
