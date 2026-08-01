@@ -16,27 +16,32 @@
 .heading {
   font-size: clamp(2.3rem, 5vw, 4rem);
   max-width: 12ch;
-  margin-bottom: clamp(28px, 4vw, 44px);
-}
-
-.blurb {
-  color: var(--foreground);
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.4vw, 1.65rem);
-  line-height: 1.45;
-  max-width: 38ch;
 }
 
 .aboutGrid {
   display: grid;
-  grid-template-columns: minmax(340px, 430px) minmax(0, 1fr);
-  gap: clamp(48px, 7vw, 120px);
-  max-width: 1400px;
+  grid-template-columns: minmax(420px, 560px) minmax(0, 1fr);
+  grid-template-areas:
+    'eyebrow title'
+    'portrait details';
+  column-gap: clamp(48px, 7vw, 120px);
+  row-gap: 18px;
+  max-width: 1480px;
   margin-inline: auto;
   align-items: start;
 }
 
-.profileColumn {
+.eyebrowBlock {
+  grid-area: eyebrow;
+  align-self: end;
+}
+
+.titleBlock {
+  grid-area: title;
+}
+
+.portraitBlock {
+  grid-area: portrait;
   width: 100%;
 }
 
@@ -57,13 +62,14 @@
 }
 
 .detailsColumn {
+  grid-area: details;
   display: grid;
   gap: clamp(22px, 3vh, 30px);
 }
 
 .summaryBlock,
 .skillsBlock {
-  padding-top: clamp(20px, 3vh, 28px);
+  padding-top: clamp(18px, 2.5vh, 24px);
   border-top: 1px solid var(--border);
 }
 
@@ -87,17 +93,23 @@
 
 @media (max-width: 1100px) {
   .aboutGrid {
-    grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
-    gap: clamp(36px, 5vw, 64px);
+    grid-template-columns: minmax(340px, 420px) minmax(0, 1fr);
+    column-gap: clamp(36px, 5vw, 64px);
   }
 }
 
 @media (max-width: 900px) {
   .aboutGrid {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      'eyebrow'
+      'title'
+      'portrait'
+      'details';
+    row-gap: 20px;
   }
 
-  .profileColumn {
+  .portraitBlock {
     max-width: 500px;
   }
 }

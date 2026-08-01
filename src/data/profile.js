@@ -4,8 +4,6 @@ const profile = {
   headline: 'I build reliable software for complex work.',
   intro:
     'I turn complex operational needs into clear, accessible web products—from shared interface systems to secure multi-tenant platforms.',
-  blurb:
-    'I’m a software engineer who likes the seam between product design and systems engineering—the place where a clear interface has to meet sound data, authorization, and API decisions.',
   summary:
     'My work spans mission-critical systems, operational tools, and products built from the ground up. I earned a Computer Science degree from Florida International University and have been writing production software since 2023, with a focus on understanding the workflow behind a feature and building software teams can trust and extend.',
   highlights: [

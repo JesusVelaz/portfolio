@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react'
 import { About } from '../sections/About.jsx'
 import profile from '../data/profile.js'
 
-test('renders the blurb and every skill group with its items', () => {
+test('renders the profile summary and every skill group with its items', () => {
   render(<About />)
-  expect(screen.getByText(/product design and systems engineering/i)).toBeInTheDocument()
+  expect(screen.getByRole('heading', { name: /how i approach the work/i })).toBeInTheDocument()
   expect(screen.getByText(profile.summary)).toBeInTheDocument()
   expect(screen.getByRole('img', { name: /jesus velazquez/i })).toHaveAttribute(
     'src',

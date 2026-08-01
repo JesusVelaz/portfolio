@@ -7,9 +7,15 @@ export function About() {
   return (
     <section id="about" className={`${styles.section} container-wide`}>
       <div className={styles.aboutGrid}>
-        <Reveal className={styles.profileColumn}>
+        <Reveal className={styles.eyebrowBlock}>
           <p className={styles.eyebrow}>02 — About</p>
+        </Reveal>
+
+        <Reveal className={styles.titleBlock}>
           <h2 className={styles.heading}>How I approach the work.</h2>
+        </Reveal>
+
+        <Reveal className={styles.portraitBlock}>
           <figure className={styles.portraitFrame}>
             <img
               className={styles.portrait}
@@ -23,10 +29,6 @@ export function About() {
         </Reveal>
 
         <div className={styles.detailsColumn}>
-          <Reveal>
-            <p className={styles.blurb}>{profile.blurb}</p>
-          </Reveal>
-
           <Reveal>
             <div className={styles.summaryBlock}>
               <p className={styles.storyLabel}>Background</p>
