@@ -5,7 +5,7 @@ import styles from './Work.module.css'
 
 export function Work() {
   return (
-    <section id="work" className={`${styles.section} section-mark container-wide`}>
+    <section id="work" className={`${styles.section} container-wide`}>
       <Reveal>
         <p className={styles.eyebrow}>01 — Selected work</p>
         <h2 className={styles.heading}>Products built around real constraints.</h2>

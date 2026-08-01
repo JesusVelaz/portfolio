@@ -4,7 +4,7 @@ import styles from './Contact.module.css'
 
 export function Contact() {
   return (
-    <section id="contact" className={`${styles.section} section-mark container-wide`}>
+    <section id="contact" className={`${styles.section} container-wide`}>
       <Reveal>
         <p className={styles.eyebrow}>04 — Contact</p>
         <h2 className={styles.heading}>Let&rsquo;s talk</h2>

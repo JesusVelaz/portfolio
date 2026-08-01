@@ -4,7 +4,7 @@ import styles from './Experience.module.css'
 
 export function Experience() {
   return (
-    <section id="experience" className={`${styles.section} section-mark container-wide`}>
+    <section id="experience" className={`${styles.section} container-wide`}>
       <Reveal className="section-heading">
         <div>
           <p className={styles.eyebrow}>03 — Experience</p>

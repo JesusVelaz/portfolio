@@ -38,28 +38,16 @@
 
   /* Two page widths. --page-max is the reading measure: headings, ledes, and
      running prose cap here so line length stays comfortable. --page-wide is
-     the frame: sections, grids of records, and media fill it, and GridFrame
-     draws its rails on its content edge. Anything that must sit ON a rail —
-     the section crosshairs — has to live in a --page-wide box. */
+     the frame everything else fills. */
   --page-max: 1180px;
   --page-wide: 1760px;
   --gutter: clamp(1.25rem, 5vw, 3rem);
-  /* Clearance between a rail and the content inside it. The rails sit one
-     --gutter inside the wide box; content is pushed a further --frame-inset
-     past them, so type never runs flush against a line. */
-  --frame-inset: clamp(18px, 2vw, 40px);
-}
 
-/* GridFrame is hidden here, so there is no rail to clear — the inset would
-   only steal width from an already narrow screen. Matches GridFrame's and
-   .section-mark's breakpoint. */
-@media (max-width: 900px) {
-  :root {
-    --frame-inset: 0px;
-  }
-  --section-gap: clamp(6rem, 12vh, 9rem);
+  /* Whitespace is the only thing separating sections now, so it has to be
+     unambiguous on its own. */
+  --section-gap: clamp(7rem, 14vh, 11rem);
 
-  --radius-card: 10px;
+  --radius-card: 18px;
   --radius-pill: 999px;
 }
 

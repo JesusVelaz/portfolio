@@ -78,22 +78,13 @@ section {
   padding-inline: var(--gutter);
 }
 
-/* The wide frame. Sections use this so their crosshairs land on GridFrame's
-   rails. Content is padded one --frame-inset PAST the rails so it never runs
-   flush against them; the crosshairs still resolve to the rail line because
-   they are positioned at --gutter from the section's border box, which is
-   where GridFrame draws. Prose inside caps back down to --page-max rather
-   than stretching to fill this. */
+/* The wide frame. Sections, grids of records, and media fill this; prose
+   inside caps back down to --page-max rather than stretching to fill it. */
 .container-wide {
   width: 100%;
   max-width: var(--page-wide);
   margin-inline: auto;
-  padding-inline: calc(var(--gutter) + var(--frame-inset));
-}
-
-main {
-  position: relative;
-  z-index: 1;
+  padding-inline: var(--gutter);
 }
 
 /* A heading and its lede are reading copy, so they stay on the narrow measure
@@ -114,52 +105,9 @@ main {
   }
 }
 
-/* Section starts register against the GridFrame rails instead of being fenced
-   off by a full-width rule. The crosshair is the only part that scrolls — the
-   rails behind it are fixed — so a new section reads as clicking into place.
-
-   The `section` rule above gives every <section> `content-visibility: auto`,
-   which applies paint containment and clips generated content to the padding
-   box. The crosshair marks below sit at top: 0 with a -50% translate, so half
-   of each mark — including nearly all of the horizontal stroke — falls
-   outside that box and never paints. Opt back out here so the crosshairs
-   actually render as crosshairs. Do not remove this: it looks redundant with
-   the `section` rule until you check what it's overriding. */
-.section-mark {
-  position: relative;
-  content-visibility: visible;
-}
-
-.section-mark::before,
-.section-mark::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 9px;
-  height: 9px;
-  background:
-    linear-gradient(var(--border-strong) 0 0) center / 100% 1px no-repeat,
-    linear-gradient(var(--border-strong) 0 0) center / 1px 100% no-repeat;
-}
-
-.section-mark::before {
-  left: var(--gutter);
-  transform: translate(-50%, -50%);
-}
-
-.section-mark::after {
-  right: var(--gutter);
-  transform: translate(50%, -50%);
-}
-
-/* Matches the GridFrame breakpoint — a crosshair with no rail to sit on is
-   just a speck. */
-@media (max-width: 900px) {
-  .section-mark::before,
-  .section-mark::after {
-    display: none;
-  }
-}
+/* Sections are separated by whitespace alone — see --section-gap. There is no
+   rule, rail, or mark between them; the numbered eyebrow inside each section
+   is what names the boundary. */
 
 @media (prefers-reduced-motion: reduce) {
   html {
