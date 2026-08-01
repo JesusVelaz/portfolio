@@ -107,8 +107,8 @@
 
 .focus .metric {
   color: var(--muted-foreground);
-  background: var(--muted);
-  border-color: var(--border);
+  background: var(--border-strong);
+  border-color: var(--border-strong);
   font-family: var(--font-mono);
 }
 

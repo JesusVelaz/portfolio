@@ -1,7 +1,7 @@
-/* Liquid Glass: the bar is a lens, not a panel.
-   Three layers do the work — a blurred tint that carries almost no fill of its
-   own, a specular that follows the pointer, and a rim where light refracts
-   through the curved edge. Everything else stays quiet so the glass reads. */
+/* The bar is a blurred tint plus a single hairline border — a flat glass
+   panel, not a lens. There is no pointer-tracking specular and no refraction
+   rim; legibility comes from the backdrop blur and the scroll edge effect
+   below, not from simulated light. Everything else stays quiet so it reads. */
 
 .wrap {
   position: fixed;

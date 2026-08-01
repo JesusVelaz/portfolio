@@ -100,9 +100,18 @@ main {
 
 /* Section starts register against the GridFrame rails instead of being fenced
    off by a full-width rule. The crosshair is the only part that scrolls — the
-   rails behind it are fixed — so a new section reads as clicking into place. */
+   rails behind it are fixed — so a new section reads as clicking into place.
+
+   The `section` rule above gives every <section> `content-visibility: auto`,
+   which applies paint containment and clips generated content to the padding
+   box. The crosshair marks below sit at top: 0 with a -50% translate, so half
+   of each mark — including nearly all of the horizontal stroke — falls
+   outside that box and never paints. Opt back out here so the crosshairs
+   actually render as crosshairs. Do not remove this: it looks redundant with
+   the `section` rule until you check what it's overriding. */
 .section-mark {
   position: relative;
+  content-visibility: visible;
 }
 
 .section-mark::before,

@@ -64,9 +64,9 @@
     background-color 300ms var(--ease-out);
 }
 
-/* Three steps of brightness, dimmest to brightest: idle, hovered, active.
-   Hover has to stay clearly below active so pointing at a section never reads
-   as being in it. These rules stay above the .tickActive ones deliberately —
+/* Three steps of emphasis, lowest to highest: idle, hovered, active. Hover
+   has to stay clearly below active so pointing at a section never reads as
+   being in it. These rules stay above the .tickActive ones deliberately —
    they match on specificity, so source order is what keeps the active tick at
    full strength while it is itself being hovered. */
 .tick:hover .label,

@@ -53,10 +53,13 @@
   font-weight: 600;
   font-size: 0.9rem;
   white-space: nowrap;
-  transition: box-shadow 300ms var(--ease-out);
+  transition:
+    box-shadow 300ms var(--ease-out),
+    transform 300ms var(--ease-out);
 }
 
 .go:hover {
+  transform: translateY(-2px);
   box-shadow: 0 8px 30px var(--shadow-color);
 }
 
