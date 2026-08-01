@@ -81,29 +81,33 @@
   font-size: 0.98rem;
 }
 
+/* A secondary action sitting under the portrait, so it stays quieter than the
+   hero CTAs rather than louder: outlined instead of filled, and sized to its
+   own label instead of stretching to the portrait's width. Shape and type
+   match .btnGhost in Hero and .go in Contact so the page has one button
+   language. */
 .resumeButton {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-top: 14px;
-  padding: 14px 16px;
-  border: 1px solid var(--foreground);
-  border-radius: var(--radius-card);
-  background: var(--foreground);
-  color: var(--background);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: background-color 160ms ease, color 160ms ease;
+  gap: 10px;
+  width: fit-content;
+  margin-top: 18px;
+  padding: 12px 22px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition:
+    border-color 250ms var(--ease-out),
+    background-color 250ms var(--ease-out);
 }
 
 .resumeButton:hover,
 .resumeButton:focus-visible {
-  background: transparent;
-  color: var(--foreground);
+  border-color: var(--foreground);
+  background: var(--overlay-hover);
 }
 
 .skillsBlock .storyLabel {
