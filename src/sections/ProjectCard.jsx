@@ -9,15 +9,22 @@ export function ProjectCard({ project, index }) {
 
   return (
     <article className={styles.card}>
+      {/* Two groups so the panel can distribute them against the image's
+          height: identity at the top, stack and CTA anchored to the bottom. */}
       <Link to={href} className={styles.copy}>
-        <span className={styles.number}>{number}</span>
-        <h3 className={styles.title}>{project.title}</h3>
-        <p className={styles.role}>
-          {project.role} · {project.year}
-        </p>
-        <p className={styles.tagline}>{project.tagline}</p>
-        <StackChips items={project.stack} />
-        <span className={styles.cta}>Explore the project →</span>
+        <div>
+          <span className={styles.number}>{number}</span>
+          <h3 className={styles.title}>{project.title}</h3>
+          <p className={styles.role}>
+            {project.role} · {project.year}
+          </p>
+          <p className={styles.tagline}>{project.tagline}</p>
+        </div>
+
+        <div className={styles.copyFooter}>
+          <StackChips items={project.stack} />
+          <span className={styles.cta}>Explore the project →</span>
+        </div>
       </Link>
 
       {/* The screenshot is its own link so the copy beside it is free to size

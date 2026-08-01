@@ -5,7 +5,7 @@
   display: grid;
   grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
   gap: clamp(24px, 3.5vw, 56px);
-  align-items: center;
+  align-items: stretch;
 }
 
 .card:hover .copy {
@@ -44,15 +44,24 @@
 
 .tagline {
   color: var(--muted-foreground);
-  margin-bottom: 22px;
   max-width: 44ch;
 }
 
-/* The panel is the copy, not the whole row. It sizes to its own text. */
+.copyFooter {
+  display: grid;
+  gap: 20px;
+}
+
+/* The panel is the copy, not the whole row. It stretches to the screenshot's
+   height and distributes its two groups against it, so matching the image
+   does not just leave a taller box with the text floating at the top. */
 .copy {
   position: relative;
-  display: block;
-  padding: clamp(24px, 2.4vw, 36px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(28px, 3vw, 48px);
+  padding: clamp(24px, 2.4vw, 40px);
   border-radius: var(--radius-card);
   background: var(--card);
   border: 1px solid var(--border);
@@ -75,7 +84,6 @@
 
 .cta {
   display: inline-block;
-  margin-top: 22px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--muted-foreground);
