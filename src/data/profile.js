@@ -10,23 +10,6 @@ const profile = {
     'My work has moved between mission-critical systems, operational tools, and a product built from the ground up. That range taught me to look beyond the feature request and understand the workflow, the people using it, and the consequence of getting it wrong.',
     'I earned a Computer Science degree from Florida International University and have been writing production software since 2023. I’m most interested in teams that value thoughtful engineering, direct communication, and measurable outcomes.',
   ],
-  principles: [
-    {
-      number: '01',
-      title: 'Clarity over cleverness',
-      detail: 'Interfaces, APIs, and code should make the next decision obvious.',
-    },
-    {
-      number: '02',
-      title: 'Accessibility is quality',
-      detail: 'Inclusive software is more resilient, understandable, and useful for everyone.',
-    },
-    {
-      number: '03',
-      title: 'Own the outcome',
-      detail: 'The work is not done when code ships; it is done when the user’s problem improves.',
-    },
-  ],
   highlights: [
     {
       value: '+35%',

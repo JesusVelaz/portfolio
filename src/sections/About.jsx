@@ -32,18 +32,6 @@ export function About() {
         </div>
       </div>
 
-      <div className={styles.principles}>
-        {profile.principles.map((principle) => (
-          <Reveal key={principle.number}>
-            <article className={styles.principle}>
-              <span>{principle.number}</span>
-              <h3>{principle.title}</h3>
-              <p>{principle.detail}</p>
-            </article>
-          </Reveal>
-        ))}
-      </div>
-
       <Reveal>
         <div className={styles.skillsHeader}>
           <p className={styles.storyLabel}>Technical skills</p>

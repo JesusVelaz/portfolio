@@ -26,8 +26,7 @@
   max-width: 38ch;
 }
 
-/* Running prose, so it holds the narrow measure while the principles grid and
-   skill grid below it take the full width of the section. */
+/* Running prose holds a narrow measure while the skill grid uses the full width. */
 .storyGrid {
   display: grid;
   grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
@@ -56,42 +55,6 @@
   border-bottom: 1px solid var(--foreground);
 }
 
-.principles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  margin-block: clamp(48px, 7vw, 84px);
-  background: var(--border);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-card);
-  overflow: hidden;
-}
-
-.principle {
-  height: 100%;
-  min-height: 220px;
-  padding: clamp(24px, 3vw, 34px);
-  background: var(--card);
-}
-
-.principle span {
-  display: block;
-  color: var(--muted-foreground);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  margin-bottom: 50px;
-}
-
-.principle h3 {
-  font-size: 1.2rem;
-  margin-bottom: 12px;
-}
-
-.principle p {
-  color: var(--muted-foreground);
-  font-size: 0.9rem;
-}
-
 .skillsHeader {
   display: grid;
   grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
@@ -104,10 +67,6 @@
 @media (max-width: 760px) {
   .storyGrid,
   .skillsHeader {
-    grid-template-columns: 1fr;
-  }
-
-  .principles {
     grid-template-columns: 1fr;
   }
 }
