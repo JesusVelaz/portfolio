@@ -6,21 +6,30 @@ const profile = {
     'I turn complex operational needs into clear, accessible web products—from shared interface systems to secure multi-tenant platforms.',
   summary:
     'My work spans mission-critical systems, operational tools, and products built from the ground up. I earned a Computer Science degree from Florida International University and have been writing production software since 2023, with a focus on understanding the workflow behind a feature and building software teams can trust and extend.',
-  highlights: [
+  capabilities: [
     {
-      value: '+35%',
-      label: 'Accessibility compliance',
-      detail: 'Raised a mission application’s Section 508 compliance score.',
+      label: 'Product engineering',
+      title: 'Turn unclear workflows into useful product decisions.',
+      detail:
+        'I move from problem framing and interface design through data modeling, implementation, and iteration.',
     },
     {
-      value: '30%',
-      label: 'Faster operations',
-      detail: 'Reduced document processing time with conditional workflows and exports.',
+      label: 'Full-stack systems',
+      title: 'Build the interface and the systems beneath it.',
+      detail:
+        'React and SvelteKit front ends, REST APIs, relational data, Convex, authorization, and multi-tenant boundaries.',
     },
     {
-      value: '0 → 1',
-      label: 'Product ownership',
-      detail: 'Turned an operator pain point into a secure, multi-tenant product.',
+      label: 'Accessible delivery',
+      title: 'Make accessibility part of engineering quality.',
+      detail:
+        'Semantic interfaces, reusable components, keyboard support, and Section 508 improvements are built into the work.',
+    },
+    {
+      label: 'Operational ownership',
+      title: 'Ship software that holds up in daily use.',
+      detail:
+        'I design automation, document workflows, dashboards, and feedback loops around the people responsible for the outcome.',
     },
   ],
   email: 'jesusvelazquez0980@gmail.com',

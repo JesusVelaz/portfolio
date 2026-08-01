@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import profile from '../data/profile.js'
-import { Starfield } from '../components/Starfield.jsx'
+import { FlowCanvas } from '../components/FlowCanvas.jsx'
 import styles from './Hero.module.css'
 
 export function Hero() {
@@ -26,21 +26,30 @@ export function Hero() {
         </div>
 
         <div className={styles.visual}>
-          <Starfield />
-          <p className={styles.visualCaption}>
-            I design the interface and the systems underneath it.
-          </p>
+          <FlowCanvas />
         </div>
       </div>
 
-      <div className={styles.proof} aria-label="Selected career highlights">
-        {profile.highlights.map((highlight) => (
-          <article className={styles.proofCard} key={highlight.label}>
-            <strong>{highlight.value}</strong>
-            <span>{highlight.label}</span>
-            <p>{highlight.detail}</p>
-          </article>
-        ))}
+      <div className={styles.capabilities} aria-label="Engineering capabilities">
+        <div className={styles.capabilitiesIntro}>
+          <p className={styles.capabilitiesEyebrow}>What I bring</p>
+          <h2 className={styles.capabilitiesTitle}>From an ambiguous workflow to a durable product.</h2>
+        </div>
+
+        <div className={styles.capabilityList}>
+          {profile.capabilities.map((capability, index) => (
+            <article className={styles.capabilityCard} key={capability.label}>
+              <span className={styles.capabilityNumber}>
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div>
+                <p className={styles.capabilityLabel}>{capability.label}</p>
+                <h3 className={styles.capabilityTitle}>{capability.title}</h3>
+                <p className={styles.capabilityDetail}>{capability.detail}</p>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )

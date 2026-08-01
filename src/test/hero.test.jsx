@@ -20,3 +20,10 @@ test('primary CTA targets the work section and secondary targets contact', () =>
   expect(screen.getByRole('link', { name: /view my work/i }).getAttribute('href')).toBe('/#work')
   expect(screen.getByRole('link', { name: /get in touch/i }).getAttribute('href')).toBe('/#contact')
 })
+
+test('shows grounded capabilities instead of the old metric cards', () => {
+  renderHero()
+  expect(screen.getByRole('heading', { name: /ambiguous workflow to a durable product/i })).toBeInTheDocument()
+  expect(screen.getByText(/Product engineering/i)).toBeInTheDocument()
+  expect(screen.queryByText('+35%')).not.toBeInTheDocument()
+})
