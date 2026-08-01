@@ -73,13 +73,13 @@
 .tick:focus-visible .label {
   opacity: 1;
   transform: none;
-  color: var(--muted);
+  color: var(--muted-foreground);
 }
 
 .tick:hover .line,
 .tick:focus-visible .line {
   width: 34px;
-  background: var(--muted);
+  background: var(--muted-foreground);
 }
 
 .tickActive .line {

@@ -40,7 +40,7 @@
 }
 
 .story p {
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-size: 1.02rem;
   max-width: 66ch;
 }
@@ -85,7 +85,7 @@
 }
 
 .principle p {
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-size: 0.9rem;
 }
 

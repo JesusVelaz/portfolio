@@ -6,7 +6,7 @@
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--muted);
+  color: var(--muted-foreground);
   margin-bottom: 34px;
   transition: color 250ms var(--ease-out);
 }
@@ -23,7 +23,7 @@
 .tagline {
   font-family: var(--font-display);
   font-size: clamp(1.1rem, 2.6vw, 1.6rem);
-  color: var(--muted);
+  color: var(--muted-foreground);
   max-width: 46ch;
   margin-bottom: 26px;
 }
@@ -36,7 +36,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--muted-foreground);
   margin-bottom: 26px;
 }
 
@@ -86,7 +86,7 @@
 }
 
 .prose {
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-size: 1.0625rem;
 }
 
@@ -98,7 +98,7 @@
 .highlight {
   position: relative;
   padding-left: 22px;
-  color: var(--muted);
+  color: var(--muted-foreground);
 }
 
 .highlight::before {
@@ -136,7 +136,7 @@
 .storySummary {
   max-width: 68ch;
   margin-top: 24px;
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-size: clamp(1rem, 2vw, 1.18rem);
 }
 
@@ -170,7 +170,7 @@
 
 .pillarText {
   margin-top: 10px;
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-size: 0.9rem;
 }
 
@@ -214,7 +214,7 @@
 
 .gallerySectionDescription {
   max-width: 58ch;
-  color: var(--muted);
+  color: var(--muted-foreground);
 }
 
 /*

@@ -15,7 +15,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.08em;
@@ -82,7 +82,7 @@
 }
 
 .name {
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-size: 0.75rem;
   line-height: 1.25;
   text-align: center;

@@ -19,7 +19,7 @@
 }
 
 .lede {
-  color: var(--muted);
+  color: var(--muted-foreground);
   max-width: 50ch;
   font-size: 1.04rem;
   margin: 0 auto 64px;
@@ -68,7 +68,7 @@
 }
 
 .social {
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-size: 0.875rem;
   transition: color 250ms var(--ease-out);
 }
@@ -81,7 +81,7 @@
   margin-top: clamp(110px, 18vh, 170px);
   padding-top: 34px;
   border-top: 1px solid var(--glass-border);
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.72rem;
 }

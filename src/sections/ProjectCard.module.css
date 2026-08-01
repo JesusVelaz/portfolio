@@ -45,12 +45,12 @@
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--muted-foreground);
   margin-bottom: 16px;
 }
 
 .tagline {
-  color: var(--muted);
+  color: var(--muted-foreground);
   margin-bottom: 22px;
   max-width: 44ch;
 }

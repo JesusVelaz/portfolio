@@ -18,7 +18,7 @@
 }
 
 .lede {
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-size: 1.04rem;
   max-width: 55ch;
 }
@@ -56,7 +56,7 @@
 
 .number,
 .dates {
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.06em;
@@ -101,7 +101,7 @@
   padding: 6px 10px;
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-size: 0.72rem;
 }
 

@@ -25,7 +25,7 @@
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.08em;

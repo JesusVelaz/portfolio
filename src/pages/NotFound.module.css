@@ -19,7 +19,7 @@
 }
 
 .text {
-  color: var(--muted);
+  color: var(--muted-foreground);
   max-width: 42ch;
   margin-inline: auto;
 }

@@ -45,12 +45,12 @@
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--muted-foreground);
 }
 
 .caption {
   margin-top: 12px;
-  color: var(--muted);
+  color: var(--muted-foreground);
   font-size: 0.875rem;
   line-height: 1.55;
 }

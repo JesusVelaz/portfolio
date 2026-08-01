@@ -19,7 +19,7 @@
 }
 
 .lede {
-  color: var(--muted);
+  color: var(--muted-foreground);
   max-width: 52ch;
   margin-bottom: 56px;
 }
