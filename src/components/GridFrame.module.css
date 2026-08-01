@@ -5,8 +5,16 @@
   pointer-events: none;
 }
 
-.frame > :global(.container-wide) {
+/* Deliberately NOT .container-wide: sections pad their content a further
+   --frame-inset past the rails, and the rails must stay on the outer line.
+   Both boxes share --page-wide and the same centring, so they cannot drift —
+   only the padding differs, which is the clearance itself. */
+.track {
+  width: 100%;
+  max-width: var(--page-wide);
   height: 100%;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
 .rails {

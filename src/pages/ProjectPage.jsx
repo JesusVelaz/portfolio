@@ -31,7 +31,7 @@ export default function ProjectPage() {
   if (!project) return <NotFound />
 
   return (
-    <article className={`${styles.page} container`}>
+    <article className={`${styles.page} container-wide`}>
       <Reveal>
         <Link to="/#work" className={styles.back}>
           ← All work

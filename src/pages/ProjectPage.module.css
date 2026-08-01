@@ -222,13 +222,12 @@
  * width they deserve, while the section headings stay on the page's text grid.
  * The 18px allowance keeps the bleed clear of the scrollbar, which 100vw counts.
  */
+/* The gallery used to break out of a 1180px page to reach 1400px, measured
+   against the viewport — which ignored the grid rails and crossed them. The
+   page itself is a wide container now, so the gallery simply fills it. */
 .galleryRows {
-  --gallery-width: max(100%, min(1400px, calc(100vw - 2 * var(--gutter) - 18px)));
-
   display: grid;
   gap: clamp(20px, 2.5vw, 30px);
-  width: var(--gallery-width);
-  margin-inline: calc((100% - var(--gallery-width)) / 2);
 }
 
 .galleryRow {

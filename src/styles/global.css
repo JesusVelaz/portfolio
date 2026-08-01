@@ -79,13 +79,16 @@ section {
 }
 
 /* The wide frame. Sections use this so their crosshairs land on GridFrame's
-   rails, which are drawn on this same content edge. Prose inside caps itself
-   back down to --page-max rather than stretching to fill it. */
+   rails. Content is padded one --frame-inset PAST the rails so it never runs
+   flush against them; the crosshairs still resolve to the rail line because
+   they are positioned at --gutter from the section's border box, which is
+   where GridFrame draws. Prose inside caps back down to --page-max rather
+   than stretching to fill this. */
 .container-wide {
   width: 100%;
   max-width: var(--page-wide);
   margin-inline: auto;
-  padding-inline: var(--gutter);
+  padding-inline: calc(var(--gutter) + var(--frame-inset));
 }
 
 main {
