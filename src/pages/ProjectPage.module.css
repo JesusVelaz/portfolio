@@ -189,6 +189,16 @@
   margin-top: 48px;
 }
 
+/*
+ * global.css gives every <section> `content-visibility: auto`, which applies
+ * paint containment and clips anything drawn outside the element's box. The
+ * gallery rows below bleed wider than these two sections, so they opt out.
+ */
+.product,
+.gallerySection {
+  content-visibility: visible;
+}
+
 .gallerySectionHeader {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
@@ -207,26 +217,34 @@
   color: var(--muted);
 }
 
-.galleryGrid {
+/*
+ * The image rows break out past the text column so the screenshots get the
+ * width they deserve, while the section headings stay on the page's text grid.
+ * The 18px allowance keeps the bleed clear of the scrollbar, which 100vw counts.
+ */
+.galleryRows {
+  --gallery-width: max(100%, min(1400px, calc(100vw - 2 * var(--gutter) - 18px)));
+
   display: grid;
   gap: clamp(20px, 2.5vw, 30px);
-  align-items: start;
+  width: var(--gallery-width);
+  margin-inline: calc((100% - var(--gallery-width)) / 2);
 }
 
-.featured {
-  max-width: 860px;
-}
-
-.pair {
+.galleryRow {
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 2.5vw, 30px);
+  align-items: stretch;
 }
 
-.sequence {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.gallerySoloRow {
+  grid-template-columns: minmax(0, 1fr);
 }
 
-.finale {
-  max-width: 640px;
+.galleryCell {
+  display: grid;
+  min-width: 0;
 }
 
 .shots {
@@ -245,16 +263,9 @@
   border-top: 1px solid var(--glass-border);
 }
 
-@media (max-width: 1050px) {
-  .sequence {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 760px) {
   .pillars,
-  .pair,
-  .sequence {
+  .galleryRow {
     grid-template-columns: 1fr;
   }
 

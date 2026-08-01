@@ -6,6 +6,24 @@ import { Reveal } from '../components/Reveal.jsx'
 import NotFound from './NotFound.jsx'
 import styles from './ProjectPage.module.css'
 
+const aspectRatio = (shot) => (shot.width && shot.height ? shot.width / shot.height : null)
+
+// Gallery shots pair up two to a row. A row's frames share one aspect ratio so
+// they line up exactly; a shot left over at the end takes the full row on its own.
+function toRows(shots) {
+  const rows = []
+  for (let i = 0; i < shots.length; i += 2) {
+    rows.push(shots.slice(i, i + 2))
+  }
+  return rows
+}
+
+function rowRatio(row) {
+  const ratios = row.map(aspectRatio).filter(Boolean)
+  if (!ratios.length) return null
+  return ratios.reduce((sum, ratio) => sum + ratio, 0) / ratios.length
+}
+
 export default function ProjectPage() {
   const { slug } = useParams()
   const project = getProject(slug)
@@ -111,22 +129,36 @@ export default function ProjectPage() {
                       </div>
                     </Reveal>
 
-                    <div
-                      className={`${styles.galleryGrid} ${styles[gallerySection.layout]}`}
-                    >
-                      {sectionShots.map((shot, i) => (
-                        <Reveal key={shot.src} delay={(i % 3) * 0.05}>
-                          <ProjectImage
-                            src={shot.src}
-                            alt={shot.alt}
-                            label={project.title}
-                            captionTitle={shot.title}
-                            caption={shot.caption}
-                            contain
-                            compact
-                          />
-                        </Reveal>
-                      ))}
+                    <div className={styles.galleryRows}>
+                      {toRows(sectionShots).map((row) => {
+                        const isSolo = row.length === 1
+                        const sharedRatio = rowRatio(row)
+
+                        return (
+                          <div
+                            className={`${styles.galleryRow} ${isSolo ? styles.gallerySoloRow : ''}`}
+                            key={row[0].src}
+                          >
+                            {row.map((shot, i) => (
+                              <Reveal className={styles.galleryCell} key={shot.src} delay={i * 0.05}>
+                                <ProjectImage
+                                  src={shot.src}
+                                  alt={shot.alt}
+                                  label={project.title}
+                                  captionTitle={shot.title}
+                                  caption={shot.caption}
+                                  width={shot.width}
+                                  height={shot.height}
+                                  ratio={isSolo ? aspectRatio(shot) : sharedRatio}
+                                  contain
+                                  compact
+                                  split={isSolo}
+                                />
+                              </Reveal>
+                            ))}
+                          </div>
+                        )
+                      })}
                     </div>
                   </section>
                 )

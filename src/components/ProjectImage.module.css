@@ -65,7 +65,10 @@
   color: inherit;
 }
 
+/* Card variant: image sits on top at its own aspect ratio, caption below. */
 .compact {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   border: 1px solid var(--glass-border);
   border-radius: 16px;
@@ -73,19 +76,75 @@
 }
 
 .compact > .frame {
-  height: clamp(230px, 27vw, 350px);
+  height: auto;
   border: 0;
   border-bottom: 1px solid var(--glass-border);
   border-radius: 0;
 }
 
 .compact .caption {
+  flex: 1;
   margin: 0;
   padding: 20px 22px 24px;
 }
 
-@media (max-width: 680px) {
-  .compact > .frame {
-    height: clamp(210px, 64vw, 320px);
+/*
+ * Split variant: a figure that owns a full row. The image keeps its natural
+ * aspect ratio at a fixed height — so nothing is letterboxed — and the caption
+ * fills the rest of the row instead of leaving dead space beside the image.
+ */
+.split {
+  --shot-height: clamp(300px, 37vw, 560px);
+
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(300px, 1fr);
+  grid-auto-rows: minmax(var(--shot-height), auto);
+}
+
+/*
+ * The frame width is derived from the image ratio rather than left to the auto
+ * track, which will not size itself from `aspect-ratio` plus a fixed height.
+ */
+.split > .frame {
+  height: 100%;
+  width: calc(var(--shot-height) * var(--ratio, 1.6));
+  max-width: 100%;
+  border: 0;
+  border-right: 1px solid var(--glass-border);
+  border-radius: 0;
+}
+
+.split .caption {
+  align-self: center;
+  padding: clamp(22px, 3vw, 34px);
+}
+
+/*
+ * In this band the row is too narrow to give a wide shot its full height at
+ * 37vw without the caption column squeezing it back into a letterbox.
+ */
+@media (max-width: 1150px) {
+  .split {
+    --shot-height: clamp(300px, 31vw, 400px);
+  }
+}
+
+/* Below this the caption column gets too narrow to sit beside the image. */
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+
+  .split > .frame {
+    height: auto;
+    width: 100%;
+    max-width: 100%;
+    border-right: 0;
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .split .caption {
+    padding: 20px 22px 24px;
   }
 }

@@ -57,7 +57,6 @@ const projects = [
         title: 'See the entire day before it happens.',
         description:
           'Start with the operating picture: who has signed, what is pending, and which customer messages are already queued.',
-        layout: 'featured',
       },
       {
         id: 'capture',
@@ -65,7 +64,6 @@ const projects = [
         title: 'Build the workflow once.',
         description:
           'Create the exact waiver experience the business needs, then connect it to the systems already driving bookings and marketing.',
-        layout: 'pair',
       },
       {
         id: 'follow-ups',
@@ -73,7 +71,6 @@ const projects = [
         title: 'Write it. Improve it. Send it.',
         description:
           'One continuous outbound workflow takes a message from first draft through AI review and into a fully auditable delivery queue.',
-        layout: 'sequence',
       },
       {
         id: 'measure',
@@ -81,13 +78,14 @@ const projects = [
         title: 'Know what is working.',
         description:
           'Close the loop with performance trends, customer growth, and delivery health across the workspace.',
-        layout: 'finale',
       },
     ],
     screenshots: [
       {
         group: 'overview',
         src: '/projects/waiver-director/05-marketing-site.png',
+        width: 2391,
+        height: 1906,
         alt: 'Waiver Director marketing website showing a live participant session dashboard',
         title: 'Workspace Dashboard',
         caption:
@@ -96,6 +94,8 @@ const projects = [
       {
         group: 'capture',
         src: '/projects/waiver-director/03-waiver-builder.png',
+        width: 3475,
+        height: 1900,
         alt: 'Waiver Director editor for creating a digital waiver with custom fields and signer details',
         title: 'Waiver Builder',
         caption:
@@ -104,6 +104,8 @@ const projects = [
       {
         group: 'capture',
         src: '/projects/waiver-director/02-integrations.png',
+        width: 2179,
+        height: 1123,
         alt: 'Waiver Director integrations settings for booking and email platforms',
         title: 'Integrations Settings',
         caption:
@@ -112,6 +114,8 @@ const projects = [
       {
         group: 'follow-ups',
         src: '/projects/waiver-director/04-email-creator.png',
+        width: 2094,
+        height: 1750,
         alt: 'Follow-up email editor with scheduling, variables, templates, and AI review tools',
         title: 'Follow-Up Email Editor',
         caption:
@@ -120,6 +124,8 @@ const projects = [
       {
         group: 'follow-ups',
         src: '/projects/waiver-director/06-ai-review.png',
+        width: 1942,
+        height: 1609,
         alt: 'AI email review comparing the original message with suggested improvements',
         title: 'AI Email Review',
         caption:
@@ -128,6 +134,8 @@ const projects = [
       {
         group: 'follow-ups',
         src: '/projects/waiver-director/07-follow-up-queue.png',
+        width: 2305,
+        height: 1299,
         alt: 'Follow-up email queue showing scheduled, sent, failed, and unscheduled messages',
         title: 'Follow-Up Queue',
         caption:
@@ -136,6 +144,8 @@ const projects = [
       {
         group: 'measure',
         src: '/projects/waiver-director/01-analytics-dashboard.png',
+        width: 2170,
+        height: 1897,
         alt: 'Waiver Director analytics dashboard showing bookings, submissions, follow-ups, customers, and recent activity',
         title: 'Analytics Dashboard',
         caption:

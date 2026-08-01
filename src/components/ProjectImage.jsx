@@ -7,18 +7,30 @@ export function ProjectImage({
   label,
   captionTitle,
   caption,
+  width,
+  height,
+  ratio,
   natural = false,
   contain = false,
   compact = false,
+  split = false,
   className = '',
 }) {
   const [failed, setFailed] = useState(false)
   const CaptionHeading = compact ? 'h4' : 'h3'
+  const frameRatio = ratio ?? (width && height ? width / height : null)
 
   return (
-    <figure className={`${styles.figure} ${compact ? styles.compact : ''} ${className}`}>
+    <figure
+      className={[styles.figure, compact && styles.compact, split && styles.split, className]
+        .filter(Boolean)
+        .join(' ')}
+    >
       <div
         className={`${styles.frame} ${natural ? styles.natural : ''} ${contain ? styles.contain : ''}`}
+        style={
+          frameRatio ? { aspectRatio: String(frameRatio), '--ratio': String(frameRatio) } : undefined
+        }
       >
         {failed || !src ? (
           <div className={styles.fallback}>
@@ -29,6 +41,8 @@ export function ProjectImage({
             className={styles.img}
             src={src}
             alt={alt}
+            width={width}
+            height={height}
             loading="lazy"
             onError={() => setFailed(true)}
           />

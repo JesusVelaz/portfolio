@@ -63,6 +63,9 @@ test('Waiver Director includes the complete product walkthrough', () => {
   ])
   waiverDirector.screenshots.forEach((screenshot) => {
     expect(screenshot.src).toMatch(/\.png$/)
+    // The gallery sizes every frame from these, so a missing pair letterboxes the shot.
+    expect(screenshot.width).toBeGreaterThan(0)
+    expect(screenshot.height).toBeGreaterThan(0)
     expect(screenshot.alt).toBeTruthy()
     expect(screenshot.title).toBeTruthy()
     expect(screenshot.caption).toBeTruthy()
