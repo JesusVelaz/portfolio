@@ -23,10 +23,6 @@
     0 0 0 1px var(--border);
 }
 
-.card:hover .media {
-  transform: scale(1.04);
-}
-
 .number {
   font-family: var(--font-mono);
   font-size: 0.8rem;
@@ -70,18 +66,67 @@
 }
 
 .mediaWrap {
+  position: relative;
   overflow: hidden;
   border-radius: 14px;
+  aspect-ratio: 21 / 9;
+  background: var(--card-raised);
 }
 
 .media {
-  aspect-ratio: 21 / 9;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0;
+  transform: scale(1.025);
   transform-origin: center top;
-  transition: transform 700ms var(--ease-out);
+  transition:
+    opacity 500ms ease,
+    transform 900ms var(--ease-out);
 }
 
-.media img {
-  object-position: center top;
+.mediaActive {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carouselHud {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 34px 18px 14px;
+  color: #fff;
+  background: linear-gradient(to bottom, transparent, rgb(0 0 0 / 72%));
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 300ms var(--ease-out),
+    transform 300ms var(--ease-out);
+  pointer-events: none;
+}
+
+.card:is(:hover, :focus-within) .carouselHud {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.carouselTitle,
+.carouselProgress {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.carouselProgress {
+  flex: 0 0 auto;
+  color: rgb(255 255 255 / 70%);
 }
 
 .footer {
@@ -105,7 +150,7 @@
 }
 
 @media (max-width: 860px) {
-  .media {
+  .mediaWrap {
     aspect-ratio: 16 / 10;
   }
 
@@ -121,7 +166,12 @@
     transform: none;
   }
 
-  .card:hover .media {
+  .media {
+    transition: none;
+  }
+
+  .carouselHud {
     transform: none;
+    transition: none;
   }
 }

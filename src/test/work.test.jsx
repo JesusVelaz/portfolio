@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { vi } from 'vitest'
 import { Work } from '../sections/Work.jsx'
 import projects from '../data/projects.js'
 
@@ -35,4 +36,21 @@ test('renders stack chips for each project', () => {
 test('the work section carries the id the nav targets', () => {
   const { container } = renderWork()
   expect(container.querySelector('#work')).not.toBeNull()
+})
+
+test('cycles through project screenshots while a card is hovered', () => {
+  vi.useFakeTimers()
+  renderWork()
+  const projectLink = screen.getByRole('link', { name: /waiver director/i })
+  const card = projectLink.closest('article')
+
+  expect(within(card).getByText('Workspace Dashboard')).toBeInTheDocument()
+
+  fireEvent.mouseEnter(card)
+  act(() => vi.advanceTimersByTime(1500))
+  expect(within(card).getByText('Waiver Builder')).toBeInTheDocument()
+
+  fireEvent.mouseLeave(card)
+  expect(within(card).getByText('Workspace Dashboard')).toBeInTheDocument()
+  vi.useRealTimers()
 })
