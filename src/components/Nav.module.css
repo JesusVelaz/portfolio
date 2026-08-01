@@ -1,7 +1,8 @@
 /* The bar is a blurred tint plus a single hairline border — a flat glass
    panel, not a lens. There is no pointer-tracking specular and no refraction
-   rim; legibility comes from the backdrop blur and the scroll edge effect
-   below, not from simulated light. Everything else stays quiet so it reads. */
+   rim. The blur is confined to the bar itself: .wrap spans the full viewport
+   width, so anything painted on it reads as a band across the whole top of
+   the page rather than as part of the bar. */
 
 .wrap {
   position: fixed;
@@ -15,29 +16,8 @@
   transition: padding 400ms var(--ease-out);
 }
 
-/* Scroll edge effect. Page content dissolves as it passes under the bar
-   instead of colliding with it, which is what lets the bar itself stay this
-   transparent: legibility comes from the edge, not from a heavy fill. */
-.wrap::before {
-  content: '';
-  position: absolute;
-  inset: 0 0 -34px;
-  z-index: -1;
-  opacity: 0;
-  pointer-events: none;
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
-  mask-image: linear-gradient(to bottom, #000 40%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
-  transition: opacity 400ms var(--ease-out);
-}
-
 .wrapScrolled {
   padding-top: 10px;
-}
-
-.wrapScrolled::before {
-  opacity: 1;
 }
 
 .bar {
@@ -202,10 +182,6 @@
     background: var(--card);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-  }
-
-  .wrap::before {
-    display: none;
   }
 
   .pill {
