@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useSyncExternalStore } from 'react'
 
 const STORAGE_KEY = 'theme'
 
@@ -19,8 +19,45 @@ function apply(theme) {
   document.documentElement.style.colorScheme = theme
 }
 
+// External store backed by the DOM attribute, observed via MutationObserver
+function createThemeStore() {
+  function subscribe(callback) {
+    // Attach MutationObserver to watch for data-theme changes on documentElement
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
+          callback()
+        }
+      }
+    })
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme']
+    })
+
+    // Return unsubscribe function
+    return () => {
+      observer.disconnect()
+    }
+  }
+
+  function getSnapshot() {
+    return currentTheme()
+  }
+
+  function getServerSnapshot() {
+    // On the server, return 'dark' as default
+    return 'dark'
+  }
+
+  return { subscribe, getSnapshot, getServerSnapshot }
+}
+
+const store = createThemeStore()
+
 export function useTheme() {
-  const [theme, setThemeState] = useState(currentTheme)
+  const theme = useSyncExternalStore(store.subscribe, store.getSnapshot, store.getServerSnapshot)
 
   const setTheme = useCallback((next) => {
     apply(next)
@@ -29,7 +66,6 @@ export function useTheme() {
     } catch {
       // Private-browsing modes throw. The theme still applies for this session.
     }
-    setThemeState(next)
   }, [])
 
   const toggle = useCallback(() => {
@@ -45,7 +81,6 @@ export function useTheme() {
       if (storedChoice()) return
       const next = event.matches ? 'dark' : 'light'
       apply(next)
-      setThemeState(next)
     }
     query.addEventListener?.('change', onChange)
     return () => query.removeEventListener?.('change', onChange)
