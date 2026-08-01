@@ -51,58 +51,16 @@
 
 .tagline {
   color: var(--muted-foreground);
+  margin-bottom: 22px;
   max-width: 44ch;
 }
 
-/* The copy column used to be top-aligned against a much taller image, leaving
-   roughly half the card empty below it. It now spans the card's full height
-   and distributes: identity at the top, capabilities in the middle, stack and
-   CTA anchored to the bottom edge of the image beside it. */
+/* The copy is its own link beside the image rather than wrapping it, so it
+   sizes to its own content and the card no longer has to stretch it to the
+   screenshot's height. */
 .copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: clamp(20px, 2.5vw, 32px);
-  height: 100%;
-}
-
-.areasLabel {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted-foreground);
-  margin-bottom: 12px;
-}
-
-.areas {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px 20px;
-}
-
-.areas li {
-  position: relative;
-  padding-left: 16px;
-  color: var(--foreground);
-  font-size: 0.9rem;
-}
-
-/* A hairline tick rather than a bullet glyph — the page has no other list
-   markers and a disc would be the loudest thing in the card. */
-.areas li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.7em;
-  width: 8px;
-  height: 1px;
-  background: var(--border-strong);
-}
-
-.footer {
-  display: grid;
-  gap: 18px;
+  display: block;
+  color: inherit;
 }
 
 .mediaWrap {
@@ -117,6 +75,7 @@
 
 .cta {
   display: inline-block;
+  margin-top: 22px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--muted-foreground);
