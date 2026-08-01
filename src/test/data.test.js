@@ -75,6 +75,25 @@ test('Waiver Director includes the complete product walkthrough', () => {
   })
 })
 
+test('PokeDex includes the complete three-screen product walkthrough', () => {
+  const pokedex = getProject('pokedex')
+
+  expect(pokedex.thumb).toBe('/projects/pokedex/01-trainer-field-desk.png')
+  expect(pokedex.screenshots).toHaveLength(3)
+  expect(pokedex.screenshots.map((screenshot) => screenshot.title)).toEqual([
+    'Trainer Field Desk',
+    'Searchable Pokédex',
+    'Pokémon Team Builder',
+  ])
+  pokedex.screenshots.forEach((screenshot) => {
+    expect(screenshot.src).toMatch(/\.png$/)
+    expect(screenshot.width).toBeGreaterThan(0)
+    expect(screenshot.height).toBeGreaterThan(0)
+    expect(screenshot.alt).toBeTruthy()
+    expect(screenshot.caption).toBeTruthy()
+  })
+})
+
 test('experience is ordered most recent first and every role is complete', () => {
   expect(experience[0].end).toBeNull()
   experience.forEach((role) => {

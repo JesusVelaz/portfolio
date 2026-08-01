@@ -163,7 +163,7 @@ const projects = [
     stack: ['React', 'JavaScript', 'PokéAPI', 'CSS'],
     liveUrl: 'https://jesusvelaz.github.io/PokeDex-App/',
     repoUrl: 'https://github.com/JesusVelaz/PokeDex-App',
-    thumb: '/projects/pokedex/thumb.jpg',
+    thumb: '/projects/pokedex/01-trainer-field-desk.png',
     problem:
       'The PokéAPI spreads a single Pokémon across several endpoints — sprite, types, and base ' +
       'stats each live at a different resource. Rendering a browsable list means composing many ' +
@@ -172,15 +172,41 @@ const projects = [
     // Replace them with the specifics of what you actually did — an interviewer will ask.
     whatIBuilt:
       'A React single-page app that fetches from the PokéAPI, composes each Pokémon’s details ' +
-      'from multiple resources, and renders them as a searchable grid of cards.',
+      'from multiple resources, and turns them into a searchable field guide with daily research, ' +
+      'nearby sightings, favorites, and custom team building.',
     highlights: [
-      'Composes each Pokémon’s card from several PokéAPI resources, since sprite, type, and base-stat data are returned by different endpoints.',
-      'Search filters the already-loaded set on the client, so typing doesn’t fire a request per keystroke.',
-      'The first React app I shipped end to end, from scaffold through a deployed GitHub Pages build.',
+      'A field desk brings together a daily “Who’s That Pokémon?” challenge, research objectives, nearby sightings, and a running trainer report.',
+      'The Pokédex supports search and type filtering, with detailed entries for abilities, physical attributes, cries, shiny forms, and base stats.',
+      'A dedicated team builder lets trainers create, name, and organize multiple six-Pokémon lineups from their favorites.',
     ],
     screenshots: [
-      { src: '/projects/pokedex/01.jpg', alt: 'PokeDex App grid of Pokémon cards' },
-      { src: '/projects/pokedex/02.jpg', alt: 'Detail view for a single Pokémon showing base stats' },
+      {
+        src: '/projects/pokedex/01-trainer-field-desk.png',
+        width: 1900,
+        height: 909,
+        alt: 'Pokédex Trainer Field Desk with a mystery Pokémon challenge, research objectives, trainer report, and nearby sightings',
+        title: 'Trainer Field Desk',
+        caption:
+          'The home screen turns exploration into a daily routine. Trainers can solve a “Who’s That Pokémon?” challenge, complete research objectives, check nearby sightings, and track their Pokédex and team progress from one field-ready dashboard.',
+      },
+      {
+        src: '/projects/pokedex/02-pokedex-browser.png',
+        width: 1903,
+        height: 909,
+        alt: 'Searchable Pokédex browser with Pokémon cards and a detailed Dragonite entry showing abilities and base stats',
+        title: 'Searchable Pokédex',
+        caption:
+          'A complete Pokédex browser makes every species easy to explore with search, type filters, favorites, and pagination. Opening an entry reveals its types, abilities, height, weight, cry, shiny form, and base stats without leaving the grid.',
+      },
+      {
+        src: '/projects/pokedex/03-team-builder.png',
+        width: 1897,
+        height: 909,
+        alt: 'Pokémon team builder showing three named teams with six available slots each',
+        title: 'Pokémon Team Builder',
+        caption:
+          'Trainers can create and name multiple teams, fill each lineup with up to six Pokémon, and quickly see which slots are still open. The result is a simple workspace for organizing favorites and planning the next adventure.',
+      },
     ],
   },
 ]
