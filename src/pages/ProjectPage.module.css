@@ -67,7 +67,6 @@
 }
 
 .hero {
-  aspect-ratio: 16 / 9;
   margin-bottom: 72px;
 }
 
@@ -110,7 +109,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--aurora));
+  background: var(--accent);
 }
 
 .shots {
@@ -120,7 +119,7 @@
 }
 
 .shot {
-  aspect-ratio: 16 / 10;
+  width: 100%;
 }
 
 .next {

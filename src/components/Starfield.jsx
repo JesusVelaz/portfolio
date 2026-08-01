@@ -72,12 +72,6 @@ export function Starfield() {
         }
       }
 
-      const halo = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 0.44)
-      halo.addColorStop(0, 'rgba(72, 110, 255, 0.16)')
-      halo.addColorStop(1, 'rgba(72, 110, 255, 0)')
-      ctx.fillStyle = halo
-      ctx.fillRect(0, 0, width, height)
-
       for (const point of positions) {
         ctx.fillStyle = point.size > 3 ? '#99f6e4' : '#8da2ff'
         ctx.beginPath()

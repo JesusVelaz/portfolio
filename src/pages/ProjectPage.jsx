@@ -57,6 +57,8 @@ export default function ProjectPage() {
           src={project.screenshots[0]?.src ?? project.thumb}
           alt={project.screenshots[0]?.alt ?? `${project.title} screenshot`}
           label={project.title}
+          caption={project.screenshots[0]?.caption}
+          natural
           className={styles.hero}
         />
       </Reveal>
@@ -92,6 +94,8 @@ export default function ProjectPage() {
                 src={shot.src}
                 alt={shot.alt}
                 label={project.title}
+                caption={shot.caption}
+                natural
                 className={styles.shot}
               />
             </Reveal>

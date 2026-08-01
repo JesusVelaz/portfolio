@@ -14,7 +14,6 @@
   --glass-border: var(--border);
   --glass-border-bright: var(--border-strong);
   --glass-highlight: transparent;
-  --aurora: var(--accent);
 
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;

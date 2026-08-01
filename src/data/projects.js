@@ -9,7 +9,7 @@ const projects = [
     stack: ['SvelteKit', 'Svelte', 'TypeScript', 'Convex', 'Resend'],
     liveUrl: 'https://www.waiverdirector.com/',
     repoUrl: null,
-    thumb: '/projects/waiver-director/thumb.jpg',
+    thumb: '/projects/waiver-director/05-marketing-site.png',
     problem:
       'Adventure operators — zipline tours, axe throwing, escape rooms, kayak rentals — collect a ' +
       'signed waiver from every participant, but only capture contact details for the person who ' +
@@ -29,16 +29,39 @@ const projects = [
     ],
     screenshots: [
       {
-        src: '/projects/waiver-director/01.jpg',
-        alt: 'Waiver Director dashboard showing session completion rates',
+        src: '/projects/waiver-director/01-analytics-dashboard.png',
+        alt: 'Waiver Director analytics dashboard showing bookings, submissions, follow-ups, customers, and recent activity',
+        caption: 'Analytics dashboard — a live view of bookings, waiver submissions, customer growth, and follow-up performance.',
       },
       {
-        src: '/projects/waiver-director/02.jpg',
-        alt: 'The waiver builder editing a branded template',
+        src: '/projects/waiver-director/02-integrations.png',
+        alt: 'Waiver Director integrations settings for booking and email platforms',
+        caption: 'Integrations — connect booking and email tools so customer data moves into Waiver Director automatically.',
       },
       {
-        src: '/projects/waiver-director/03.jpg',
-        alt: 'Email automation schedule configuration',
+        src: '/projects/waiver-director/03-waiver-builder.png',
+        alt: 'Waiver Director editor for creating a digital waiver with custom fields and signer details',
+        caption: 'Waiver builder — create branded digital waivers, collect custom details, and publish a signing link.',
+      },
+      {
+        src: '/projects/waiver-director/04-email-creator.png',
+        alt: 'Follow-up email editor with scheduling, variables, templates, and AI review tools',
+        caption: 'Follow-up email creator — write reusable, personalized emails and choose when they are sent after a booking.',
+      },
+      {
+        src: '/projects/waiver-director/05-marketing-site.png',
+        alt: 'Waiver Director marketing website showing a live participant session dashboard',
+        caption: 'Marketing site — communicates how every signed waiver becomes an opportunity for a direct customer relationship.',
+      },
+      {
+        src: '/projects/waiver-director/06-ai-review.png',
+        alt: 'AI email review comparing the original message with suggested improvements',
+        caption: 'AI review — identifies issues, scores the message, and proposes changes that can be reviewed before applying.',
+      },
+      {
+        src: '/projects/waiver-director/07-follow-up-queue.png',
+        alt: 'Follow-up email queue showing scheduled, sent, failed, and unscheduled messages',
+        caption: 'Follow-up queue — search, filter, schedule, and monitor every customer email from one operational view.',
       },
     ],
   },

@@ -41,6 +41,17 @@ test('getProject finds by slug and returns undefined otherwise', () => {
   expect(getProject('does-not-exist')).toBeUndefined()
 })
 
+test('Waiver Director includes the complete product walkthrough', () => {
+  const waiverDirector = getProject('waiver-director')
+
+  expect(waiverDirector.screenshots).toHaveLength(7)
+  waiverDirector.screenshots.forEach((screenshot) => {
+    expect(screenshot.src).toMatch(/\.png$/)
+    expect(screenshot.alt).toBeTruthy()
+    expect(screenshot.caption).toBeTruthy()
+  })
+})
+
 test('experience is ordered most recent first and every role is complete', () => {
   expect(experience[0].end).toBeNull()
   experience.forEach((role) => {

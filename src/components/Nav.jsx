@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useActiveSection } from '../hooks/useActiveSection.js'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
@@ -28,33 +28,15 @@ export function Nav() {
   const isHome = location.pathname === '/'
   const active = useActiveSection(SECTION_IDS, isHome)
 
-  const barRef = useRef(null)
   const listRef = useRef(null)
   const pillRef = useRef(null)
   const previousLeft = useRef(null)
   const [pill, setPill] = useState(null)
 
-  // Glass reflects the light around it, so the sheen follows the pointer
-  // instead of sitting in a fixed spot. Written straight to the element:
-  // a state update per mousemove would re-render the whole bar.
-  const trackLight = useCallback((event) => {
-    if (event.pointerType !== 'mouse') return
-    const bar = barRef.current
-    if (!bar) return
-    const rect = bar.getBoundingClientRect()
-    bar.style.setProperty('--gx', `${event.clientX - rect.left}px`)
-    bar.style.setProperty('--gy', `${event.clientY - rect.top}px`)
-    bar.style.setProperty('--glow', '1')
-  }, [])
-
-  const releaseLight = useCallback(() => {
-    barRef.current?.style.setProperty('--glow', '0')
-  }, [])
-
   // One pill slides between the links instead of each link drawing its own.
-  // A gradient background cannot be interpolated, so per-link highlights can
-  // only ever pop; a single element can move, and moving is what reads as
-  // smooth. Measured in a layout effect so the first paint is already correct.
+  // Per-link highlights can only cross-fade in place; a single element can
+  // travel, and travelling is what ties the sections together. Measured in a
+  // layout effect so the first paint is already correct.
   useLayoutEffect(() => {
     const list = listRef.current
     const target = active && list?.querySelector(`[data-section="${active}"]`)
@@ -106,13 +88,7 @@ export function Nav() {
 
   return (
     <div className={`${styles.wrap} ${scrolled ? styles.wrapScrolled : ''}`}>
-      <nav
-        aria-label="Main"
-        ref={barRef}
-        className={barClass}
-        onPointerMove={trackLight}
-        onPointerLeave={releaseLight}
-      >
+      <nav aria-label="Main" className={barClass}>
         <Link to="/" className={styles.brand} aria-label="Jesus Velazquez, back to top">
           <svg className={styles.mark} viewBox="0 0 32 32" aria-hidden="true">
             <circle

@@ -1,9 +1,21 @@
+.figure {
+  min-width: 0;
+}
+
+.figure > .frame {
+  height: 100%;
+}
+
 .frame {
   position: relative;
   overflow: hidden;
   border-radius: 14px;
   background: var(--surface);
   border: 1px solid var(--glass-border);
+}
+
+.natural .img {
+  height: auto;
 }
 
 .img {
@@ -21,10 +33,7 @@
   min-height: 200px;
   padding: 24px;
   text-align: center;
-  background:
-    radial-gradient(120% 100% at 20% 0%, rgba(110, 168, 255, 0.22) 0%, transparent 60%),
-    radial-gradient(120% 100% at 90% 100%, rgba(183, 123, 255, 0.20) 0%, transparent 60%),
-    var(--surface);
+  background: var(--surface-raised);
 }
 
 .fallbackLabel {
@@ -33,4 +42,11 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+.caption {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.55;
 }
