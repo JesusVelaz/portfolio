@@ -20,20 +20,12 @@ test('every project has a unique slug and the required fields', () => {
     expect(p.slug).toMatch(/^[a-z0-9-]+$/)
     expect(p.title).toBeTruthy()
     expect(p.tagline).toBeTruthy()
-    expect(p.problem).toBeTruthy()
-    expect(p.whatIBuilt).toBeTruthy()
     expect(Array.isArray(p.stack)).toBe(true)
-    expect(p.highlights.length).toBeGreaterThanOrEqual(3)
-    expect(p).toHaveProperty('repoUrl')
     expect(p).toHaveProperty('liveUrl')
+    expect(p.productHeadline).toBeTruthy()
+    expect(p.gallerySections.length).toBeGreaterThan(0)
+    expect(p.screenshots.length).toBeGreaterThan(0)
   })
-})
-
-test('featured projects sort first', () => {
-  const firstUnfeatured = projects.findIndex((p) => !p.featured)
-  if (firstUnfeatured !== -1) {
-    expect(projects.slice(firstUnfeatured).every((p) => !p.featured)).toBe(true)
-  }
 })
 
 test('getProject finds by slug and returns undefined otherwise', () => {

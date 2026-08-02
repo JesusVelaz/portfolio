@@ -5,28 +5,9 @@ const projects = [
     tagline: 'Digital waiver management that captures every participant, not just the booker.',
     role: 'Co-founder & Software Engineer',
     year: 'March 2026 — Present',
-    featured: true,
     stack: ['SvelteKit', 'Svelte', 'TypeScript', 'Convex', 'Resend'],
     liveUrl: 'https://www.waiverdirector.com/',
-    repoUrl: null,
     thumb: '/projects/waiver-director/05-marketing-site.png',
-    problem:
-      'Adventure operators — zipline tours, axe throwing, escape rooms, kayak rentals — collect a ' +
-      'signed waiver from every participant, but only capture contact details for the person who ' +
-      'made the booking. Everyone else signs, walks away, and is never reachable again. Operators ' +
-      'lose most of their customer list at the exact moment engagement is highest.',
-    whatIBuilt:
-      'Waiver Director is a multi-tenant SaaS that captures a verified email from every signer, ' +
-      'keeps each operator’s records sealed off from every other tenant, and automates individual ' +
-      'follow-up for reviews and repeat bookings. I co-founded it and build its full-stack ' +
-      'features — the SvelteKit front end, the Convex data layer, and the authorization that ' +
-      'holds the tenant boundary.',
-    highlights: [
-      'Multi-tenant architecture enforcing workspace-level data isolation and server-side authorization, so one operator’s signed records are never reachable from another tenant’s session.',
-      'Automated email follow-up built end to end: a rich-text editor, reusable templates with dynamic content, scheduled Convex jobs, and delivery through Resend.',
-      'Follow-up is addressed to every individual signer rather than the booking lead, which is the entire reason the product exists.',
-      'Built on SvelteKit and Convex, which keeps authorization checks next to the data layer instead of scattered across API handlers.',
-    ],
     productHeadline: 'One connected workflow, from signature to follow-up.',
     gallerySections: [
       {
@@ -137,22 +118,9 @@ const projects = [
     tagline: 'A Pokémon field companion for daily discovery, deep research, and team building.',
     role: 'Solo project',
     year: '2023',
-    featured: false,
     stack: ['React', 'JavaScript', 'PokéAPI', 'CSS'],
     liveUrl: 'https://jesusvelaz.github.io/PokeDex-App/',
-    repoUrl: 'https://github.com/JesusVelaz/PokeDex-App',
     thumb: '/projects/pokedex/01-trainer-field-desk.png',
-    problem:
-      'Turning 1,351 species into a responsive field guide means coordinating data spread across ' +
-      'multiple PokéAPI resources while keeping search, filtering, favorites, and team state fast.',
-    whatIBuilt:
-      'A React single-page app with a state-aware trainer dashboard, a searchable and paginated ' +
-      'Pokédex, inline species details, favorites, and a persistent multi-team roster builder.',
-    highlights: [
-      'A daily “Who’s That Pokémon?” challenge, live research checklist, trainer report, and randomized nearby sightings turn app state into a playable dashboard.',
-      'Debounced search, type filtering, favorites, and pagination make all 1,351 species manageable, with rich details opening inline.',
-      'Multiple six-Pokémon rosters support inline renaming, slot controls, shiny variants, and localStorage persistence across reloads.',
-    ],
     productHeadline: 'A complete trainer workflow, from first sighting to saved roster.',
     gallerySections: [
       {

@@ -16,7 +16,6 @@
   --foreground: var(--zinc-950);
   --card: #ffffff;
   --card-raised: var(--zinc-100);
-  --muted: var(--zinc-100);
   --muted-foreground: var(--zinc-500);
   --border: var(--zinc-200);
   --border-strong: var(--zinc-300);
@@ -56,7 +55,6 @@
   --foreground: var(--zinc-50);
   --card: var(--zinc-900);
   --card-raised: var(--zinc-800);
-  --muted: var(--zinc-800);
   --muted-foreground: var(--zinc-400);
   --border: var(--zinc-800);
   --border-strong: var(--zinc-700);

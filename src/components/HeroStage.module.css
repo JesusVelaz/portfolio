@@ -12,16 +12,6 @@
   padding-top: clamp(52px, 7svh, 76px);
 }
 
-/* Reserves the scene's box so nothing shifts when the chunk arrives, and is
-   what permanently renders where WebGL is unavailable. */
-.placeholder {
-  width: 100%;
-  height: 100%;
-  border-radius: var(--radius-card);
-  border: 1px solid var(--border);
-  background: var(--card);
-}
-
 @media (max-width: 900px) {
   .stage {
     display: none;

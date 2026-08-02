@@ -112,12 +112,6 @@
   color: var(--background);
 }
 
-.linkGhost {
-  color: var(--foreground);
-  background: var(--card);
-  border: 1px solid var(--border);
-}
-
 .scrollCue {
   display: inline-flex;
   align-items: center;
@@ -143,52 +137,6 @@
 .scrollCue:hover,
 .scrollCue:focus-visible {
   color: var(--foreground);
-}
-
-.hero {
-  margin-bottom: 72px;
-}
-
-.body {
-  display: grid;
-  gap: 56px;
-  max-width: 68ch;
-}
-
-.blockTitle {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted-foreground);
-  margin-bottom: 14px;
-}
-
-.prose {
-  color: var(--muted-foreground);
-  font-size: 1.0625rem;
-}
-
-.highlights {
-  display: grid;
-  gap: 14px;
-}
-
-.highlight {
-  position: relative;
-  padding-left: 22px;
-  color: var(--muted-foreground);
-}
-
-.highlight::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.62em;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--foreground);
 }
 
 .storyEyebrow {
@@ -272,16 +220,6 @@
 .galleryCell {
   display: grid;
   min-width: 0;
-}
-
-.shots {
-  display: grid;
-  gap: 22px;
-  margin-top: 72px;
-}
-
-.shot {
-  width: 100%;
 }
 
 .next {

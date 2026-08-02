@@ -8,7 +8,7 @@ export function ProjectCard({ project, index }) {
 
   return (
     <article className={styles.card}>
-      <div className={styles.intro}>
+      <div>
         <span className={styles.number}>{number}</span>
         {/* The card's only link, so it is named by the project rather than by
             a CTA that reads identically on every card. Its ::after covers the

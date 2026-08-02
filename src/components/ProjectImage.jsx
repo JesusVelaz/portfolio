@@ -10,7 +10,6 @@ export function ProjectImage({
   width,
   height,
   ratio,
-  natural = false,
   contain = false,
   compact = false,
   split = false,
@@ -27,7 +26,7 @@ export function ProjectImage({
         .join(' ')}
     >
       <div
-        className={`${styles.frame} ${natural ? styles.natural : ''} ${contain ? styles.contain : ''}`}
+        className={`${styles.frame} ${contain ? styles.contain : ''}`}
         style={
           frameRatio ? { aspectRatio: String(frameRatio), '--ratio': String(frameRatio) } : undefined
         }

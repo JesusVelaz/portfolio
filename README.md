@@ -20,7 +20,7 @@ the site says.
 |---|---|
 | `src/data/profile.js` | Name, headline, About blurb, email, résumé path, socials, skills |
 | `src/data/projects.js` | One object per project — drives both the Work cards and the case-study pages |
-| `src/data/experience.js` | One object per job, plus the education node |
+| `src/data/experience.js` | One object per job |
 
 ### Adding a project
 
@@ -34,15 +34,29 @@ in the Work section both appear automatically.
   tagline: 'One sentence.',
   role: 'Solo project',
   year: '2026',
-  featured: false,             // featured projects sort first
   stack: ['React', 'Node'],
   liveUrl: 'https://...',      // or null
-  repoUrl: 'https://...',      // null hides the "View source" button
   thumb: '/projects/my-project/thumb.jpg',
-  problem: '...',
-  whatIBuilt: '...',
-  highlights: ['...', '...', '...'],
-  screenshots: [{ src: '/projects/my-project/01.jpg', alt: 'describe the image' }],
+  productHeadline: 'A short introduction to the product walkthrough.',
+  gallerySections: [
+    {
+      id: 'overview',
+      eyebrow: '01 / Overview',
+      title: 'What this part of the product does.',
+      description: 'Why it matters to the person using it.',
+    },
+  ],
+  screenshots: [
+    {
+      group: 'overview',
+      src: '/projects/my-project/01.jpg',
+      width: 1600,
+      height: 900,
+      alt: 'Describe the image',
+      title: 'Screenshot title',
+      caption: 'Explain what the screenshot demonstrates.',
+    },
+  ],
 }
 ```
 
@@ -54,8 +68,8 @@ broken image, so nothing looks broken while you gather assets.
 | Drop the file here | What it is | Recommended size |
 |---|---|---|
 | `public/projects/<slug>/thumb.jpg` | Work-section card image | 1200 × 750 (16:10) |
-| `public/projects/<slug>/01.jpg` | Case-study hero image | 1600 × 900 (16:9) |
-| `public/projects/<slug>/02.jpg`, `03.jpg` | Additional screenshots | 1600 × 1000 (16:10) |
+| `public/projects/<slug>/01.jpg` | Case-study gallery image | 1600 × 900 (16:9) |
+| `public/projects/<slug>/02.jpg`, `03.jpg` | Additional gallery images | 1600 × 1000 (16:10) |
 | `public/resume/jesus-velazquez-resume.pdf` | Résumé | — |
 | `public/favicon.svg` | Browser tab icon | replace to change |
 

@@ -72,7 +72,9 @@
   align-items: center;
   align-self: center;
   gap: 8px;
-  margin-top: 34px;
+  /* Sit near the bottom of the first viewport, above the capabilities rule. */
+  margin-top: auto;
+  padding-top: 34px;
   color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.62rem;

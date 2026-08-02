@@ -14,10 +14,6 @@
   border: 1px solid var(--border);
 }
 
-.natural .img {
-  height: auto;
-}
-
 .contain .img {
   object-fit: contain;
 }
