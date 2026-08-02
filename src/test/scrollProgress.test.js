@@ -1,4 +1,4 @@
-import { computeProgress } from '../lib/scrollProgress.js'
+import { computeAnchoredProgress, computeProgress } from '../lib/scrollProgress.js'
 
 const VIEWPORT = 1000
 
@@ -39,4 +39,27 @@ test('still advances smoothly when the container is shorter than the viewport', 
 
 test('never returns NaN when the viewport has no height', () => {
   expect(Number.isNaN(computeProgress({ top: 0, height: 0 }, 0))).toBe(false)
+})
+
+test('finishes when the final capability reaches the bottom of the sticky canvas', () => {
+  const stage = { top: 96, bottom: 876 }
+  const startTrack = { top: 96 }
+  const completionAtStart = { top: 1696 }
+  const travel = 820
+
+  expect(computeAnchoredProgress(startTrack, completionAtStart, stage)).toBe(0)
+  expect(
+    computeAnchoredProgress(
+      { top: startTrack.top - travel / 2 },
+      { top: completionAtStart.top - travel / 2 },
+      stage
+    )
+  ).toBe(0.5)
+  expect(
+    computeAnchoredProgress(
+      { top: startTrack.top - travel },
+      { top: stage.bottom },
+      stage
+    )
+  ).toBe(1)
 })

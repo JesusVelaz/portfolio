@@ -8,6 +8,7 @@ import styles from './Hero.module.css'
 export function Hero() {
   // The stage's animation tracks this column's travel through the viewport.
   const trackRef = useRef(null)
+  const completionRef = useRef(null)
 
   return (
     <section id="hero" className={`${styles.hero} container-wide`}>
@@ -47,6 +48,9 @@ export function Hero() {
                   key={capability.label}
                   delay={index * 0.08}
                 >
+                  {index === profile.capabilities.length - 1 && (
+                    <span ref={completionRef} className={styles.capabilityAnchor} aria-hidden="true" />
+                  )}
                   <span className={styles.capabilityNumber}>
                     {String(index + 1).padStart(2, '0')}
                   </span>
@@ -61,7 +65,7 @@ export function Hero() {
           </div>
         </div>
 
-        <HeroStage trackRef={trackRef} />
+        <HeroStage trackRef={trackRef} completionRef={completionRef} />
       </div>
     </section>
   )

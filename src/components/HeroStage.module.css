@@ -1,12 +1,14 @@
 /* Sticky through the hero copy and the capabilities block, so one object
    tracks the whole read. */
 .stage {
+  --stage-nav-clearance: 96px;
+
   position: sticky;
-  top: 0;
+  top: var(--stage-nav-clearance);
   display: grid;
   place-items: center;
-  height: 100svh;
-  max-height: 900px;
+  height: calc(100svh - var(--stage-nav-clearance) - 24px);
+  max-height: 820px;
 }
 
 /* Reserves the scene's box so nothing shifts when the chunk arrives, and is
@@ -21,6 +23,8 @@
 
 @media (max-width: 900px) {
   .stage {
+    --stage-nav-clearance: 0px;
+
     position: static;
     height: auto;
     aspect-ratio: 1 / 1;

@@ -20,3 +20,15 @@ export function computeProgress(rect, viewportHeight) {
   if (span <= 0) return 0
   return clamp((viewportHeight - rect.top) / span)
 }
+
+// Desktop lifecycle scenes have a deliberate visual finish line: the last
+// capability reaches the bottom edge of the sticky canvas. Using that anchor
+// makes the animation timing independent of copy length and viewport size.
+export function computeAnchoredProgress(trackRect, completionRect, stageRect) {
+  const stageHeight = stageRect.bottom - stageRect.top
+  const completionOffset = completionRect.top - trackRect.top
+  const travel = completionOffset - stageHeight
+
+  if (travel <= 0) return 0
+  return clamp((stageRect.top - trackRect.top) / travel)
+}

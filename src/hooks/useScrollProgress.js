@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { computeProgress } from '../lib/scrollProgress.js'
+import { computeAnchoredProgress, computeProgress } from '../lib/scrollProgress.js'
 
 // Tracks how far the given container has scrolled through the viewport.
 //
@@ -7,7 +7,7 @@ import { computeProgress } from '../lib/scrollProgress.js'
 // many times a second, and setState here would re-render the whole hero on
 // every one of those. The consumer is an animation loop that already runs each
 // frame, so it can simply read the current value.
-export function useScrollProgress(ref) {
+export function useScrollProgress(ref, { completionRef, stageRef } = {}) {
   const progress = useRef(0)
 
   useEffect(() => {
@@ -15,7 +15,18 @@ export function useScrollProgress(ref) {
     if (!el) return
 
     const measure = () => {
-      progress.current = computeProgress(el.getBoundingClientRect(), window.innerHeight)
+      const trackRect = el.getBoundingClientRect()
+      const completion = completionRef?.current
+      const stage = stageRef?.current
+
+      progress.current =
+        window.innerWidth > 900 && completion && stage
+          ? computeAnchoredProgress(
+              trackRect,
+              completion.getBoundingClientRect(),
+              stage.getBoundingClientRect()
+            )
+          : computeProgress(trackRect, window.innerHeight)
     }
 
     measure()
@@ -26,7 +37,7 @@ export function useScrollProgress(ref) {
       window.removeEventListener('scroll', measure)
       window.removeEventListener('resize', measure)
     }
-  }, [ref])
+  }, [completionRef, ref, stageRef])
 
   return progress
 }

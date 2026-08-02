@@ -28,3 +28,8 @@ test('keeps unfinished stages visible before scrolling begins', () => {
   expect(stagePresence(0, 0.68)).toBe(0.68)
   expect(stagePresence(1)).toBe(1)
 })
+
+test('only completes execution at the final scroll anchor', () => {
+  expect(phaseProgress(0.99, 'execution')).toBeLessThan(1)
+  expect(phaseProgress(1, 'execution')).toBe(1)
+})

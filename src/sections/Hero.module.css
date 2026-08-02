@@ -136,11 +136,21 @@
 }
 
 .capabilityCard {
+  position: relative;
   display: grid;
   grid-template-columns: 30px minmax(0, 1fr);
   gap: 14px;
   padding-block: 30px;
   border-top: 1px solid var(--border);
+}
+
+.capabilityAnchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
 }
 
 .capabilityCard:first-child {

@@ -1,7 +1,7 @@
 export const LIFECYCLE_PHASES = {
   requirements: [0, 0.34],
-  architecture: [0.24, 0.7],
-  execution: [0.58, 0.96],
+  architecture: [0.26, 0.74],
+  execution: [0.62, 1],
 }
 
 function clamp(value, min, max) {
