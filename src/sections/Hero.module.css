@@ -20,7 +20,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 680px;
+  /* The opening message owns the first viewport. The capabilities should only
+     begin after the visitor has made an intentional scroll. */
+  min-height: max(760px, calc(100svh - 140px));
 }
 
 .eyebrow {
@@ -133,6 +135,7 @@
 .capabilityList {
   display: grid;
   grid-template-columns: 1fr;
+  margin-top: clamp(44px, 6vw, 72px);
 }
 
 .capabilityCard {
