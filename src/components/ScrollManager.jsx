@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useLenis } from 'lenis/react'
 import { useLocation } from 'react-router-dom'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
 
@@ -13,13 +14,15 @@ const MAX_FRAMES = 240
 export function ScrollManager() {
   const { pathname, hash, key } = useLocation()
   const reduced = useReducedMotion()
+  const lenis = useLenis()
 
   useEffect(() => {
     const behavior = reduced ? 'auto' : 'smooth'
     const target = hash ? document.getElementById(hash.slice(1)) : null
 
     if (!target) {
-      window.scrollTo({ top: 0, behavior: 'auto' })
+      if (lenis && !reduced) lenis.scrollTo(0, { immediate: true })
+      else window.scrollTo({ top: 0, behavior: 'auto' })
       return
     }
 
@@ -55,7 +58,8 @@ export function ScrollManager() {
       if (aimedAt === null || Math.abs(top - aimedAt) > DRIFT_PX) {
         aimedAt = top
         settled = 0
-        target.scrollIntoView({ behavior, block: 'start' })
+        if (lenis && !reduced) lenis.scrollTo(target, { lerp: 0.085 })
+        else target.scrollIntoView({ behavior, block: 'start' })
       } else if (flying) {
         settled = 0
       } else {
@@ -86,7 +90,7 @@ export function ScrollManager() {
   // React Router creates a new location key even when someone selects the
   // hash that is already in the URL. Watching it makes repeated nav clicks
   // re-run the scroll after the visitor has moved away from that section.
-  }, [pathname, hash, key, reduced])
+  }, [pathname, hash, key, reduced, lenis])
 
   return null
 }
