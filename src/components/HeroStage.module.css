@@ -24,12 +24,6 @@
 
 @media (max-width: 900px) {
   .stage {
-    --stage-nav-clearance: 0px;
-
-    position: static;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    max-height: none;
-    padding-top: 0;
+    display: none;
   }
 }
