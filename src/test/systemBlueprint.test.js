@@ -12,6 +12,7 @@ test('builds a deterministic interface-to-services-to-data system', () => {
   expect(first.filter((node) => node.kind === 'interface')).toHaveLength(4)
   expect(first.filter((node) => node.kind === 'service')).toHaveLength(4)
   expect(first.filter((node) => node.kind === 'data')).toHaveLength(3)
+  expect(first.every((node) => node.floatRadius > 0 && node.floatSpeed > 0)).toBe(true)
 })
 
 test('keeps every connection attached to a real node', () => {

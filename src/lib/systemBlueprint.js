@@ -41,6 +41,9 @@ export function buildBlueprintNodes() {
     ...node,
     scattered: [(random() - 0.5) * 13, (random() - 0.5) * 10, (random() - 0.5) * 5],
     rotation: [random() * Math.PI, random() * Math.PI, random() * Math.PI],
+    floatPhase: random() * Math.PI * 2,
+    floatSpeed: 0.48 + random() * 0.34,
+    floatRadius: 0.2 + random() * 0.2,
     delay: 0.04 + (index % 4) * 0.055 + Math.floor(index / 4) * 0.035,
   }))
 }
@@ -50,6 +53,9 @@ function clamp(value, min, max) {
 }
 
 export function nodeResolveProgress(progress, delay) {
-  const local = clamp((progress - delay) / 0.62, 0, 1)
-  return 1 - (1 - local) ** 3
+  // Every piece finishes at the same late point, while staggered starts make
+  // the structure assemble in waves. Smoothstep lets pieces float for longer
+  // before they settle instead of rushing through the first half.
+  const local = clamp((progress - delay) / (0.9 - delay), 0, 1)
+  return local * local * (3 - 2 * local)
 }
