@@ -2,7 +2,7 @@ import { Component, Suspense, lazy, useState } from 'react'
 import { useScrollProgress } from '../hooks/useScrollProgress.js'
 import styles from './HeroStage.module.css'
 
-const AssemblyScene = lazy(() => import('./AssemblyScene.jsx'))
+const RoadScene = lazy(() => import('./RoadScene.jsx'))
 
 // Probed once during initial render. Where WebGL is unavailable the scene
 // chunk is never fetched at all, so those visitors do not pay for a library
@@ -47,7 +47,7 @@ export function HeroStage({ trackRef }) {
       {enabled ? (
         <SceneBoundary fallback={placeholder}>
           <Suspense fallback={placeholder}>
-            <AssemblyScene progressRef={progressRef} />
+            <RoadScene progressRef={progressRef} />
           </Suspense>
         </SceneBoundary>
       ) : (
