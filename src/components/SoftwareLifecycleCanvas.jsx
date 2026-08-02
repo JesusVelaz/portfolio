@@ -408,7 +408,7 @@ function drawDatabaseNode(context, theme, x, y, presence, active) {
   context.fillStyle = theme.foreground
   context.font = "600 8px 'JetBrains Mono', monospace"
   context.textAlign = 'center'
-  context.fillText('POSTGRES', x, y + 5)
+  context.fillText('DATABASE', x, y + 5)
   context.textAlign = 'start'
   context.fillStyle = theme.muted
   context.font = "600 7px 'JetBrains Mono', monospace"

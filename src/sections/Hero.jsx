@@ -36,7 +36,6 @@ export function Hero() {
               className={styles.scrollCue}
               aria-label="Scroll to What I bring"
             >
-              <span>Scroll</span>
               <span className={styles.scrollArrow} aria-hidden="true">
                 ↓
               </span>

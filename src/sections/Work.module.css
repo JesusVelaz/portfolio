@@ -26,5 +26,7 @@
 
 .list {
   display: grid;
-  gap: 28px;
+  /* The cards are tall and self-contained, so they need more separation than a
+     list gap — at 28px they read as one continuous block rather than two. */
+  gap: clamp(48px, 6vw, 88px);
 }

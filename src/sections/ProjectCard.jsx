@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { ProjectImage } from '../components/ProjectImage.jsx'
-import { StackChips } from '../components/StackChips.jsx'
 import styles from './ProjectCard.module.css'
 
 export function ProjectCard({ project, index }) {
@@ -34,7 +33,6 @@ export function ProjectCard({ project, index }) {
       </div>
 
       <div className={styles.footer}>
-        <StackChips items={project.stack} />
         <span className={styles.cta}>Explore the project →</span>
       </div>
     </article>

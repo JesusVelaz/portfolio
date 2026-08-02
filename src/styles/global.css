@@ -109,6 +109,49 @@ section {
    rule, rail, or mark between them; the numbered eyebrow inside each section
    is what names the boundary. */
 
+/* ---------------------------------------------------------------------------
+   Scroll reveals
+
+   Applied by the Reveal component, which already wraps content across every
+   section, so this one rule is the whole site's entry motion.
+
+   Scroll-driven and compositor-only: no JavaScript per frame and no library,
+   which is the constraint the Framer Motion removal set. Only opacity and
+   transform are animated — filter re-rasterizes the element's full area on the
+   main thread every frame, and Reveal wraps whole page sections. There is a
+   test guarding that.
+
+   No hidden resting state: opacity 0 lives in the keyframe and is applied by
+   animation-fill-mode. Where the animation does not run — Firefox has no
+   animation-timeline support, and reduced motion switches it off — content
+   renders normally rather than being stranded invisible.
+   --------------------------------------------------------------------------- */
+
+/* The hidden state is keyed to data-reveal, which the component only sets once
+   it has mounted and decided to animate. A bare .reveal class never hides
+   anything, so if the observer never runs the content is simply visible. */
+.reveal[data-reveal='pending'] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.reveal[data-reveal='shown'] {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 700ms var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal[data-reveal='pending'],
+  .reveal[data-reveal='shown'] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

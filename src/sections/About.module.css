@@ -94,6 +94,10 @@
 }
 
 @media (max-width: 900px) {
+  .section {
+    padding-block: var(--section-gap);
+  }
+
   .aboutGrid {
     grid-template-columns: 1fr;
     grid-template-areas:

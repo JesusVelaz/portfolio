@@ -1,4 +1,6 @@
 .hero {
+  --hero-stage-max-height: 820px;
+
   padding-block: 140px clamp(88px, 11vw, 150px);
   content-visibility: visible;
 }
@@ -22,7 +24,7 @@
   justify-content: center;
   /* The opening message owns the first viewport. The capabilities should only
      begin after the visitor has made an intentional scroll. */
-  min-height: max(760px, calc(100svh - 140px));
+  min-height: min(max(760px, calc(100svh - 140px)), var(--hero-stage-max-height));
 }
 
 .eyebrow {
@@ -243,7 +245,21 @@
 
 @media (max-width: 650px) {
   .hero {
-    padding-top: 116px;
+    padding-block: 116px var(--section-gap);
+  }
+
+  .copy {
+    align-items: center;
+    text-align: center;
+  }
+
+  .intro {
+    margin-inline: auto;
+  }
+
+  .ctas {
+    justify-content: center;
+    width: 100%;
   }
 }
 

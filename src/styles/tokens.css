@@ -50,6 +50,12 @@
   --radius-pill: 999px;
 }
 
+@media (max-width: 760px) {
+  :root {
+    --section-gap: 4rem;
+  }
+}
+
 :root[data-theme='dark'] {
   --background: var(--zinc-950);
   --foreground: var(--zinc-50);

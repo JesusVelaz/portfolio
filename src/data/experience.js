@@ -10,7 +10,7 @@ const experience = [
     narrative:
       'The work sits at the intersection of product judgment and platform stewardship. I turn ambiguous, high-consequence workflows into reusable patterns, coordinate decisions across disciplines, and leave the surrounding system easier for the next engineer to extend.',
     focus: ['Design systems', 'REST APIs', 'Accessibility'],
-    metric: '+35% Section 508 compliance',
+    metric: 'Full stack development',
   },
   {
     company: 'Waiver Director',
@@ -23,7 +23,7 @@ const experience = [
     narrative:
       'As a co-founder, I move between customer conversations, product scope, architecture, and delivery. That broader ownership means choosing the smallest useful solution, validating it against the operator’s real workflow, and carrying it through the details that make the product dependable.',
     focus: ['Product engineering', 'Multi-tenancy', 'Automation'],
-    metric: '0 → 1 SaaS product',
+    metric: 'SaaS product',
   },
   {
     company: 'Fidelity Transport & Logistics',
