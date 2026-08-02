@@ -42,3 +42,11 @@ test('shows grounded capabilities instead of the old metric cards', () => {
   expect(screen.getByText(/Product engineering/i)).toBeInTheDocument()
   expect(screen.queryByText('+35%')).not.toBeInTheDocument()
 })
+
+test('offers a visible cue to continue into the capabilities', () => {
+  renderHero()
+  expect(screen.getByRole('link', { name: /scroll to what i bring/i })).toHaveAttribute(
+    'href',
+    '/#capabilities'
+  )
+})

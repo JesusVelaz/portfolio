@@ -9,6 +9,7 @@
   place-items: center;
   height: calc(100svh - var(--stage-nav-clearance) - 24px);
   max-height: 820px;
+  padding-top: clamp(52px, 7svh, 76px);
 }
 
 /* Reserves the scene's box so nothing shifts when the chunk arrives, and is
@@ -29,5 +30,6 @@
     height: auto;
     aspect-ratio: 1 / 1;
     max-height: none;
+    padding-top: 0;
   }
 }

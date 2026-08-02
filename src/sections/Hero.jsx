@@ -30,9 +30,24 @@ export function Hero() {
                 Get in touch
               </Link>
             </div>
+
+            <Link
+              to="/#capabilities"
+              className={styles.scrollCue}
+              aria-label="Scroll to What I bring"
+            >
+              <span>Scroll</span>
+              <span className={styles.scrollArrow} aria-hidden="true">
+                ↓
+              </span>
+            </Link>
           </div>
 
-          <div className={styles.capabilities} aria-label="Engineering capabilities">
+          <div
+            id="capabilities"
+            className={styles.capabilities}
+            aria-label="Engineering capabilities"
+          >
             <Reveal className={styles.capabilitiesIntro}>
               <p className={styles.capabilitiesEyebrow}>What I bring</p>
               <h2 className={styles.capabilitiesTitle}>

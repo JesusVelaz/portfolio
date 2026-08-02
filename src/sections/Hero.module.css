@@ -66,6 +66,49 @@
   gap: 12px;
 }
 
+.scrollCue {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  margin-top: 34px;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 220ms var(--ease-out);
+}
+
+.scrollCue:hover {
+  color: var(--foreground);
+}
+
+.scrollArrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1;
+  animation: scrollNudge 1.8s var(--ease-out) infinite;
+}
+
+@keyframes scrollNudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -282,6 +325,10 @@
   .intro,
   .ctas,
   .copy {
+    animation: none;
+  }
+
+  .scrollArrow {
     animation: none;
   }
 }

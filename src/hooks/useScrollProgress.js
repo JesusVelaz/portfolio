@@ -18,13 +18,15 @@ export function useScrollProgress(ref, { completionRef, stageRef } = {}) {
       const trackRect = el.getBoundingClientRect()
       const completion = completionRef?.current
       const stage = stageRef?.current
+      const canvas = stage?.querySelector('canvas')
+      const sceneRect = canvas?.getBoundingClientRect() ?? stage?.getBoundingClientRect()
 
       progress.current =
-        window.innerWidth > 900 && completion && stage
+        window.innerWidth > 900 && completion && sceneRect
           ? computeAnchoredProgress(
               trackRect,
               completion.getBoundingClientRect(),
-              stage.getBoundingClientRect()
+              sceneRect
             )
           : computeProgress(trackRect, window.innerHeight)
     }
