@@ -25,9 +25,13 @@ test('reports no WebGL when a context cannot be created', () => {
 
 test('reports WebGL when a context is available', () => {
   const original = HTMLCanvasElement.prototype.getContext
-  HTMLCanvasElement.prototype.getContext = () => ({})
+  const loseContext = vi.fn()
+  HTMLCanvasElement.prototype.getContext = () => ({
+    getExtension: () => ({ loseContext }),
+  })
   try {
     expect(supportsWebGL()).toBe(true)
+    expect(loseContext).toHaveBeenCalledOnce()
   } finally {
     HTMLCanvasElement.prototype.getContext = original
   }

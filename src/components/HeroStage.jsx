@@ -11,7 +11,14 @@ export function supportsWebGL() {
   if (typeof document === 'undefined') return false
   try {
     const canvas = document.createElement('canvas')
-    return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'))
+    const context = canvas.getContext('webgl2') || canvas.getContext('webgl')
+    if (!context) return false
+
+    // The probe owns a real WebGL context. Release it immediately so route
+    // changes do not slowly exhaust the browser's context limit before the
+    // actual Three.js renderer is even created.
+    context.getExtension?.('WEBGL_lose_context')?.loseContext()
+    return true
   } catch {
     return false
   }
