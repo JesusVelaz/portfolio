@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import profile from '../data/profile.js'
 import { FlowCanvas } from '../components/FlowCanvas.jsx'
+import { TypewriterGreeting } from '../components/TypewriterGreeting.jsx'
 import styles from './Hero.module.css'
 
 export function Hero() {
@@ -10,10 +11,19 @@ export function Hero() {
         <div className={styles.copy}>
           <p className={styles.eyebrow}>{profile.role} · Full-Stack </p>
           <h1 className={styles.name}>
-            <span>{profile.name}</span>
-            {profile.headline}
+            <span className={styles.screenReaderText}>
+              Hello, I am {profile.name} and I&apos;m a full-stack Software Engineer.
+            </span>
+            <span className={styles.visibleHeading} aria-hidden="true">
+              <span className={styles.greetingLine}>
+                <TypewriterGreeting />
+              </span>
+              I am {profile.name} and I&apos;m a full-stack Software Engineer.
+            </span>
           </h1>
-          <p className={styles.intro}>{profile.intro}</p>
+          <p className={styles.intro}>
+            <strong>{profile.headline}</strong> {profile.supporting}
+          </p>
 
           <div className={styles.ctas}>
             <Link to="/#work" className={`${styles.btn} ${styles.btnPrimary}`}>

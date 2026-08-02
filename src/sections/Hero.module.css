@@ -21,22 +21,35 @@
 }
 
 .name {
-  font-size: clamp(3rem, 7.1vw, 5.8rem);
+  font-size: clamp(2.85rem, 5.7vw, 5.15rem);
   font-weight: 600;
-  max-width: 10ch;
+  max-width: 13ch;
   margin-bottom: 30px;
   letter-spacing: -0.055em;
+  line-height: 0.98;
 }
 
-.name span {
+.screenReaderText {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.visibleHeading,
+.greetingLine {
   display: block;
-  margin-bottom: 14px;
+}
+
+.greetingLine {
+  min-height: 1.05em;
+  margin-bottom: 0.18em;
   color: var(--muted-foreground);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
 }
 
 .intro {
@@ -44,6 +57,11 @@
   color: var(--muted-foreground);
   font-size: clamp(1rem, 1.5vw, 1.14rem);
   margin-bottom: 36px;
+}
+
+.intro strong {
+  color: var(--foreground);
+  font-weight: 600;
 }
 
 .ctas {
