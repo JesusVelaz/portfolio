@@ -1,9 +1,13 @@
 import { useEffect, useRef } from 'react'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
-import { lerp, phaseProgress } from '../lib/softwareLifecycle.js'
+import { lerp, phaseProgress, stagePresence } from '../lib/softwareLifecycle.js'
 
 const DESIGN_WIDTH = 720
 const DESIGN_HEIGHT = 840
+
+function clamp(value, min = 0, max = 1) {
+  return Math.min(max, Math.max(min, value))
+}
 
 function readTheme() {
   const style = getComputedStyle(document.documentElement)
@@ -35,85 +39,153 @@ function roundedRect(context, x, y, width, height, radius) {
   context.closePath()
 }
 
-function drawPanel(context, theme, x, y, width, height) {
-  roundedRect(context, x, y, width, height, 18)
-  context.fillStyle = theme.surface
-  context.fill()
-  context.strokeStyle = theme.border
-  context.lineWidth = 1
-  context.stroke()
-}
-
-function drawLabel(context, theme, number, label, x, y) {
-  context.fillStyle = theme.muted
-  context.font = "600 11px 'JetBrains Mono', monospace"
-  context.letterSpacing = '1.4px'
-  context.fillText(`${number}  ${label}`, x, y)
-  context.letterSpacing = '0px'
-}
-
-function drawCheck(context, theme, x, y, progress) {
+function cutCornerRect(context, x, y, width, height, cut = 12) {
   context.beginPath()
-  context.arc(x, y, 10, 0, Math.PI * 2)
-  context.strokeStyle = theme.strong
-  context.lineWidth = 1.5
-  context.stroke()
-
-  if (progress <= 0) return
-  context.beginPath()
-  context.moveTo(x - 4, y)
-  context.lineTo(x - 1, y + 3)
-  context.lineTo(x + 5, y - 4)
-  context.strokeStyle = theme.foreground
-  context.lineWidth = 2
-  context.lineCap = 'round'
-  context.lineJoin = 'round'
-  context.setLineDash([18 * progress, 18])
-  context.stroke()
-  context.setLineDash([])
+  context.moveTo(x + 10, y)
+  context.lineTo(x + width - cut, y)
+  context.lineTo(x + width, y + cut)
+  context.lineTo(x + width, y + height - 10)
+  context.quadraticCurveTo(x + width, y + height, x + width - 10, y + height)
+  context.lineTo(x + 10, y + height)
+  context.quadraticCurveTo(x, y + height, x, y + height - 10)
+  context.lineTo(x, y + 10)
+  context.quadraticCurveTo(x, y, x + 10, y)
+  context.closePath()
 }
 
-function drawRequirementCard(context, theme, x, y, width, title, progress) {
+function drawGrid(context, theme) {
   context.save()
-  context.globalAlpha = 0.42 + progress * 0.58
-  roundedRect(context, x, y, width, 76, 12)
-  context.fillStyle = theme.raised
-  context.fill()
   context.strokeStyle = theme.strong
+  context.fillStyle = theme.strong
+  context.globalAlpha = 0.11
   context.lineWidth = 1
-  context.stroke()
 
-  context.fillStyle = theme.foreground
-  context.font = "600 10px 'JetBrains Mono', monospace"
-  context.fillText(title, x + 18, y + 26)
-  context.fillStyle = theme.muted
-  roundedRect(context, x + 18, y + 39, width - 62, 4, 2)
-  context.fill()
-  roundedRect(context, x + 18, y + 51, width - 88, 4, 2)
-  context.fill()
-  drawCheck(context, theme, x + width - 24, y + 24, progress)
+  for (let x = 40; x <= 680; x += 40) {
+    context.beginPath()
+    context.moveTo(x, 76)
+    context.lineTo(x, 816)
+    context.stroke()
+  }
+  for (let y = 96; y <= 816; y += 40) {
+    context.beginPath()
+    context.moveTo(24, y)
+    context.lineTo(696, y)
+    context.stroke()
+  }
   context.restore()
 }
 
-function drawConnector(context, theme, fromX, fromY, toX, toY, progress, dashed = false) {
-  if (progress <= 0) return
+function drawWorkspace(context, theme, progress) {
   context.save()
-  context.strokeStyle = theme.strong
-  context.lineWidth = 1.5
-  if (dashed) context.setLineDash([5, 7])
+  roundedRect(context, 24, 20, 672, 800, 22)
+  context.fillStyle = theme.background
+  context.globalAlpha = 0.72
+  context.fill()
+  context.globalAlpha = 1
+  context.strokeStyle = theme.border
+  context.lineWidth = 1
+  context.stroke()
 
-  const middleY = (fromY + toY) / 2
-  const points = [
-    [fromX, fromY],
-    [fromX, middleY],
-    [toX, middleY],
-    [toX, toY],
-  ]
-  const visibleSegments = progress * 3
+  context.beginPath()
+  context.moveTo(24, 74)
+  context.lineTo(696, 74)
+  context.strokeStyle = theme.border
+  context.stroke()
+
+  for (let index = 0; index < 3; index += 1) {
+    context.beginPath()
+    context.arc(50 + index * 14, 47, 3, 0, Math.PI * 2)
+    context.fillStyle = index === 0 ? theme.foreground : theme.strong
+    context.fill()
+  }
+
+  context.fillStyle = theme.foreground
+  context.font = "600 10px 'JetBrains Mono', monospace"
+  context.fillText('PRODUCT ENGINEERING / SYSTEM MAP', 112, 51)
+  context.fillStyle = theme.muted
+  context.textAlign = 'right'
+  context.fillText(`${String(Math.round(progress * 100)).padStart(2, '0')}% / SCROLL TO BUILD`, 670, 51)
+  context.textAlign = 'start'
+  context.restore()
+}
+
+function drawStageLabel(context, theme, number, title, subtitle, x, y, completion) {
+  context.save()
+  context.fillStyle = theme.foreground
+  context.font = "700 10px 'JetBrains Mono', monospace"
+  context.fillText(number, x, y)
+  context.fillStyle = theme.foreground
+  context.font = "600 11px 'JetBrains Mono', monospace"
+  context.fillText(title, x + 34, y)
+  context.fillStyle = theme.muted
+  context.font = "500 8px 'JetBrains Mono', monospace"
+  context.fillText(subtitle, x + 34, y + 15)
+
+  context.beginPath()
+  context.moveTo(x, y + 23)
+  context.lineTo(x + 208, y + 23)
+  context.strokeStyle = theme.border
+  context.stroke()
+  context.beginPath()
+  context.moveTo(x, y + 23)
+  context.lineTo(x + 208 * completion, y + 23)
+  context.strokeStyle = theme.foreground
+  context.lineWidth = 1.5
+  context.stroke()
+  context.restore()
+}
+
+function drawCheck(context, theme, x, y, progress) {
+  context.save()
+  context.beginPath()
+  context.arc(x, y, 8, 0, Math.PI * 2)
+  context.strokeStyle = progress > 0.15 ? theme.foreground : theme.strong
+  context.lineWidth = 1
+  context.stroke()
+  if (progress > 0) {
+    context.beginPath()
+    context.moveTo(x - 3.5, y)
+    context.lineTo(x - 1, y + 2.5)
+    context.lineTo(x + 4, y - 3.5)
+    context.strokeStyle = theme.foreground
+    context.lineWidth = 1.6
+    context.lineCap = 'round'
+    context.lineJoin = 'round'
+    context.setLineDash([15 * progress, 15])
+    context.stroke()
+  }
+  context.restore()
+}
+
+function drawRequirementCard(context, theme, card, x, y, progress, presence) {
+  context.save()
+  context.globalAlpha = presence
+  cutCornerRect(context, x, y, 176, 72)
+  context.fillStyle = theme.raised
+  context.fill()
+  context.strokeStyle = progress > 0.8 ? theme.foreground : theme.strong
+  context.lineWidth = 1
+  context.stroke()
+
+  context.fillStyle = theme.muted
+  context.font = "600 8px 'JetBrains Mono', monospace"
+  context.fillText(card.kind, x + 14, y + 19)
+  context.fillStyle = theme.foreground
+  context.font = "600 10px 'JetBrains Mono', monospace"
+  context.fillText(card.title, x + 14, y + 39)
+  context.fillStyle = theme.muted
+  context.font = "500 8px 'JetBrains Mono', monospace"
+  context.fillText(card.meta, x + 14, y + 57)
+  drawCheck(context, theme, x + 153, y + 49, progress)
+  context.restore()
+}
+
+function tracePolyline(context, points, progress) {
+  const visibleSegments = clamp(progress) * (points.length - 1)
   context.beginPath()
   context.moveTo(points[0][0], points[0][1])
   for (let index = 1; index < points.length; index += 1) {
-    const segmentProgress = Math.min(1, Math.max(0, visibleSegments - (index - 1)))
+    const segmentProgress = clamp(visibleSegments - (index - 1))
     if (segmentProgress <= 0) break
     context.lineTo(
       lerp(points[index - 1][0], points[index][0], segmentProgress),
@@ -121,179 +193,488 @@ function drawConnector(context, theme, fromX, fromY, toX, toY, progress, dashed 
     )
     if (segmentProgress < 1) break
   }
+}
+
+function drawWire(context, theme, points, progress, dashed = false) {
+  context.save()
+  context.lineWidth = 1
+  context.strokeStyle = theme.strong
+  context.globalAlpha = 0.45
+  if (dashed) context.setLineDash([4, 6])
+  tracePolyline(context, points, 1)
   context.stroke()
+
+  if (progress > 0) {
+    context.globalAlpha = 1
+    context.strokeStyle = theme.foreground
+    context.lineWidth = 1.5
+    context.setLineDash([])
+    tracePolyline(context, points, progress)
+    context.stroke()
+  }
   context.restore()
 }
 
-function drawBrowserNode(context, theme, progress) {
+function polygon(context, x, y, radius, sides, rotation = -Math.PI / 2) {
+  context.beginPath()
+  for (let index = 0; index < sides; index += 1) {
+    const angle = rotation + (index * Math.PI * 2) / sides
+    const px = x + Math.cos(angle) * radius
+    const py = y + Math.sin(angle) * radius
+    if (index === 0) context.moveTo(px, py)
+    else context.lineTo(px, py)
+  }
+  context.closePath()
+}
+
+function drawSpecCore(context, theme, progress, time) {
   context.save()
-  context.globalAlpha = progress
-  context.translate(165, 404)
-  context.scale(0.82 + progress * 0.18, 0.82 + progress * 0.18)
-  roundedRect(context, -78, -44, 156, 88, 12)
-  context.fillStyle = theme.raised
+  const pulse = 1 + Math.sin(time * 0.0025) * 0.025 * (1 - progress)
+  context.translate(360, 268)
+  context.scale(pulse, pulse)
+  polygon(context, 0, 0, 28, 6)
+  context.fillStyle = theme.surface
   context.fill()
-  context.strokeStyle = theme.foreground
+  context.strokeStyle = progress > 0.65 ? theme.foreground : theme.strong
   context.lineWidth = 1.4
   context.stroke()
   context.beginPath()
-  context.moveTo(-78, -19)
-  context.lineTo(78, -19)
+  context.arc(0, 0, 19, 0, Math.PI * 2)
+  context.strokeStyle = theme.border
+  context.stroke()
+  context.fillStyle = theme.foreground
+  context.font = "700 9px 'JetBrains Mono', monospace"
+  context.textAlign = 'center'
+  context.fillText('SPEC', 0, -1)
+  context.fillStyle = theme.muted
+  context.font = "500 6px 'JetBrains Mono', monospace"
+  context.fillText(progress > 0.82 ? 'LOCKED' : 'DRAFT', 0, 10)
+  context.textAlign = 'start'
+  context.restore()
+}
+
+function drawRequirements(context, theme, progress, time) {
+  drawStageLabel(
+    context,
+    theme,
+    '01',
+    'GATHER REQUIREMENTS',
+    'NEEDS / CONSTRAINTS / SUCCESS SIGNALS',
+    50,
+    101,
+    progress
+  )
+
+  const cards = [
+    {
+      kind: 'USER NEED',
+      title: 'Fast team handoffs',
+      meta: 'FLOW / CORE',
+      start: [42, 164],
+      end: [50, 140],
+    },
+    {
+      kind: 'CONSTRAINT',
+      title: 'Role-based access',
+      meta: 'RULE / REQUIRED',
+      start: [270, 128],
+      end: [272, 140],
+    },
+    {
+      kind: 'SUCCESS',
+      title: '< 2 min workflow',
+      meta: 'METRIC / P95',
+      start: [500, 170],
+      end: [494, 140],
+    },
+  ]
+  const presence = stagePresence(progress, 0.8)
+
+  for (let index = 0; index < cards.length; index += 1) {
+    const card = cards[index]
+    const unsettled = 1 - progress
+    const x =
+      lerp(card.start[0], card.end[0], progress) +
+      Math.sin(time * 0.00055 + index * 2.1) * 5 * unsettled
+    const y =
+      lerp(card.start[1], card.end[1], progress) +
+      Math.cos(time * 0.00046 + index * 1.8) * 4 * unsettled
+    const cardProgress = clamp(progress * 3 - index * 0.72)
+    drawRequirementCard(context, theme, card, x, y, cardProgress, presence)
+
+    const centerX = x + 88
+    const bottomY = y + 72
+    drawWire(
+      context,
+      theme,
+      [
+        [centerX, bottomY],
+        [centerX, 232],
+        [360, 232],
+        [360, 240],
+      ],
+      clamp(progress * 1.35 - index * 0.1),
+      true
+    )
+  }
+  drawSpecCore(context, theme, progress, time)
+}
+
+function drawBrowserNode(context, theme, x, y, presence, active) {
+  context.save()
+  context.globalAlpha = presence
+  roundedRect(context, x, y, 136, 82, 10)
+  context.fillStyle = theme.raised
+  context.fill()
+  context.strokeStyle = active > 0.75 ? theme.foreground : theme.strong
+  context.stroke()
+  context.beginPath()
+  context.moveTo(x, y + 22)
+  context.lineTo(x + 136, y + 22)
   context.strokeStyle = theme.strong
   context.stroke()
   for (let index = 0; index < 3; index += 1) {
     context.beginPath()
-    context.arc(-59 + index * 13, -31, 2.5, 0, Math.PI * 2)
+    context.arc(x + 14 + index * 11, y + 11, 2.2, 0, Math.PI * 2)
     context.fillStyle = index === 0 ? theme.foreground : theme.muted
     context.fill()
   }
-  context.fillStyle = theme.foreground
-  context.font = "600 10px 'JetBrains Mono', monospace"
-  context.fillText('CLIENT', -25, 12)
-  context.restore()
-}
-
-function drawApiNode(context, theme, progress) {
-  context.save()
-  context.globalAlpha = progress
-  context.translate(360, 404)
-  context.scale(0.8 + progress * 0.2, 0.8 + progress * 0.2)
-  context.beginPath()
-  for (let index = 0; index < 6; index += 1) {
-    const angle = -Math.PI / 2 + (index * Math.PI) / 3
-    const x = Math.cos(angle) * 54
-    const y = Math.sin(angle) * 54
-    if (index === 0) context.moveTo(x, y)
-    else context.lineTo(x, y)
+  roundedRect(context, x + 12, y + 34, 34, 35, 4)
+  context.fillStyle = theme.surface
+  context.fill()
+  for (let index = 0; index < 3; index += 1) {
+    roundedRect(context, x + 56, y + 36 + index * 12, 58 - index * 8, 4, 2)
+    context.fillStyle = index === 0 ? theme.foreground : theme.muted
+    context.fill()
   }
-  context.closePath()
-  context.fillStyle = theme.foreground
+  context.fillStyle = theme.muted
+  context.font = "600 7px 'JetBrains Mono', monospace"
+  context.fillText('CLIENT', x + 8, y + 96)
+  context.restore()
+}
+
+function drawApiNode(context, theme, x, y, presence, active, time) {
+  context.save()
+  context.globalAlpha = presence
+  const rotation = active * 0.18 + Math.sin(time * 0.001) * 0.015
+  context.translate(x, y)
+  context.rotate(rotation)
+  polygon(context, 0, 0, 48, 8)
+  context.fillStyle = theme.surface
   context.fill()
-  context.fillStyle = theme.background
-  context.font = "700 11px 'JetBrains Mono', monospace"
+  context.strokeStyle = active > 0.7 ? theme.foreground : theme.strong
+  context.lineWidth = 1.4
+  context.stroke()
+  context.rotate(-rotation)
+  context.beginPath()
+  context.arc(0, 0, 29, 0, Math.PI * 2)
+  context.strokeStyle = theme.border
+  context.stroke()
+  context.fillStyle = theme.foreground
+  context.font = "700 10px 'JetBrains Mono', monospace"
   context.textAlign = 'center'
-  context.fillText('API', 0, 4)
+  context.fillText('API', 0, -2)
+  context.fillStyle = theme.muted
+  context.font = "500 6px 'JetBrains Mono', monospace"
+  context.fillText('/v1/workflows', 0, 11)
   context.textAlign = 'start'
   context.restore()
 }
 
-function drawDatabaseNode(context, theme, progress) {
+function drawDatabaseNode(context, theme, x, y, presence, active) {
   context.save()
-  context.globalAlpha = progress
-  context.translate(555, 404)
-  context.scale(0.82 + progress * 0.18, 0.82 + progress * 0.18)
+  context.globalAlpha = presence
   context.fillStyle = theme.raised
-  context.strokeStyle = theme.foreground
-  context.lineWidth = 1.4
+  context.strokeStyle = active > 0.75 ? theme.foreground : theme.strong
+  context.lineWidth = 1.2
   context.beginPath()
-  context.ellipse(0, -31, 58, 18, 0, 0, Math.PI * 2)
+  context.ellipse(x, y - 25, 55, 15, 0, 0, Math.PI * 2)
   context.fill()
   context.stroke()
-  context.fillRect(-58, -31, 116, 62)
+  context.fillRect(x - 55, y - 25, 110, 52)
   context.beginPath()
-  context.moveTo(-58, -31)
-  context.lineTo(-58, 31)
-  context.moveTo(58, -31)
-  context.lineTo(58, 31)
+  context.moveTo(x - 55, y - 25)
+  context.lineTo(x - 55, y + 27)
+  context.moveTo(x + 55, y - 25)
+  context.lineTo(x + 55, y + 27)
   context.stroke()
   context.beginPath()
-  context.ellipse(0, 31, 58, 18, 0, 0, Math.PI)
+  context.ellipse(x, y + 27, 55, 15, 0, 0, Math.PI)
+  context.stroke()
+  context.beginPath()
+  context.ellipse(x, y + 2, 55, 13, 0, 0, Math.PI)
+  context.strokeStyle = theme.border
   context.stroke()
   context.fillStyle = theme.foreground
-  context.font = "600 10px 'JetBrains Mono', monospace"
+  context.font = "600 8px 'JetBrains Mono', monospace"
   context.textAlign = 'center'
-  context.fillText('DATA', 0, 5)
+  context.fillText('POSTGRES', x, y + 5)
   context.textAlign = 'start'
+  context.fillStyle = theme.muted
+  context.font = "600 7px 'JetBrains Mono', monospace"
+  context.fillText('DATA', x - 55, y + 57)
   context.restore()
+}
+
+function drawWorkerNode(context, theme, x, y, presence, active) {
+  context.save()
+  context.globalAlpha = presence
+  cutCornerRect(context, x, y, 136, 44, 10)
+  context.fillStyle = theme.raised
+  context.fill()
+  context.strokeStyle = active > 0.8 ? theme.foreground : theme.strong
+  context.stroke()
+  context.beginPath()
+  context.arc(x + 20, y + 22, 7, 0, Math.PI * 2)
+  context.strokeStyle = theme.foreground
+  context.stroke()
+  context.beginPath()
+  context.moveTo(x + 17, y + 22)
+  context.lineTo(x + 23, y + 22)
+  context.moveTo(x + 20, y + 19)
+  context.lineTo(x + 20, y + 25)
+  context.stroke()
+  context.fillStyle = theme.foreground
+  context.font = "600 8px 'JetBrains Mono', monospace"
+  context.fillText('EVENT WORKER', x + 37, y + 19)
+  context.fillStyle = theme.muted
+  context.font = "500 6px 'JetBrains Mono', monospace"
+  context.fillText('QUEUE / ASYNC', x + 37, y + 31)
+  context.restore()
+}
+
+function drawPacket(context, theme, fromX, toX, y, time, offset) {
+  const progress = (time * 0.00022 + offset) % 1
+  context.beginPath()
+  context.arc(lerp(fromX, toX, progress), y, 3.5, 0, Math.PI * 2)
+  context.fillStyle = theme.foreground
+  context.fill()
 }
 
 function drawArchitecture(context, theme, progress, time) {
-  drawConnector(context, theme, 243, 404, 306, 404, progress)
-  drawConnector(context, theme, 414, 404, 497, 404, progress)
-  drawBrowserNode(context, theme, progress)
-  drawApiNode(context, theme, progress)
-  drawDatabaseNode(context, theme, progress)
+  drawStageLabel(
+    context,
+    theme,
+    '02',
+    'BUILD ARCHITECTURE',
+    'CLIENT / API / DATA / EVENTS',
+    50,
+    321,
+    progress
+  )
 
-  if (progress > 0.6) {
-    const flow = (time * 0.00018) % 1
-    const firstX = lerp(243, 306, flow)
-    const secondX = lerp(414, 497, flow)
-    for (const x of [firstX, secondX]) {
-      context.beginPath()
-      context.arc(x, 404, 4, 0, Math.PI * 2)
-      context.fillStyle = theme.foreground
-      context.fill()
-    }
+  const presence = stagePresence(progress, 0.55)
+  const vertical = clamp(progress * 1.2)
+  drawWire(context, theme, [[360, 296], [360, 363]], vertical, true)
+  drawWire(context, theme, [[210, 421], [312, 421]], progress)
+  drawWire(context, theme, [[408, 421], [517, 421]], progress)
+  drawWire(context, theme, [[360, 469], [360, 497]], progress, true)
+
+  drawBrowserNode(context, theme, 74, 380, presence, progress)
+  drawApiNode(context, theme, 360, 421, presence, progress, time)
+  drawDatabaseNode(context, theme, 572, 421, presence, progress)
+  drawWorkerNode(context, theme, 292, 497, presence, progress)
+
+  context.save()
+  context.globalAlpha = presence
+  context.fillStyle = theme.surface
+  context.strokeStyle = theme.strong
+  const tags = [
+    ['AUTH', 248, 382],
+    ['CACHE', 425, 455],
+    ['QUEUE', 476, 501],
+  ]
+  for (const [label, x, y] of tags) {
+    roundedRect(context, x, y, 54, 20, 10)
+    context.fill()
+    context.stroke()
+    context.fillStyle = theme.muted
+    context.font = "600 6px 'JetBrains Mono', monospace"
+    context.textAlign = 'center'
+    context.fillText(label, x + 27, y + 13)
+    context.fillStyle = theme.surface
+  }
+  context.textAlign = 'start'
+  context.restore()
+
+  if (progress > 0.2) {
+    context.save()
+    context.globalAlpha = clamp((progress - 0.2) / 0.35)
+    drawPacket(context, theme, 210, 312, 421, time, 0)
+    drawPacket(context, theme, 408, 517, 421, time, 0.5)
+    context.restore()
   }
 }
 
-function drawProduct(context, theme, progress, time) {
+function drawProductWindow(context, theme, progress, presence) {
+  const x = 50
+  const y = 631
+  const width = 418
+  const height = 157
+
   context.save()
-  context.globalAlpha = progress
-  context.translate(360, 686)
-  context.scale(0.9 + progress * 0.1, 0.9 + progress * 0.1)
-  roundedRect(context, -270, -84, 540, 168, 14)
+  context.globalAlpha = presence
+  roundedRect(context, x, y, width, height, 12)
   context.fillStyle = theme.raised
   context.fill()
-  context.strokeStyle = theme.foreground
-  context.lineWidth = 1.3
+  context.strokeStyle = progress > 0.75 ? theme.foreground : theme.strong
   context.stroke()
-
   context.beginPath()
-  context.moveTo(-270, -55)
-  context.lineTo(270, -55)
+  context.moveTo(x, y + 25)
+  context.lineTo(x + width, y + 25)
   context.strokeStyle = theme.strong
   context.stroke()
   for (let index = 0; index < 3; index += 1) {
     context.beginPath()
-    context.arc(-248 + index * 14, -69, 3, 0, Math.PI * 2)
+    context.arc(x + 14 + index * 11, y + 12.5, 2.2, 0, Math.PI * 2)
     context.fillStyle = index === 0 ? theme.foreground : theme.muted
     context.fill()
   }
+  context.fillStyle = theme.muted
+  context.font = "600 7px 'JetBrains Mono', monospace"
+  context.textAlign = 'right'
+  context.fillText('WORKFLOW / PRODUCTION', x + width - 12, y + 15)
+  context.textAlign = 'start'
 
-  roundedRect(context, -250, -38, 92, 104, 8)
+  roundedRect(context, x + 12, y + 37, 82, 106, 7)
   context.fillStyle = theme.surface
   context.fill()
+  context.fillStyle = theme.foreground
+  context.font = "700 7px 'JetBrains Mono', monospace"
+  context.fillText('PRODUCT', x + 24, y + 55)
   for (let index = 0; index < 4; index += 1) {
-    roundedRect(context, -232, -18 + index * 20, 54 - index * 4, 4, 2)
+    roundedRect(context, x + 24, y + 70 + index * 17, 48 - index * 4, 3, 1.5)
     context.fillStyle = index === 0 ? theme.foreground : theme.muted
     context.fill()
   }
 
-  for (let index = 0; index < 3; index += 1) {
-    roundedRect(context, -138 + index * 126, -38, 108, 42, 8)
+  const cards = [
+    ['ACTIVE', '1,284'],
+    ['SUCCESS', '98.7%'],
+    ['LATENCY', '1.4m'],
+  ]
+  for (let index = 0; index < cards.length; index += 1) {
+    const cardX = x + 106 + index * 98
+    roundedRect(context, cardX, y + 37, 88, 44, 7)
     context.fillStyle = theme.surface
     context.fill()
-    roundedRect(context, -121 + index * 126, -21, 55, 5, 2)
-    context.fillStyle = index === 0 ? theme.foreground : theme.muted
-    context.fill()
+    context.fillStyle = theme.muted
+    context.font = "600 6px 'JetBrains Mono', monospace"
+    context.fillText(cards[index][0], cardX + 10, y + 52)
+    context.fillStyle = theme.foreground
+    context.font = "700 11px 'JetBrains Mono', monospace"
+    context.fillText(cards[index][1], cardX + 10, y + 70)
   }
 
-  roundedRect(context, -138, 20, 360, 46, 8)
+  roundedRect(context, x + 106, y + 91, 284, 52, 7)
   context.fillStyle = theme.surface
   context.fill()
-  for (let index = 0; index < 4; index += 1) {
-    roundedRect(context, -120, 32 + index * 8, 265 - index * 22, 3, 1.5)
+  context.beginPath()
+  const chartProgress = Math.max(0.18, progress)
+  const chartPoints = [
+    [x + 118, y + 130],
+    [x + 158, y + 119],
+    [x + 198, y + 124],
+    [x + 238, y + 104],
+    [x + 278, y + 113],
+    [x + 326, y + 98],
+    [x + 378, y + 106],
+  ]
+  const segments = chartProgress * (chartPoints.length - 1)
+  context.moveTo(chartPoints[0][0], chartPoints[0][1])
+  for (let index = 1; index < chartPoints.length; index += 1) {
+    const local = clamp(segments - (index - 1))
+    if (local <= 0) break
+    context.lineTo(
+      lerp(chartPoints[index - 1][0], chartPoints[index][0], local),
+      lerp(chartPoints[index - 1][1], chartPoints[index][1], local)
+    )
+    if (local < 1) break
+  }
+  context.strokeStyle = theme.foreground
+  context.lineWidth = 1.5
+  context.stroke()
+  context.restore()
+}
+
+function drawBuildConsole(context, theme, progress, presence, time) {
+  const x = 486
+  const y = 631
+  const width = 184
+
+  context.save()
+  context.globalAlpha = presence
+  cutCornerRect(context, x, y, width, 112, 12)
+  context.fillStyle = theme.surface
+  context.fill()
+  context.strokeStyle = progress > 0.75 ? theme.foreground : theme.strong
+  context.stroke()
+  context.fillStyle = theme.foreground
+  context.font = "600 8px 'JetBrains Mono', monospace"
+  context.fillText('$ npm run build', x + 13, y + 21)
+
+  const rows = ['typecheck', 'tests', 'bundle']
+  for (let index = 0; index < rows.length; index += 1) {
+    const rowProgress = clamp(progress * 3.2 - index * 0.7)
+    const rowY = y + 46 + index * 19
     context.fillStyle = theme.muted
-    context.fill()
+    context.font = "500 7px 'JetBrains Mono', monospace"
+    context.fillText(rows[index], x + 13, rowY)
+    context.textAlign = 'right'
+    context.fillStyle = rowProgress > 0.92 ? theme.foreground : theme.muted
+    context.fillText(rowProgress > 0.92 ? 'PASS' : rowProgress > 0.1 ? 'RUN' : 'WAIT', x + width - 13, rowY)
+    context.textAlign = 'start'
   }
   context.restore()
 
-  const ready = Math.max(0, (progress - 0.72) / 0.28)
-  if (ready > 0) {
-    roundedRect(context, 247, 785, 226, 32, 16)
-    context.fillStyle = theme.surface
-    context.fill()
-    context.strokeStyle = theme.strong
-    context.stroke()
-    context.beginPath()
-    context.arc(270, 801, 5 + Math.sin(time * 0.004) * 0.7, 0, Math.PI * 2)
-    context.fillStyle = theme.foreground
-    context.fill()
-    context.fillStyle = theme.foreground
-    context.font = "600 10px 'JetBrains Mono', monospace"
-    context.fillText('BUILD PASSED  ·  PRODUCT READY', 286, 805)
-  }
+  context.save()
+  context.globalAlpha = presence
+  roundedRect(context, x, 756, width, 32, 16)
+  context.fillStyle = progress > 0.92 ? theme.foreground : theme.surface
+  context.fill()
+  context.strokeStyle = progress > 0.92 ? theme.foreground : theme.strong
+  context.stroke()
+  context.beginPath()
+  context.arc(x + 18, 772, 4 + Math.sin(time * 0.004) * (progress > 0.9 ? 0.5 : 0), 0, Math.PI * 2)
+  context.fillStyle = progress > 0.92 ? theme.background : theme.foreground
+  context.fill()
+  context.fillStyle = progress > 0.92 ? theme.background : theme.foreground
+  context.font = "700 7px 'JetBrains Mono', monospace"
+  context.fillText(progress > 0.92 ? 'PRODUCT READY' : progress > 0.2 ? 'BUILD IN PROGRESS' : 'READY TO BUILD', x + 31, 775)
+  context.restore()
+}
+
+function drawExecution(context, theme, progress, time) {
+  drawStageLabel(
+    context,
+    theme,
+    '03',
+    'EXECUTE THE PRODUCT',
+    'BUILD / TEST / SHIP / LEARN',
+    50,
+    581,
+    progress
+  )
+  const presence = stagePresence(progress, 0.5)
+  drawWire(context, theme, [[360, 541], [360, 611]], clamp(progress * 1.2), true)
+  drawProductWindow(context, theme, progress, presence)
+  drawBuildConsole(context, theme, progress, presence, time)
+}
+
+function drawFlowMarker(context, theme, progress) {
+  const y = lerp(91, 802, progress)
+  context.save()
+  context.beginPath()
+  context.moveTo(682, 91)
+  context.lineTo(682, 802)
+  context.strokeStyle = theme.border
+  context.lineWidth = 1
+  context.stroke()
+  context.beginPath()
+  context.arc(682, y, 4, 0, Math.PI * 2)
+  context.fillStyle = theme.foreground
+  context.fill()
+  context.restore()
 }
 
 export default function SoftwareLifecycleCanvas({ progressRef }) {
@@ -321,8 +702,6 @@ export default function SoftwareLifecycleCanvas({ progressRef }) {
 
       const scale = Math.min(width / DESIGN_WIDTH, height / DESIGN_HEIGHT)
       const offsetX = (width - DESIGN_WIDTH * scale) / 2
-      // Top-weighted rather than vertically centered, aligning the artwork
-      // with the H1 while leaving breathing room beneath the final state.
       const offsetY = Math.max(8, (height - DESIGN_HEIGHT * scale) * 0.16)
       context.save()
       context.translate(offsetX, offsetY)
@@ -332,35 +711,12 @@ export default function SoftwareLifecycleCanvas({ progressRef }) {
       const architecture = phaseProgress(progress, 'architecture')
       const execution = phaseProgress(progress, 'execution')
 
-      drawPanel(context, theme, 40, 36, 640, 222)
-      drawLabel(context, theme, '01', 'GATHER REQUIREMENTS', 68, 70)
-      const cards = [
-        { title: 'USER FLOWS', start: [-150, 42], end: [68, 118] },
-        { title: 'CONSTRAINTS', start: [550, -84], end: [270, 118] },
-        { title: 'SUCCESS SIGNALS', start: [760, 238], end: [472, 118] },
-      ]
-      for (let index = 0; index < cards.length; index += 1) {
-        const card = cards[index]
-        const float = 1 - requirements
-        const x =
-          lerp(card.start[0], card.end[0], requirements) +
-          Math.sin(time * 0.00055 + index * 2.2) * 11 * float
-        const y =
-          lerp(card.start[1], card.end[1], requirements) +
-          Math.cos(time * 0.00043 + index * 1.7) * 8 * float
-        drawRequirementCard(context, theme, x, y, 180, card.title, requirements)
-      }
-
-      drawConnector(context, theme, 360, 258, 360, 292, architecture, true)
-      drawPanel(context, theme, 40, 292, 640, 228)
-      drawLabel(context, theme, '02', 'BUILD ARCHITECTURE', 68, 326)
+      drawWorkspace(context, theme, progress)
+      drawGrid(context, theme)
+      drawRequirements(context, theme, requirements, time)
       drawArchitecture(context, theme, architecture, time)
-
-      drawConnector(context, theme, 360, 520, 360, 566, execution, true)
-      drawPanel(context, theme, 40, 566, 640, 262)
-      drawLabel(context, theme, '03', 'EXECUTE THE PRODUCT', 68, 600)
-      drawProduct(context, theme, execution, time)
-
+      drawExecution(context, theme, execution, time)
+      drawFlowMarker(context, theme, progress)
       context.restore()
     }
 
