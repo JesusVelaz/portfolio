@@ -96,7 +96,6 @@ export default function AssemblyScene({ progressRef }) {
     key.position.set(4, 6, 8)
     scene.add(key)
 
-    const group = new THREE.Object3D()
     const dummy = new THREE.Object3D()
 
     function draw(progress, time) {
@@ -125,15 +124,26 @@ export default function AssemblyScene({ progressRef }) {
     }
 
     function resize() {
-      const { clientWidth: w, clientHeight: h } = host
-      if (!w || !h) return
-      renderer.setSize(w, h, false)
+      let rect = host.getBoundingClientRect()
+      let w = rect.width
+      let h = rect.height
+
+      if (!h && host.parentNode) {
+        rect = host.parentNode.getBoundingClientRect()
+        w = rect.width
+        h = rect.height
+      }
+      if (!w) w = window.innerWidth
+      if (!h) h = window.innerHeight
+
+      renderer.setSize(w, h)
       camera.aspect = w / h
       camera.updateProjectionMatrix()
-      draw(progressRef.current, performance.now())
+      draw(reduced ? 1 : progressRef.current, performance.now())
     }
 
     resize()
+    requestAnimationFrame(resize)
 
     let frame = null
     let visible = true
@@ -146,7 +156,8 @@ export default function AssemblyScene({ progressRef }) {
 
     if (reduced) {
       // Reduce motion, not content: one frame, fully assembled, no loop.
-      draw(1, 0)
+      // Fixed nonzero time so the group sits at a deterministic, non-flat angle.
+      draw(1, 9000)
     } else {
       frame = requestAnimationFrame(loop)
     }
@@ -172,7 +183,7 @@ export default function AssemblyScene({ progressRef }) {
         ? null
         : new MutationObserver(() => {
             material.color = readColor()
-            draw(progressRef.current, performance.now())
+            draw(reduced ? 1 : progressRef.current, performance.now())
           })
     themeObserver?.observe(document.documentElement, {
       attributes: true,
@@ -182,6 +193,7 @@ export default function AssemblyScene({ progressRef }) {
     const resizeObserver =
       typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(resize)
     resizeObserver?.observe(host)
+    window.addEventListener('resize', resize)
 
     return () => {
       if (frame) cancelAnimationFrame(frame)
@@ -189,6 +201,7 @@ export default function AssemblyScene({ progressRef }) {
       themeObserver?.disconnect()
       resizeObserver?.disconnect()
       document.removeEventListener('visibilitychange', onVisibility)
+      window.removeEventListener('resize', resize)
 
       // Mandatory. Browsers cap concurrent WebGL contexts near 16, and this
       // component remounts on every navigation back to home. A leak here shows

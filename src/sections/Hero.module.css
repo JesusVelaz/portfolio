@@ -221,7 +221,7 @@
 }
 
 /* Load-in. Time-based, so it needs no timeline support and runs everywhere.
-   The canvas lands last so the headline is read first. */
+   The headline, intro, and CTAs stagger in one after another. */
 .eyebrow,
 .name,
 .intro,
