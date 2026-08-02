@@ -25,11 +25,10 @@ test('numbers the cards in order', () => {
   expect(screen.getByText('02')).toBeInTheDocument()
 })
 
-test('renders stack chips for each project', () => {
+test('keeps technology details on the project pages', () => {
   renderWork()
-  projects[0].stack.forEach((tech) => {
-    expect(screen.getAllByText(tech).length).toBeGreaterThan(0)
-  })
+  expect(screen.getAllByText('Explore the project →')).toHaveLength(projects.length)
+  expect(screen.queryByText(projects[0].stack[0])).not.toBeInTheDocument()
 })
 
 test('the work section carries the id the nav targets', () => {

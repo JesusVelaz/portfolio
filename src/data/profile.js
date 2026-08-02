@@ -2,8 +2,6 @@ const profile = {
   name: 'Jesus Velazquez',
   role: 'Software Engineer',
   headline: 'I build reliable software for complex work.',
-  supporting:
-    'I design accessible interfaces, secure APIs, and multi-tenant systems that turn operational needs into products people can trust and extend.',
   intro:
     'I turn complex operational needs into clear, accessible web products—from shared interface systems to secure multi-tenant platforms.',
   summary:

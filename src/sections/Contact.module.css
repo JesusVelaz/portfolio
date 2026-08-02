@@ -90,6 +90,22 @@
 }
 
 @media (max-width: 520px) {
+  .section {
+    padding-block: calc(var(--section-gap) + 1rem) 3rem;
+  }
+
+  .lede {
+    margin-bottom: 42px;
+  }
+
+  .socials {
+    margin-top: 42px;
+  }
+
+  .footer {
+    margin-top: 72px;
+  }
+
   .card {
     flex-direction: column;
     border-radius: var(--radius-card);

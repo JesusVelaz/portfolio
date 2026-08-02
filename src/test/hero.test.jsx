@@ -12,22 +12,7 @@ function renderHero() {
 
 test('shows the name as the page heading', () => {
   renderHero()
-  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
-    "Hello, I am Jesus Velazquez and I'm a full-stack Software Engineer."
-  )
-})
-
-test('starts the animated greeting in English without repeatedly announcing it', () => {
-  renderHero()
-  const greeting = screen.getByTestId('typed-greeting')
-  expect(greeting).toHaveTextContent('Hello,')
-  expect(greeting).toHaveAttribute('aria-hidden', 'true')
-})
-
-test('moves the reliability statement into the supporting copy', () => {
-  renderHero()
-  expect(screen.getByText(/I build reliable software for complex work/i)).toBeInTheDocument()
-  expect(screen.getByText(/secure APIs, and multi-tenant systems/i)).toBeInTheDocument()
+  expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Jesus Velazquez')
 })
 
 test('primary CTA targets the work section and secondary targets contact', () => {

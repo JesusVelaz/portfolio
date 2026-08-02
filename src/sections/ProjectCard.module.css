@@ -1,5 +1,5 @@
 /* One panel holding the whole project: identity, then the screenshot, then
-   the stack and the CTA. The image sits in the content flow rather than in a
+   the CTA. The image sits in the content flow rather than in a
    column beside it, so nothing has to stretch to match anything else. */
 .card {
   position: relative;
@@ -86,10 +86,8 @@
 
 .footer {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 18px 32px;
+  justify-content: flex-start;
 }
 
 .cta {
@@ -107,12 +105,6 @@
 @media (max-width: 860px) {
   .media {
     aspect-ratio: 16 / 10;
-  }
-
-  .footer {
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
   }
 }
 
