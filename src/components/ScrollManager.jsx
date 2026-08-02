@@ -11,7 +11,7 @@ const SETTLED_FRAMES = 10
 const MAX_FRAMES = 240
 
 export function ScrollManager() {
-  const { pathname, hash } = useLocation()
+  const { pathname, hash, key } = useLocation()
   const reduced = useReducedMotion()
 
   useEffect(() => {
@@ -83,7 +83,10 @@ export function ScrollManager() {
       if (frame) cancelAnimationFrame(frame)
       takeovers.forEach((type) => window.removeEventListener(type, abandon))
     }
-  }, [pathname, hash, reduced])
+  // React Router creates a new location key even when someone selects the
+  // hash that is already in the URL. Watching it makes repeated nav clicks
+  // re-run the scroll after the visitor has moved away from that section.
+  }, [pathname, hash, key, reduced])
 
   return null
 }

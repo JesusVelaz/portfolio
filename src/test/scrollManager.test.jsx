@@ -1,5 +1,5 @@
-import { act, render } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { act, fireEvent, render, screen } from '@testing-library/react'
+import { Link, MemoryRouter } from 'react-router-dom'
 import { ScrollManager } from '../components/ScrollManager.jsx'
 
 let scrollIntoView
@@ -73,6 +73,20 @@ test('scrolls the hash target into view', () => {
   renderAt('/#about')
 
   expect(scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' })
+})
+
+test('scrolls again when the current hash link is selected again', () => {
+  mountSection('contact', 4670)
+  render(
+    <MemoryRouter initialEntries={['/#contact']}>
+      <ScrollManager />
+      <Link to="/#contact">Contact</Link>
+    </MemoryRouter>
+  )
+
+  expect(scrollIntoView).toHaveBeenCalledTimes(1)
+  fireEvent.click(screen.getByRole('link', { name: 'Contact' }))
+  expect(scrollIntoView).toHaveBeenCalledTimes(2)
 })
 
 // The regression: `content-visibility: auto` means every offset below the
