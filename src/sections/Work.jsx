@@ -5,13 +5,13 @@ import styles from './Work.module.css'
 
 export function Work() {
   return (
-    <section id="work" className={`${styles.section} container`}>
+    <section id="work" className={`${styles.section} container-wide`}>
       <Reveal>
-        <p className={styles.eyebrow}>Work</p>
-        <h2 className={styles.heading}>Things I&rsquo;ve built</h2>
+        <p className={styles.eyebrow}>01 — Selected work</p>
+        <h2 className={styles.heading}>Products built around real constraints.</h2>
         <p className={styles.lede}>
-          A shipped commercial product and the project that got me comfortable with React. Each one
-          has a write-up covering the problem and what I actually built.
+          Products created for different audiences and stages of my career. Each case study starts
+          with the person it serves and the problem it is meant to solve.
         </p>
       </Reveal>
 

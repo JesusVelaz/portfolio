@@ -27,8 +27,8 @@ html {
 }
 
 body {
-  background: var(--void);
-  color: var(--text);
+  background: var(--background);
+  color: var(--foreground);
   font-family: var(--font-body);
   font-size: 16px;
   line-height: 1.65;
@@ -46,7 +46,7 @@ h3 {
 }
 
 a {
-  color: var(--accent);
+  color: var(--foreground);
   text-decoration: none;
 }
 
@@ -55,8 +55,18 @@ img {
   display: block;
 }
 
+section {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
+::selection {
+  background: var(--foreground);
+  color: var(--background);
+}
+
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--ring);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -67,6 +77,37 @@ img {
   margin-inline: auto;
   padding-inline: var(--gutter);
 }
+
+/* The wide frame. Sections, grids of records, and media fill this; prose
+   inside caps back down to --page-max rather than stretching to fill it. */
+.container-wide {
+  width: 100%;
+  max-width: var(--page-wide);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* A heading and its lede are reading copy, so they stay on the narrow measure
+   even though the section around them now runs to --page-wide. */
+.section-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(24px, 6vw, 80px);
+  align-items: end;
+  max-width: var(--page-max);
+  margin-bottom: clamp(38px, 6vw, 70px);
+}
+
+@media (max-width: 760px) {
+  .section-heading {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Sections are separated by whitespace alone — see --section-gap. There is no
+   rule, rail, or mark between them; the numbered eyebrow inside each section
+   is what names the boundary. */
 
 @media (prefers-reduced-motion: reduce) {
   html {

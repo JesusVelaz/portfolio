@@ -8,17 +8,18 @@
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--muted-foreground);
   margin-bottom: 14px;
 }
 
 .heading {
-  font-size: clamp(2rem, 5vw, 3.1rem);
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  max-width: 16ch;
   margin-bottom: 16px;
 }
 
 .lede {
-  color: var(--muted);
+  color: var(--muted-foreground);
   max-width: 52ch;
   margin-bottom: 56px;
 }

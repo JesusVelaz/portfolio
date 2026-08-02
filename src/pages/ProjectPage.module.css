@@ -1,31 +1,85 @@
 .page {
-  padding-block: 160px var(--section-gap);
+  padding-block: 0 var(--section-gap);
 }
 
 .back {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--muted);
+  color: var(--muted-foreground);
   margin-bottom: 34px;
   transition: color 250ms var(--ease-out);
 }
 
 .back:hover {
-  color: var(--accent);
+  color: var(--foreground);
+}
+
+.cover {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: min(100svh, 960px);
+  padding-block: clamp(112px, 15vh, 172px) clamp(34px, 6vh, 64px);
+  border-bottom: 1px solid var(--border);
+}
+
+.coverBack {
+  width: fit-content;
+  margin-bottom: 0;
+}
+
+.coverMain {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.65fr);
+  align-items: center;
+  align-content: center;
+  gap: clamp(56px, 8vw, 144px);
+  padding-block: clamp(48px, 7vh, 82px);
+}
+
+.coverCopy {
+  position: relative;
+  max-width: 1320px;
+}
+
+.coverKicker {
+  margin-bottom: 18px;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .title {
-  font-size: clamp(2.4rem, 7vw, 4.2rem);
-  margin-bottom: 12px;
+  max-width: 11ch;
+  margin-bottom: clamp(22px, 3vh, 34px);
+  font-size: clamp(4.25rem, 10vw, 9rem);
+  line-height: 0.88;
+  letter-spacing: -0.065em;
 }
 
 .tagline {
   font-family: var(--font-display);
-  font-size: clamp(1.1rem, 2.6vw, 1.6rem);
-  color: var(--muted);
-  max-width: 46ch;
-  margin-bottom: 26px;
+  font-size: clamp(1.25rem, 2.4vw, 2rem);
+  line-height: 1.35;
+  color: var(--muted-foreground);
+  max-width: 50ch;
+}
+
+.coverDetails {
+  display: grid;
+  gap: clamp(28px, 4vh, 40px);
+  align-items: start;
+  padding-left: clamp(32px, 4vw, 64px);
+  border-left: 1px solid var(--border);
+}
+
+.projectInfo {
+  display: grid;
+  gap: 20px;
 }
 
 .meta {
@@ -36,16 +90,14 @@
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 26px;
+  color: var(--muted-foreground);
 }
 
 .links {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 56px;
-  margin-top: 26px;
+  justify-content: flex-start;
 }
 
 .linkBtn {
@@ -56,78 +108,179 @@
 }
 
 .linkPrimary {
-  background: var(--accent);
-  color: var(--void);
+  background: var(--foreground);
+  color: var(--background);
 }
 
-.linkGhost {
-  color: var(--text);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow: inset 0 1px 0 var(--glass-highlight);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+.scrollCue {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: 14px;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 250ms var(--ease-out);
 }
 
-.hero {
-  aspect-ratio: 16 / 9;
-  margin-bottom: 72px;
-}
-
-.body {
+.scrollCue span:last-child {
   display: grid;
-  gap: 56px;
-  max-width: 68ch;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
 }
 
-.blockTitle {
+.scrollCue:hover,
+.scrollCue:focus-visible {
+  color: var(--foreground);
+}
+
+.storyEyebrow {
+  margin-bottom: 14px;
+  color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 14px;
 }
 
-.prose {
-  color: var(--muted);
-  font-size: 1.0625rem;
+.product {
+  margin-top: 0;
+  padding-top: clamp(104px, 14vw, 190px);
+  scroll-margin-top: 80px;
 }
 
-.highlights {
+.productTitle {
+  max-width: 22ch;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.gallerySections {
   display: grid;
-  gap: 14px;
+  gap: clamp(64px, 9vw, 104px);
+  margin-top: 48px;
 }
 
-.highlight {
-  position: relative;
-  padding-left: 22px;
-  color: var(--muted);
+/*
+ * global.css gives every <section> `content-visibility: auto`, which applies
+ * paint containment and clips anything drawn outside the element's box. The
+ * gallery rows below bleed wider than these two sections, so they opt out.
+ */
+.product,
+.gallerySection {
+  content-visibility: visible;
 }
 
-.highlight::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.62em;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent), var(--aurora));
-}
-
-.shots {
+.gallerySectionHeader {
   display: grid;
-  gap: 22px;
-  margin-top: 72px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: start;
+  margin-bottom: 28px;
 }
 
-.shot {
-  aspect-ratio: 16 / 10;
+.gallerySectionTitle {
+  max-width: 16ch;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.gallerySectionDescription {
+  max-width: 58ch;
+  color: var(--muted-foreground);
+}
+
+/*
+ * The image rows break out past the text column so the screenshots get the
+ * width they deserve, while the section headings stay on the page's text grid.
+ * The 18px allowance keeps the bleed clear of the scrollbar, which 100vw counts.
+ */
+/* The gallery used to break out of a 1180px page to reach 1400px, measured
+   against the viewport — which ignored the grid rails and crossed them. The
+   page itself is a wide container now, so the gallery simply fills it. */
+.galleryRows {
+  display: grid;
+  gap: clamp(20px, 2.5vw, 30px);
+}
+
+.galleryRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 2.5vw, 30px);
+  align-items: stretch;
+}
+
+.gallerySoloRow {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.galleryCell {
+  display: grid;
+  min-width: 0;
 }
 
 .next {
   margin-top: 90px;
   padding-top: 30px;
-  border-top: 1px solid var(--glass-border);
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 960px) {
+  .coverMain {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .coverDetails {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    padding-top: 28px;
+    padding-left: 0;
+    border-top: 1px solid var(--border);
+    border-left: 0;
+  }
+
+  .links {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 760px) {
+  .cover {
+    min-height: 100svh;
+    padding-top: 104px;
+  }
+
+  .coverMain {
+    gap: 42px;
+    padding-block: 52px;
+  }
+
+  .title {
+    font-size: clamp(3.6rem, 18vw, 6rem);
+  }
+
+  .coverDetails {
+    grid-template-columns: 1fr;
+  }
+
+  .links {
+    justify-content: flex-start;
+  }
+
+  .scrollCue {
+    justify-self: start;
+  }
+
+  .galleryRow {
+    grid-template-columns: 1fr;
+  }
+
+  .gallerySectionHeader {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }

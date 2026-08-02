@@ -5,12 +5,12 @@ const experience = [
     role: 'Software Engineer',
     start: 'Sep 2024',
     end: null,
-    bullets: [
-      'Develop and maintain a library of web UI components used across mission-critical applications, built with React, Material-UI, JavaScript, and TypeScript.',
-      'Engineer REST APIs and test endpoints with Swagger, writing SQL for database queries and Java for the implementation underneath.',
-      'Raised an application’s Section 508 accessibility compliance score by 35%, partnering with UX teams to review score sheets, identify gaps, and build action plans.',
-      'Refactor legacy code into focused components and utilities, migrating React class components to functional components for readability and performance.',
-    ],
+    summary:
+      'Support mission-critical work with consistent, accessible software that makes complex workflows easier to understand and trust.',
+    narrative:
+      'The work sits at the intersection of product judgment and platform stewardship. I turn ambiguous, high-consequence workflows into reusable patterns, coordinate decisions across disciplines, and leave the surrounding system easier for the next engineer to extend.',
+    focus: ['Design systems', 'REST APIs', 'Accessibility'],
+    metric: '+35% Section 508 compliance',
   },
   {
     company: 'Waiver Director',
@@ -18,11 +18,12 @@ const experience = [
     role: 'Co-founder & Software Engineer',
     start: 'Mar 2026',
     end: null,
-    bullets: [
-      'Build full-stack features for a multi-tenant waiver management SaaS using SvelteKit, Svelte, TypeScript, and Convex.',
-      'Enforce workspace-level data isolation and server-side authorization so each operator’s records stay sealed off from every other tenant.',
-      'Built an automated email follow-up system with a rich-text editor, reusable templates with dynamic content, scheduled Convex jobs, and delivery through Resend.',
-    ],
+    summary:
+      'Help experience operators build a direct relationship with every participant—not only the person who made the booking.',
+    narrative:
+      'As a co-founder, I move between customer conversations, product scope, architecture, and delivery. That broader ownership means choosing the smallest useful solution, validating it against the operator’s real workflow, and carrying it through the details that make the product dependable.',
+    focus: ['Product engineering', 'Multi-tenancy', 'Automation'],
+    metric: '0 → 1 SaaS product',
   },
   {
     company: 'Fidelity Transport & Logistics',
@@ -30,19 +31,13 @@ const experience = [
     role: 'Web Developer',
     start: 'Oct 2023',
     end: 'Jun 2024',
-    bullets: [
-      'Collaborated with cross-functional teams to design, develop, and modernize company websites using JavaScript, HTML, CSS, and WordPress.',
-      'Cut document processing time by 30% by implementing conditional form logic and automating data exports, reducing manual errors.',
-      'Diagnosed and resolved site issues through debugging and performance optimization, improving stability and responsiveness.',
-    ],
+    summary:
+      'Make customer-facing logistics sites clearer while removing repetitive work from internal document processing.',
+    narrative:
+      'This role taught me to see the public website and the internal workflow as one connected system. I learned to trace friction across both sides, communicate tradeoffs with nontechnical partners, and favor improvements the team could understand and maintain after handoff.',
+    focus: ['Web development', 'Workflow automation', 'Optimization'],
+    metric: '30% faster document processing',
   },
 ]
-
-export const education = {
-  school: 'Florida International University',
-  degree: 'Bachelor of Arts in Computer Science',
-  graduated: 'May 2023',
-  detail: "3.66 GPA · Dean's List 2019–2023",
-}
 
 export default experience

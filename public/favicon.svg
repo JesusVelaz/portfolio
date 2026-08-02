@@ -1,11 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#6EA8FF"/>
-      <stop offset="100%" stop-color="#B77BFF"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="#05070D"/>
-  <rect x="1" y="1" width="62" height="62" rx="15" fill="none" stroke="url(#g)" stroke-width="2" opacity="0.75"/>
-  <text x="32" y="43" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-size="30" font-weight="700" fill="#E8ECF5">JV</text>
+  <style>
+    .background { fill: #fff; }
+    .foreground { fill: #09090b; }
+    .outline { fill: none; stroke: #09090b; }
+    @media (prefers-color-scheme: dark) {
+      .background { fill: #09090b; }
+      .foreground { fill: #fafafa; }
+      .outline { stroke: #fafafa; }
+    }
+  </style>
+  <rect class="background" width="64" height="64" rx="16"/>
+  <rect class="outline" x="1" y="1" width="62" height="62" rx="15" stroke-width="2" opacity="0.55"/>
+  <text class="foreground" x="32" y="43" text-anchor="middle" font-family="'Space Grotesk', system-ui, sans-serif" font-size="30" font-weight="700">JV</text>
 </svg>

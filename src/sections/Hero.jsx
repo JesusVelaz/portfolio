@@ -1,72 +1,87 @@
-import { Fragment } from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import profile from '../data/profile.js'
-import { useReducedMotion } from '../hooks/useReducedMotion.js'
+import { HeroStage } from '../components/HeroStage.jsx'
+import { Reveal } from '../components/Reveal.jsx'
 import styles from './Hero.module.css'
 
-const NAME_WORDS = profile.name.split(' ')
-
 export function Hero() {
-  const reduced = useReducedMotion()
-
-  const container = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: reduced ? 0 : 0.09,
-        delayChildren: reduced ? 0 : 0.15,
-      },
-    },
-  }
-
-  const item = reduced
-    ? { hidden: {}, show: {} }
-    : {
-        hidden: { opacity: 0, y: 28, filter: 'blur(6px)' },
-        show: {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-        },
-      }
+  // The stage's animation tracks this column's travel through the viewport.
+  const trackRef = useRef(null)
+  const completionRef = useRef(null)
 
   return (
-    <section id="hero" className={`${styles.hero} container`}>
-      <motion.div variants={container} initial="hidden" animate="show">
-        <motion.p variants={item} className={styles.eyebrow}>
-          {profile.role}
-        </motion.p>
+    <section id="hero" className={`${styles.hero} container-wide`}>
+      <div className={styles.layout}>
+        <div className={styles.left} ref={trackRef}>
+          <div className={styles.copy}>
+            <p className={styles.eyebrow}>{profile.role} · Full-Stack </p>
+            <h1 className={styles.name}>
+              <span>{profile.name}</span>
+              {profile.headline}
+            </h1>
+            <p className={styles.intro}>{profile.intro}</p>
 
-        <h1 className={styles.name}>
-          {NAME_WORDS.map((word, i) => (
-            <Fragment key={word}>
-              <motion.span variants={item} className={styles.word}>
-                {word}
-              </motion.span>
-              {i < NAME_WORDS.length - 1 ? ' ' : null}
-            </Fragment>
-          ))}
-        </h1>
+            <div className={styles.ctas}>
+              <Link to="/#work" className={`${styles.btn} ${styles.btnPrimary}`}>
+                View my work
+              </Link>
+              <Link to="/#contact" className={`${styles.btn} ${styles.btnGhost}`}>
+                Get in touch
+              </Link>
+            </div>
 
-        <motion.p variants={item} className={styles.tagline}>
-          {profile.headline}
-        </motion.p>
+            <Link
+              to="/#capabilities"
+              className={styles.scrollCue}
+              aria-label="Scroll to What I bring"
+            >
+              <span>Scroll</span>
+              <span className={styles.scrollArrow} aria-hidden="true">
+                ↓
+              </span>
+            </Link>
+          </div>
 
-        <motion.p variants={item} className={styles.intro}>
-          {profile.intro}
-        </motion.p>
+          <div
+            id="capabilities"
+            className={styles.capabilities}
+            aria-label="Engineering capabilities"
+          >
+            <Reveal className={styles.capabilitiesIntro}>
+              <p className={styles.capabilitiesEyebrow}>What I bring</p>
+              <h2 className={styles.capabilitiesTitle}>
+                From an ambiguous workflow to a durable product.
+              </h2>
+            </Reveal>
 
-        <motion.div variants={item} className={styles.ctas}>
-          <Link to="/#work" className={`${styles.btn} ${styles.btnPrimary}`}>
-            View my work
-          </Link>
-          <Link to="/#contact" className={`${styles.btn} ${styles.btnGhost}`}>
-            Get in touch
-          </Link>
-        </motion.div>
-      </motion.div>
+            <div className={styles.capabilityList}>
+              {profile.capabilities.map((capability, index) => (
+                <Reveal
+                  as="article"
+                  className={styles.capabilityCard}
+                  key={capability.label}
+                  delay={index * 0.08}
+                >
+                  {index === profile.capabilities.length - 1 && (
+                    <span ref={completionRef} className={styles.capabilityAnchor} aria-hidden="true" />
+                  )}
+                  <span className={styles.capabilityNumber}>
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <p className={styles.capabilityLabel}>{capability.label}</p>
+                    <h3 className={styles.capabilityTitle}>{capability.title}</h3>
+                    <p className={styles.capabilityDetail}>{capability.detail}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <HeroStage trackRef={trackRef} completionRef={completionRef} />
+      </div>
     </section>
   )
 }

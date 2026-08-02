@@ -1,17 +1,14 @@
+/* One panel holding the whole project: identity, then the screenshot, then
+   the stack and the CTA. The image sits in the content flow rather than in a
+   column beside it, so nothing has to stretch to match anything else. */
 .card {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1.05fr;
-  gap: clamp(24px, 4vw, 48px);
-  align-items: center;
-  padding: clamp(22px, 3vw, 34px);
+  gap: clamp(22px, 2.4vw, 32px);
+  padding: clamp(24px, 2.4vw, 40px);
   border-radius: var(--radius-card);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow: inset 0 1px 0 var(--glass-highlight);
-  backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
-  color: inherit;
+  background: var(--card);
+  border: 1px solid var(--border);
   transition:
     transform 450ms var(--ease-out),
     border-color 450ms var(--ease-out),
@@ -20,11 +17,10 @@
 
 .card:hover {
   transform: translateY(-6px);
-  border-color: rgba(110, 168, 255, 0.38);
+  border-color: var(--border-strong);
   box-shadow:
-    inset 0 1px 0 var(--glass-highlight),
-    0 22px 60px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(110, 168, 255, 0.12);
+    0 22px 60px var(--shadow-color),
+    0 0 0 1px var(--border);
 }
 
 .card:hover .media {
@@ -34,7 +30,7 @@
 .number {
   font-family: var(--font-mono);
   font-size: 0.8rem;
-  color: var(--accent);
+  color: var(--muted-foreground);
   margin-bottom: 14px;
   display: block;
 }
@@ -44,19 +40,33 @@
   margin-bottom: 10px;
 }
 
+.titleLink {
+  color: inherit;
+}
+
+/* Stretches the title link's hit area over the entire panel. The z-index is
+   load-bearing: the screenshot is a later sibling, so without it the image
+   paints above this overlay and clicking the screenshot does nothing. */
+.titleLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
 .role {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--muted-foreground);
   margin-bottom: 16px;
 }
 
 .tagline {
-  color: var(--muted);
-  margin-bottom: 22px;
-  max-width: 44ch;
+  color: var(--muted-foreground);
+  max-width: 60ch;
 }
 
 .mediaWrap {
@@ -65,24 +75,44 @@
 }
 
 .media {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 21 / 9;
+  transform-origin: center top;
   transition: transform 700ms var(--ease-out);
 }
 
+.media img {
+  object-position: center top;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 32px;
+}
+
 .cta {
-  display: inline-block;
-  margin-top: 22px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--accent);
+  color: var(--muted-foreground);
+  white-space: nowrap;
+  transition: color 250ms var(--ease-out);
+}
+
+.card:hover .cta {
+  color: var(--foreground);
 }
 
 @media (max-width: 860px) {
-  .card {
-    grid-template-columns: 1fr;
+  .media {
+    aspect-ratio: 16 / 10;
   }
-  .mediaOrder {
-    order: -1;
+
+  .footer {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
   }
 }
 
@@ -90,6 +120,7 @@
   .card:hover {
     transform: none;
   }
+
   .card:hover .media {
     transform: none;
   }

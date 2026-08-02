@@ -1,66 +1,127 @@
 .hero {
-  min-height: 100svh;
+  padding-block: 140px clamp(88px, 11vw, 150px);
+  content-visibility: visible;
+}
+
+/* One grid so the stage can span the copy and the capabilities. The left
+   column scrolls; the right one sticks. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(48px, 7vw, 110px);
+  align-items: start;
+}
+
+.left {
+  min-width: 0;
+}
+
+.copy {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-block: 140px 100px;
+  /* The opening message owns the first viewport. The capabilities should only
+     begin after the visitor has made an intentional scroll. */
+  min-height: max(760px, calc(100svh - 140px));
 }
 
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.76rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 22px;
-}
-
-.name {
-  font-size: clamp(2.75rem, 9vw, 5.75rem);
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-
-.word {
-  display: inline-block;
-}
-
-.tagline {
-  font-family: var(--font-display);
-  font-size: clamp(1.35rem, 3.6vw, 2.4rem);
-  font-weight: 500;
-  background: linear-gradient(100deg, var(--text) 10%, var(--accent) 55%, var(--aurora) 95%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--muted-foreground);
   margin-bottom: 26px;
 }
 
+.name {
+  font-size: clamp(3rem, 7.1vw, 5.8rem);
+  font-weight: 600;
+  max-width: 10ch;
+  margin-bottom: 30px;
+  letter-spacing: -0.055em;
+}
+
+.name span {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
 .intro {
-  max-width: 46ch;
-  color: var(--muted);
-  font-size: 1.0625rem;
-  margin-bottom: 40px;
+  max-width: 58ch;
+  color: var(--muted-foreground);
+  font-size: clamp(1rem, 1.5vw, 1.14rem);
+  margin-bottom: 36px;
 }
 
 .ctas {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 12px;
+}
+
+.scrollCue {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  gap: 8px;
+  /* Sit near the bottom of the first viewport, above the capabilities rule. */
+  margin-top: auto;
+  padding-top: 34px;
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 220ms var(--ease-out);
+}
+
+.scrollCue:hover {
+  color: var(--foreground);
+}
+
+.scrollArrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1;
+  animation: scrollNudge 1.8s var(--ease-out) infinite;
+}
+
+@keyframes scrollNudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px 26px;
+  padding: 13px 22px;
   border-radius: var(--radius-pill);
   font-weight: 600;
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
   transition:
-    transform 300ms var(--ease-out),
-    box-shadow 300ms var(--ease-out),
-    background-color 300ms var(--ease-out);
+    transform 250ms var(--ease-out),
+    border-color 250ms var(--ease-out),
+    box-shadow 250ms var(--ease-out);
 }
 
 .btn:hover {
@@ -68,30 +129,208 @@
 }
 
 .btnPrimary {
-  background: var(--accent);
-  color: var(--void);
-  box-shadow: 0 6px 26px rgba(110, 168, 255, 0.30);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 .btnPrimary:hover {
-  box-shadow: 0 10px 34px rgba(110, 168, 255, 0.45);
+  box-shadow: 0 10px 30px var(--shadow-color);
 }
 
 .btnGhost {
-  color: var(--text);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  box-shadow: inset 0 1px 0 var(--glass-highlight);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  color: var(--foreground);
+  background: transparent;
+  border: 1px solid var(--border-strong);
 }
 
 .btnGhost:hover {
-  border-color: var(--glass-border-bright);
+  border-color: var(--foreground);
 }
 
+.capabilities {
+  display: grid;
+  margin-top: clamp(120px, 16vw, 220px);
+  padding-top: clamp(52px, 7vw, 84px);
+  border-top: 1px solid var(--border);
+}
+
+.capabilitiesIntro {
+  max-width: 440px;
+}
+
+.capabilitiesEyebrow,
+.capabilityLabel,
+.capabilityNumber {
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.capabilitiesEyebrow {
+  margin-bottom: 18px;
+}
+
+.capabilitiesTitle {
+  max-width: 15ch;
+  font-size: clamp(2rem, 4vw, 3.35rem);
+}
+
+.capabilityList {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: clamp(44px, 6vw, 72px);
+}
+
+.capabilityCard {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 14px;
+  padding-block: 30px;
+  border-top: 1px solid var(--border);
+}
+
+.capabilityAnchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.capabilityCard:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.capabilityLabel {
+  margin-bottom: 10px;
+}
+
+.capabilityTitle {
+  margin-bottom: 10px;
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  line-height: 1.4;
+}
+
+.capabilityDetail {
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  max-width: 48ch;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .copy {
+    min-height: auto;
+  }
+
+  .name {
+    max-width: 12ch;
+  }
+
+  .capabilitiesIntro {
+    max-width: 620px;
+  }
+}
+
+@media (max-width: 650px) {
+  .hero {
+    padding-top: 116px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Motion
+
+   Two mechanisms, because the hero straddles the fold. Its copy is already on
+   screen at load, so a scroll timeline would sit at 100% and reveal nothing —
+   that content gets a plain time-based entrance instead. Everything below the
+   fold, and the drift as the hero leaves, runs on scroll timelines.
+
+   No JavaScript and no library: these are compositor-only and cost nothing per
+   frame, which is the constraint that removing Framer Motion set.
+
+   None of the elements below declare a hidden resting state. The from-state
+   lives in the keyframes and is applied by animation-fill-mode, so switching
+   the animation off anywhere leaves the content visible rather than stranded
+   at opacity 0.
+   --------------------------------------------------------------------------- */
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@keyframes copyDrift {
+  to {
+    opacity: 0.55;
+    transform: translateY(-70px);
+  }
+}
+
+/* Load-in. Time-based, so it needs no timeline support and runs everywhere.
+   The headline, intro, and CTAs stagger in one after another. */
+.eyebrow,
+.name,
+.intro,
+.ctas {
+  animation: heroRise 600ms var(--ease-out) both;
+}
+
+.name {
+  animation-delay: 80ms;
+}
+
+.intro {
+  animation-delay: 160ms;
+}
+
+.ctas {
+  animation-delay: 240ms;
+}
+
+/* The capabilities block's entry reveal is handled by the Reveal component, so
+   it works in browsers without animation-timeline. Only the parallax below
+   needs a scroll timeline, and it degrades to a static hero where unsupported.
+
+   Parallax is desktop-only. Below 900px .layout collapses to one column, so
+   drifting the copy and the canvas apart would read as broken rather than
+   layered. */
+@supports (animation-timeline: view()) {
+  @media (min-width: 901px) {
+    .copy {
+      animation: copyDrift linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+
+/* Last, so it outranks every rule above. */
 @media (prefers-reduced-motion: reduce) {
   .btn:hover {
     transform: none;
+  }
+
+  .eyebrow,
+  .name,
+  .intro,
+  .ctas,
+  .copy {
+    animation: none;
+  }
+
+  .scrollArrow {
+    animation: none;
   }
 }

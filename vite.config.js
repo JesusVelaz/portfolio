@@ -31,13 +31,20 @@ function emitStaticRoutes() {
   }
 }
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: '/',
   plugins: [react(), emitStaticRoutes()],
+  css: {
+    modules: {
+      // DevTools: ProjectCard_card_a1b2c. Production stays short for smaller CSS.
+      generateScopedName:
+        mode === 'development' ? '[name]_[local]_[hash:base64:5]' : '[hash:base64:8]',
+    },
+  },
   test: {
     environment: 'jsdom',
     globals: true,
     setupFiles: './vitest.setup.js',
     include: ['src/test/**/*.test.{js,jsx}'],
   },
-})
+}))

@@ -5,107 +5,152 @@
 
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--muted-foreground);
   margin-bottom: 14px;
 }
 
 .heading {
-  font-size: clamp(2rem, 5vw, 3.1rem);
-  margin-bottom: 56px;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  max-width: 14ch;
 }
 
-.timeline {
-  position: relative;
-  padding-left: 34px;
+.lede {
+  color: var(--muted-foreground);
+  font-size: 1.04rem;
+  max-width: 55ch;
 }
 
-.rail {
-  position: absolute;
-  left: 6px;
-  top: 6px;
-  bottom: 6px;
-  width: 2px;
-  background: linear-gradient(180deg, var(--accent), var(--aurora));
-  transform-origin: top;
-  border-radius: 2px;
-  opacity: 0.55;
+.introAside {
+  display: grid;
+  justify-items: start;
+}
+
+.resumeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin-top: 20px;
+  padding: 12px 22px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition:
+    border-color 250ms var(--ease-out),
+    background-color 250ms var(--ease-out);
+}
+
+.resumeButton:hover,
+.resumeButton:focus-visible {
+  border-color: var(--foreground);
+  background: var(--overlay-hover);
+}
+
+.roles {
+  border-top: 1px solid var(--border);
 }
 
 .entry {
-  position: relative;
-  padding-bottom: 48px;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
+  gap: clamp(32px, 6vw, 80px);
+  padding-block: clamp(40px, 5vw, 58px);
+  border-bottom: 1px solid var(--border);
 }
 
-.entry:last-child {
-  padding-bottom: 0;
+/* The last entry's rule used to collide with the next section's top border.
+   The section border is gone now, but a trailing rule under the final entry
+   would still read as a boundary the section does not have. Every entry is
+   wrapped in its own <Reveal> element, so each .entry is the *only* child of
+   its wrapper — `.entry:last-child` would therefore match all of them, not
+   just the final one. Reaching through the wrapper with
+   `.roles > :last-child .entry` targets the entry inside the last wrapper
+   instead, so the hairlines between peer entries are preserved. */
+.roles > :last-child .entry {
+  border-bottom: 0;
 }
 
-.dot {
-  position: absolute;
-  left: -34px;
-  top: 8px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--void);
-  border: 2px solid var(--accent);
+.entryHeader {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 16px;
+  align-content: start;
 }
 
-.dotCurrent {
-  background: var(--accent);
-  box-shadow: 0 0 0 5px rgba(110, 168, 255, 0.16);
+.number,
+.dates {
+  color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .dates {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .role {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 4px;
+  font-size: clamp(1.45rem, 2.5vw, 2rem);
+  margin-bottom: 8px;
 }
 
 .company {
-  color: var(--accent);
-  font-size: 0.95rem;
-  margin-bottom: 14px;
   display: block;
+  color: var(--foreground);
+  font-size: 0.92rem;
 }
 
-.bullets {
-  display: grid;
+.entryBody {
+  min-width: 0;
+}
+
+.summary {
+  color: var(--foreground);
+  font-family: var(--font-display);
+  font-size: clamp(1.08rem, 1.8vw, 1.28rem);
+  line-height: 1.45;
+  max-width: 50ch;
+}
+
+.narrative {
+  max-width: 64ch;
+  margin-top: 16px;
+  color: var(--muted-foreground);
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+.focus {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  max-width: 62ch;
+  margin-top: 24px;
 }
 
-.bullet {
-  position: relative;
-  padding-left: 18px;
-  color: var(--muted);
-  font-size: 0.9375rem;
+.focus li {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
 }
 
-.bullet::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.65em;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--muted);
+.focus .metric {
+  color: var(--foreground);
+  background: var(--border-strong);
+  border-color: var(--border-strong);
+  font-family: var(--font-mono);
 }
 
-.eduDetail {
-  color: var(--muted);
-  font-size: 0.9375rem;
+@media (max-width: 760px) {
+  .entry {
+    grid-template-columns: 1fr;
+  }
 }

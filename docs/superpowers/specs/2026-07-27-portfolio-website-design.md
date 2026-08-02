@@ -212,11 +212,17 @@ Base reveal, used by every section:
 ```
 opacity   0 → 1
 translateY 24px → 0
-blur      6px → 0
 duration  600ms
 easing    cubic-bezier(.16, 1, .3, 1)
 stagger   60ms between list children
 ```
+
+**Revised 2026-07-27.** This originally also animated `blur 6px → 0`. It was removed: `filter`
+cannot be animated on the compositor, so each entering section re-rasterized its full area on
+the main thread every frame for 600ms. Because `Reveal` wraps whole page sections, that held
+14 elements totalling 3.1× the viewport area in blurred layers and made scrolling crawl.
+`opacity` and `transform` are the only two properties the compositor can animate, so the
+reveal stays within them. `reveal.test.jsx` enforces this.
 
 Fires **once**. Re-animating on scroll-up is the tell of a cheap portfolio.
 

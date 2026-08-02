@@ -7,19 +7,24 @@ export function ProjectCard({ project, index }) {
   const number = String(index + 1).padStart(2, '0')
 
   return (
-    <Link to={`/work/${project.slug}`} className={styles.card}>
+    <article className={styles.card}>
       <div>
         <span className={styles.number}>{number}</span>
-        <h3 className={styles.title}>{project.title}</h3>
+        {/* The card's only link, so it is named by the project rather than by
+            a CTA that reads identically on every card. Its ::after covers the
+            whole panel, which is what makes the card clickable. */}
+        <h3 className={styles.title}>
+          <Link to={`/work/${project.slug}`} className={styles.titleLink}>
+            {project.title}
+          </Link>
+        </h3>
         <p className={styles.role}>
           {project.role} · {project.year}
         </p>
         <p className={styles.tagline}>{project.tagline}</p>
-        <StackChips items={project.stack} />
-        <span className={styles.cta}>Read the case study →</span>
       </div>
 
-      <div className={`${styles.mediaWrap} ${styles.mediaOrder}`}>
+      <div className={styles.mediaWrap}>
         <ProjectImage
           src={project.thumb}
           alt={`${project.title} screenshot`}
@@ -27,6 +32,11 @@ export function ProjectCard({ project, index }) {
           className={styles.media}
         />
       </div>
-    </Link>
+
+      <div className={styles.footer}>
+        <StackChips items={project.stack} />
+        <span className={styles.cta}>Explore the project →</span>
+      </div>
+    </article>
   )
 }

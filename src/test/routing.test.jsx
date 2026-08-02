@@ -33,14 +33,6 @@ test.each(projects.map((p) => [p.slug, p.title]))(
   }
 )
 
-test('a project with a null repoUrl renders without a repo link', async () => {
-  const closed = projects.find((p) => p.repoUrl === null)
-  expect(closed).toBeDefined()
-  renderAt(`/work/${closed.slug}`)
-  await screen.findByRole('heading', { level: 1, name: closed.title })
-  expect(screen.queryByRole('link', { name: /source|repo|github/i })).toBeNull()
-})
-
 test('an unknown project slug renders the not-found page', async () => {
   renderAt('/work/not-a-real-project')
   expect(await screen.findByText(/lost in space/i)).toBeInTheDocument()

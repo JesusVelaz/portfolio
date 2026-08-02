@@ -1,10 +1,26 @@
 import { useEffect, useState } from 'react'
 import { mostVisible } from '../lib/mostVisible.js'
 
-export function useActiveSection(ids) {
-  const [active, setActive] = useState(ids[0] ?? '')
+/**
+ * The id of the section currently filling most of the reading band, or null
+ * when nothing qualifies yet.
+ *
+ * `enabled` exists because the nav outlives the route: on a project page the
+ * sections aren't in the document at all, so an observer set up there would
+ * find nothing to watch and — with only `ids` in the dependencies — would
+ * never be rebuilt when the home page mounted underneath it. Passing the route
+ * in means the observer is torn down and re-established as sections come and
+ * go, instead of reporting whatever it last knew forever.
+ */
+export function useActiveSection(ids, enabled = true) {
+  const [active, setActive] = useState(null)
 
   useEffect(() => {
+    if (!enabled) {
+      // Coming back should re-measure, not restore a stale highlight.
+      setActive(null)
+      return
+    }
     if (typeof IntersectionObserver === 'undefined') return
 
     const elements = ids.map((id) => document.getElementById(id)).filter(Boolean)
@@ -22,7 +38,7 @@ export function useActiveSection(ids) {
 
     elements.forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [ids])
+  }, [ids, enabled])
 
-  return active
+  return enabled ? active : null
 }

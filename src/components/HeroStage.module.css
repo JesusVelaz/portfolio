@@ -1,0 +1,19 @@
+/* Sticky through the hero copy and the capabilities block, so one object
+   tracks the whole read. */
+.stage {
+  --stage-nav-clearance: 96px;
+
+  position: sticky;
+  top: var(--stage-nav-clearance);
+  display: grid;
+  place-items: center;
+  height: calc(100svh - var(--stage-nav-clearance) - 24px);
+  max-height: 820px;
+  padding-top: clamp(52px, 7svh, 76px);
+}
+
+@media (max-width: 900px) {
+  .stage {
+    display: none;
+  }
+}

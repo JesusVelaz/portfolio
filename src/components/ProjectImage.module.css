@@ -1,9 +1,21 @@
+.figure {
+  min-width: 0;
+}
+
+.figure > .frame {
+  height: 100%;
+}
+
 .frame {
   position: relative;
   overflow: hidden;
   border-radius: 14px;
-  background: var(--surface);
-  border: 1px solid var(--glass-border);
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+
+.contain .img {
+  object-fit: contain;
 }
 
 .img {
@@ -21,10 +33,7 @@
   min-height: 200px;
   padding: 24px;
   text-align: center;
-  background:
-    radial-gradient(120% 100% at 20% 0%, rgba(110, 168, 255, 0.22) 0%, transparent 60%),
-    radial-gradient(120% 100% at 90% 100%, rgba(183, 123, 255, 0.20) 0%, transparent 60%),
-    var(--surface);
+  background: var(--card-raised);
 }
 
 .fallbackLabel {
@@ -32,5 +41,64 @@
   font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.caption {
+  margin-top: 12px;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.captionTitle {
+  color: var(--foreground);
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.captionText {
+  color: inherit;
+}
+
+/* Card variant: image sits on top at its own aspect ratio, caption below. */
+.compact {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+}
+
+.compact > .frame {
+  height: auto;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+}
+
+.compact .caption {
+  flex: 1;
+  margin: 0;
+  padding: 20px 22px 24px;
+}
+
+/* A single screenshot owns the full row, with the image taking visual priority. */
+.split {
+  display: flex;
+  flex-direction: column;
+}
+
+.split > .frame {
+  width: 100%;
+  height: auto;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+}
+
+.split .caption {
+  max-width: 72ch;
+  padding: 18px 22px 20px;
 }
