@@ -1,20 +1,17 @@
-const PRIMARY_AMPLITUDE = 8.5
-const PRIMARY_FREQUENCY = 0.075
-const SECONDARY_AMPLITUDE = 4.2
-const SECONDARY_FREQUENCY = 0.026
+export const ROAD_LENGTH = 96
+
+const ROAD_AMPLITUDE = 9.2
+const ROAD_FREQUENCY = (Math.PI * 5) / ROAD_LENGTH
+const CAR_END_MARGIN = 3.2
 
 export function roadX(z) {
-  return (
-    Math.sin(z * PRIMARY_FREQUENCY) * PRIMARY_AMPLITUDE +
-    Math.sin(z * SECONDARY_FREQUENCY) * SECONDARY_AMPLITUDE
-  )
+  // Five half-waves create the six alternating positions in the supplied
+  // sketch: right, left, right, left, right, left.
+  return Math.cos(z * ROAD_FREQUENCY) * ROAD_AMPLITUDE
 }
 
 function roadSlope(z) {
-  return (
-    Math.cos(z * PRIMARY_FREQUENCY) * PRIMARY_AMPLITUDE * PRIMARY_FREQUENCY +
-    Math.cos(z * SECONDARY_FREQUENCY) * SECONDARY_AMPLITUDE * SECONDARY_FREQUENCY
-  )
+  return -Math.sin(z * ROAD_FREQUENCY) * ROAD_AMPLITUDE * ROAD_FREQUENCY
 }
 
 // Signed curvature of x(z). Keeping this analytic avoids sampling noise in the
@@ -22,14 +19,18 @@ function roadSlope(z) {
 export function roadCurvature(z) {
   const slope = roadSlope(z)
   const secondDerivative =
-    -Math.sin(z * PRIMARY_FREQUENCY) * PRIMARY_AMPLITUDE * PRIMARY_FREQUENCY ** 2 -
-    Math.sin(z * SECONDARY_FREQUENCY) * SECONDARY_AMPLITUDE * SECONDARY_FREQUENCY ** 2
+    -Math.cos(z * ROAD_FREQUENCY) * ROAD_AMPLITUDE * ROAD_FREQUENCY ** 2
 
   return -secondDerivative / (1 + slope ** 2) ** 1.5
 }
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value))
+}
+
+export function roadZAtProgress(progress) {
+  const normalized = clamp(progress, 0, 1)
+  return CAR_END_MARGIN + normalized * (ROAD_LENGTH - CAR_END_MARGIN * 2)
 }
 
 // A drift is two related motions: the chassis slips sideways and its nose

@@ -1,27 +1,26 @@
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
-import { carYaw, driftAt, roadX } from '../lib/roadMotion.js'
+import { ROAD_LENGTH, carYaw, driftAt, roadX, roadZAtProgress } from '../lib/roadMotion.js'
 
 // A car driving down a winding road, viewed from directly above. Scroll
-// progress drives how far along the road the car has travelled; the camera
-// tracks it, so the road streams past rather than the car crossing a fixed map.
+// progress drives how far along the road the car has travelled. The camera is
+// fixed over the full route, so the road never changes underneath it.
 
-const ROAD_LENGTH = 260 // world units of road, covering progress 0 -> 1
-const ROAD_SAMPLES = 420 // ribbon resolution along the length
+const ROAD_SAMPLES = 240 // ribbon resolution along the fixed route
 const ROAD_HALF_WIDTH = 4.4
 const EDGE_INSET = 0.26 // how far the edge lines sit inside the tarmac
 const EDGE_WIDTH = 0.13
 const DASH_LENGTH = 2.1
 const DASH_GAP = 2.9
 const DASH_WIDTH = 0.16
-const CAMERA_HEIGHT = 26
+const CAMERA_HEIGHT = 120
+const VIEW_PADDING = 10
+const TRACK_HALF_SPAN = 17
 const SKID_SAMPLES = 44
 const SKID_TRAIL = 17
 const SMOKE_COUNT = 10
 
-// Two sines of different periods, so the road never repeats a shape the eye can
-// predict. A single sine reads as a mechanical zig-zag.
 function pointAt(z, target) {
   return target.set(roadX(z), 0, -z)
 }
@@ -100,11 +99,12 @@ export default function RoadScene({ progressRef }) {
 
     const theme = readTheme()
     const scene = new THREE.Scene()
-    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 200)
-    // Looking straight down, with -Z as "up" on screen, so the road runs
-    // vertically and its curves read as left-right movement. Rotating the
-    // camera to follow the tangent instead would spin the whole world.
-    camera.up.set(0, 0, -1)
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 240)
+    // The route runs toward world -Z. Using +Z as screen-up makes increasing
+    // progress travel from the top of the canvas to the bottom.
+    camera.up.set(0, 0, 1)
+    camera.position.set(0, CAMERA_HEIGHT, -ROAD_LENGTH / 2)
+    camera.lookAt(0, 0, -ROAD_LENGTH / 2)
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5))
@@ -137,6 +137,7 @@ export default function RoadScene({ progressRef }) {
     // Centre dashes, one instanced mesh rather than a mesh per dash.
     const dashCount = Math.floor(ROAD_LENGTH / (DASH_LENGTH + DASH_GAP))
     const dashGeometry = track(new THREE.PlaneGeometry(DASH_WIDTH, DASH_LENGTH))
+    dashGeometry.rotateX(-Math.PI / 2)
     const dashes = new THREE.InstancedMesh(dashGeometry, lineMaterial, dashCount)
     {
       const point = new THREE.Vector3()
@@ -147,7 +148,7 @@ export default function RoadScene({ progressRef }) {
         pointAt(z, point)
         tangentAt(z, tangent)
         dummy.position.set(point.x, 0.01, point.z)
-        dummy.rotation.set(-Math.PI / 2, 0, -Math.atan2(tangent.x, -tangent.z))
+        dummy.rotation.set(0, carYaw(tangent.x, tangent.z), 0)
         dummy.updateMatrix()
         dashes.setMatrixAt(i, dummy.matrix)
       }
@@ -287,19 +288,12 @@ export default function RoadScene({ progressRef }) {
     function draw(progress) {
       // Keep the car off both ends so it never sits at the very edge of the
       // generated road, where there is nothing ahead of or behind it.
-      const z = 12 + progress * (ROAD_LENGTH - 34)
+      const z = roadZAtProgress(progress)
 
       const pose = poseAt(z, carPoint, carTangent, carNormal)
       car.position.set(carPoint.x, 0, carPoint.z)
       car.rotation.y = pose.yaw
       updateTrail(z, pose.curvature)
-
-      // Camera sits above the car, nudged so the car rides slightly below
-      // centre and more of the road ahead is visible. It follows the lane
-      // centre, not the slipping car, otherwise the lateral drift disappears.
-      const laneX = roadX(z)
-      camera.position.set(laneX, CAMERA_HEIGHT, -z - 5)
-      camera.lookAt(laneX, 0, -z - 5)
 
       renderer.render(scene, camera)
     }
@@ -318,7 +312,13 @@ export default function RoadScene({ progressRef }) {
       const h = Math.round(rect.height || parent?.height || window.innerHeight)
 
       renderer.setSize(w, h)
-      camera.aspect = w / h
+      const aspect = w / h
+      const viewHeight = Math.max(ROAD_LENGTH + VIEW_PADDING, (TRACK_HALF_SPAN * 2) / aspect)
+      const viewWidth = viewHeight * aspect
+      camera.left = -viewWidth / 2
+      camera.right = viewWidth / 2
+      camera.top = viewHeight / 2
+      camera.bottom = -viewHeight / 2
       camera.updateProjectionMatrix()
       draw(currentProgress())
     }
