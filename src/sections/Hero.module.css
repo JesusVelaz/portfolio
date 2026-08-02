@@ -3,11 +3,23 @@
   content-visibility: visible;
 }
 
-.primary {
+/* One grid so the stage can span the copy and the capabilities. The left
+   column scrolls; the right one sticks. */
+.layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(440px, 1.1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(48px, 7vw, 110px);
-  align-items: center;
+  align-items: start;
+}
+
+.left {
+  min-width: 0;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   min-height: 680px;
 }
 
@@ -21,35 +33,22 @@
 }
 
 .name {
-  font-size: clamp(2.85rem, 5.7vw, 5.15rem);
+  font-size: clamp(3rem, 7.1vw, 5.8rem);
   font-weight: 600;
-  max-width: 13ch;
+  max-width: 10ch;
   margin-bottom: 30px;
   letter-spacing: -0.055em;
-  line-height: 0.98;
 }
 
-.screenReaderText {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.visibleHeading,
-.greetingLine {
+.name span {
   display: block;
-}
-
-.greetingLine {
-  min-height: 1.05em;
-  margin-bottom: 0.18em;
+  margin-bottom: 14px;
   color: var(--muted-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
 }
 
 .intro {
@@ -57,11 +56,6 @@
   color: var(--muted-foreground);
   font-size: clamp(1rem, 1.5vw, 1.14rem);
   margin-bottom: 36px;
-}
-
-.intro strong {
-  color: var(--foreground);
-  font-weight: 600;
 }
 
 .ctas {
@@ -106,15 +100,9 @@
   border-color: var(--foreground);
 }
 
-.visual {
-  position: relative;
-}
-
 .capabilities {
   display: grid;
-  grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1.3fr);
-  gap: clamp(48px, 8vw, 120px);
-  margin-top: clamp(88px, 12vw, 150px);
+  margin-top: clamp(120px, 16vw, 220px);
   padding-top: clamp(52px, 7vw, 84px);
   border-top: 1px solid var(--border);
 }
@@ -144,8 +132,7 @@
 
 .capabilityList {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 clamp(32px, 5vw, 72px);
+  grid-template-columns: 1fr;
 }
 
 .capabilityCard {
@@ -156,7 +143,7 @@
   border-top: 1px solid var(--border);
 }
 
-.capabilityCard:nth-child(-n + 2) {
+.capabilityCard:first-child {
   padding-top: 0;
   border-top: 0;
 }
@@ -179,17 +166,16 @@
 }
 
 @media (max-width: 900px) {
-  .primary {
+  .layout {
     grid-template-columns: 1fr;
+  }
+
+  .copy {
     min-height: auto;
   }
 
   .name {
     max-width: 12ch;
-  }
-
-  .capabilities {
-    grid-template-columns: 1fr;
   }
 
   .capabilitiesIntro {
@@ -201,25 +187,88 @@
   .hero {
     padding-top: 116px;
   }
+}
 
-  .capabilityList {
-    grid-template-columns: 1fr;
-  }
+/* ---------------------------------------------------------------------------
+   Motion
 
-  .capabilityCard,
-  .capabilityCard:nth-child(-n + 2) {
-    padding-block: 26px;
-    border-top: 1px solid var(--border);
-  }
+   Two mechanisms, because the hero straddles the fold. Its copy is already on
+   screen at load, so a scroll timeline would sit at 100% and reveal nothing —
+   that content gets a plain time-based entrance instead. Everything below the
+   fold, and the drift as the hero leaves, runs on scroll timelines.
 
-  .capabilityCard:first-child {
-    padding-top: 0;
-    border-top: 0;
+   No JavaScript and no library: these are compositor-only and cost nothing per
+   frame, which is the constraint that removing Framer Motion set.
+
+   None of the elements below declare a hidden resting state. The from-state
+   lives in the keyframes and is applied by animation-fill-mode, so switching
+   the animation off anywhere leaves the content visible rather than stranded
+   at opacity 0.
+   --------------------------------------------------------------------------- */
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
   }
 }
 
+@keyframes copyDrift {
+  to {
+    opacity: 0.55;
+    transform: translateY(-70px);
+  }
+}
+
+/* Load-in. Time-based, so it needs no timeline support and runs everywhere.
+   The canvas lands last so the headline is read first. */
+.eyebrow,
+.name,
+.intro,
+.ctas {
+  animation: heroRise 600ms var(--ease-out) both;
+}
+
+.name {
+  animation-delay: 80ms;
+}
+
+.intro {
+  animation-delay: 160ms;
+}
+
+.ctas {
+  animation-delay: 240ms;
+}
+
+/* The capabilities block's entry reveal is handled by the Reveal component, so
+   it works in browsers without animation-timeline. Only the parallax below
+   needs a scroll timeline, and it degrades to a static hero where unsupported.
+
+   Parallax is desktop-only. Below 900px .layout collapses to one column, so
+   drifting the copy and the canvas apart would read as broken rather than
+   layered. */
+@supports (animation-timeline: view()) {
+  @media (min-width: 901px) {
+    .copy {
+      animation: copyDrift linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+
+/* Last, so it outranks every rule above. */
 @media (prefers-reduced-motion: reduce) {
   .btn:hover {
     transform: none;
+  }
+
+  .eyebrow,
+  .name,
+  .intro,
+  .ctas,
+  .copy {
+    animation: none;
   }
 }
