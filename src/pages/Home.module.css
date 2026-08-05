@@ -1,0 +1,14 @@
+/* This is the only page that renders the section rail, so it is the only one
+   that reserves room for it. The rail is fixed to the right edge of the
+   viewport: 10px of offset plus a tick that reaches 50px wide once it is
+   active or hovered, so 60px is the true footprint and the rest is breathing
+   room between the ticks and the content they sit beside.
+
+   The breakpoint has to match the one that hides the rail in
+   SectionRail.module.css — reserving space for a rail that is not there would
+   pull every section off-centre for no reason. */
+@media (min-width: 1221px) {
+  .page {
+    --rail-space: 72px;
+  }
+}

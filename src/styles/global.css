@@ -84,7 +84,11 @@ section {
   width: 100%;
   max-width: var(--page-wide);
   margin-inline: auto;
-  padding-inline: var(--gutter);
+  /* The right inset carries the section rail's reservation. Holding it here,
+     on the shared frame, is what keeps every section ending on the same
+     vertical line — the hero stage and the project list included — instead of
+     each one deciding its own clearance. */
+  padding-inline: var(--gutter) calc(var(--gutter) + var(--rail-space));
 }
 
 /* A heading and its lede are reading copy, so they stay on the narrow measure
