@@ -19,7 +19,10 @@ export function ScrollManager() {
     const target = hash ? document.getElementById(hash.slice(1)) : null
 
     if (!target) {
-      window.scrollTo({ top: 0, behavior: 'auto' })
+      // A route reset is a jump, not a journey. `behavior: 'auto'` would defer
+      // to `html { scroll-behavior: smooth }` and animate it, so ask for
+      // `instant` to override the CSS and land at the top immediately.
+      window.scrollTo({ top: 0, behavior: 'instant' })
       return
     }
 

@@ -59,13 +59,13 @@ afterEach(() => {
 
 test('a route with no hash goes to the top of the page', () => {
   renderAt('/work/waiver-director')
-  expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'auto' })
+  expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'instant' })
   expect(scrollIntoView).not.toHaveBeenCalled()
 })
 
 test('a hash pointing at nothing falls back to the top of the page', () => {
   renderAt('/#nowhere')
-  expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'auto' })
+  expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'instant' })
 })
 
 test('scrolls the hash target into view', () => {
