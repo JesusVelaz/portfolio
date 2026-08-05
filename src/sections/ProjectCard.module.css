@@ -90,16 +90,41 @@
   justify-content: flex-start;
 }
 
+/* Reads as a button rather than a caption, so it's obvious the card is
+   clickable. The whole panel is still the link (.titleLink::after); this is
+   the affordance that says so. */
 .cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--muted-foreground);
+  color: var(--foreground);
   white-space: nowrap;
-  transition: color 250ms var(--ease-out);
+  padding: 9px 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  transition:
+    color 250ms var(--ease-out),
+    background-color 250ms var(--ease-out),
+    border-color 250ms var(--ease-out);
 }
 
+.ctaArrow {
+  display: inline-block;
+  transition: transform 250ms var(--ease-out);
+}
+
+/* Fill and invert on hover so the affordance is unmistakable, and nudge the
+   arrow to reinforce "this goes somewhere". */
 .card:hover .cta {
-  color: var(--foreground);
+  color: var(--background);
+  background-color: var(--foreground);
+  border-color: var(--foreground);
+}
+
+.card:hover .ctaArrow {
+  transform: translateX(4px);
 }
 
 @media (max-width: 860px) {
@@ -114,6 +139,10 @@
   }
 
   .card:hover .media {
+    transform: none;
+  }
+
+  .card:hover .ctaArrow {
     transform: none;
   }
 }
