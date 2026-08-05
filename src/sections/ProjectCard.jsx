@@ -33,7 +33,12 @@ export function ProjectCard({ project, index }) {
       </div>
 
       <div className={styles.footer}>
-        <span className={styles.cta}>Explore the project →</span>
+        <span className={styles.cta}>
+          Explore the project
+          <span className={styles.ctaArrow} aria-hidden="true">
+            →
+          </span>
+        </span>
       </div>
     </article>
   )

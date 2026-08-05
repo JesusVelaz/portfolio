@@ -27,7 +27,7 @@ test('numbers the cards in order', () => {
 
 test('keeps technology details on the project pages', () => {
   renderWork()
-  expect(screen.getAllByText('Explore the project →')).toHaveLength(projects.length)
+  expect(screen.getAllByText('Explore the project')).toHaveLength(projects.length)
   expect(screen.queryByText(projects[0].stack[0])).not.toBeInTheDocument()
 })
 
