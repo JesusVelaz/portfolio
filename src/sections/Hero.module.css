@@ -1,7 +1,9 @@
 .hero {
   --hero-stage-max-height: 820px;
+  /* Shared with HeroStage, which offsets against it to align its sticky box. */
+  --hero-top-padding: 140px;
 
-  padding-block: 140px clamp(88px, 11vw, 150px);
+  padding-block: var(--hero-top-padding) clamp(88px, 11vw, 150px);
   content-visibility: visible;
 }
 
@@ -74,8 +76,11 @@
   align-items: center;
   align-self: center;
   gap: 8px;
-  /* Sit near the bottom of the first viewport, above the capabilities rule. */
+  /* Sit near the bottom of the first viewport, above the capabilities rule.
+     The bottom margin lifts it clear of the fold so it reads as part of the
+     opening screen rather than as its edge. */
   margin-top: auto;
+  margin-bottom: clamp(28px, 5svh, 56px);
   padding-top: 34px;
   color: var(--muted-foreground);
   font-family: var(--font-mono);
@@ -245,7 +250,9 @@
 
 @media (max-width: 650px) {
   .hero {
-    padding-block: 116px var(--section-gap);
+    --hero-top-padding: 116px;
+
+    padding-block: var(--hero-top-padding) var(--section-gap);
   }
 
   .copy {

@@ -1,5 +1,17 @@
 import { useEffect, useRef } from 'react'
 import { computeAnchoredProgress, computeProgress } from '../lib/scrollProgress.js'
+import { computeSceneLayout } from '../lib/softwareLifecycle.js'
+
+// Where the drawn scene sits, as opposed to where the canvas element sits. The
+// artwork is centred inside the element, so anchoring on the element's own
+// bottom edge would finish the animation while a band of empty canvas still
+// hangs below it.
+function sceneRectOf(canvas) {
+  const rect = canvas.getBoundingClientRect()
+  const { offsetY, drawnHeight } = computeSceneLayout(rect.width, rect.height)
+
+  return { top: rect.top + offsetY, bottom: rect.top + offsetY + drawnHeight }
+}
 
 // Tracks how far the given container has scrolled through the viewport.
 //
@@ -19,7 +31,7 @@ export function useScrollProgress(ref, { completionRef, stageRef } = {}) {
       const completion = completionRef?.current
       const stage = stageRef?.current
       const canvas = stage?.querySelector('canvas')
-      const sceneRect = canvas?.getBoundingClientRect() ?? stage?.getBoundingClientRect()
+      const sceneRect = canvas ? sceneRectOf(canvas) : stage?.getBoundingClientRect()
 
       progress.current =
         window.innerWidth > 900 && completion && sceneRect

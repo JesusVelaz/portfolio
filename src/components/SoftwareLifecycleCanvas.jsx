@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
-import { lerp, phaseProgress, stagePresence } from '../lib/softwareLifecycle.js'
-
-const DESIGN_WIDTH = 720
-const DESIGN_HEIGHT = 840
+import {
+  computeSceneLayout,
+  lerp,
+  phaseProgress,
+  stagePresence,
+} from '../lib/softwareLifecycle.js'
 
 function clamp(value, min = 0, max = 1) {
   return Math.min(max, Math.max(min, value))
@@ -700,9 +702,7 @@ export default function SoftwareLifecycleCanvas({ progressRef }) {
       context.setTransform(ratio, 0, 0, ratio, 0, 0)
       context.clearRect(0, 0, width, height)
 
-      const scale = Math.min(width / DESIGN_WIDTH, height / DESIGN_HEIGHT)
-      const offsetX = (width - DESIGN_WIDTH * scale) / 2
-      const offsetY = Math.max(8, (height - DESIGN_HEIGHT * scale) * 0.16)
+      const { scale, offsetX, offsetY } = computeSceneLayout(width, height)
       context.save()
       context.translate(offsetX, offsetY)
       context.scale(scale, scale)
