@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom'
 import { useActiveSection } from '../hooks/useActiveSection.js'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
 import { useScrolled } from '../hooks/useScrolled.js'
-import { useScrollDirection } from '../hooks/useScrollDirection.js'
 import { ThemeToggle } from './ThemeToggle.jsx'
 import styles from './Nav.module.css'
 
@@ -23,7 +22,6 @@ const STRETCH_RELEASE_MS = 120
 
 export function Nav() {
   const scrolled = useScrolled(40)
-  const direction = useScrollDirection()
   const reducedMotion = useReducedMotion()
   const location = useLocation()
   const isHome = location.pathname === '/'
@@ -78,12 +76,7 @@ export function Nav() {
     return () => clearTimeout(timer)
   }, [pillLeft, reducedMotion])
 
-  const minimized = scrolled && direction === 'down'
-  const barClass = [
-    styles.bar,
-    scrolled ? styles.barScrolled : '',
-    minimized ? styles.barMinimized : '',
-  ]
+  const barClass = [styles.bar, scrolled ? styles.barScrolled : '']
     .filter(Boolean)
     .join(' ')
 
