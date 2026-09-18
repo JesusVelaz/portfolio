@@ -18,12 +18,23 @@
     <meta name="twitter:title" content="Jesus Velazquez — Software Engineer" />
     <meta name="twitter:description" content="Reliable software for complex work." />
     <meta name="twitter:image" content="https://jesusvelazquez.dev/og.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      Fonts are self-hosted from /fonts (see src/styles/fonts.css). Preloading
+      the two latin faces the hero paints with means they are requested in the
+      first wave rather than after the CSS has been parsed, so the real metrics
+      are available at first paint and the layout does not reflow.
+
+      Only latin, and only the faces above the fold: preloading something the
+      page does not immediately use just delays what it does.
+    -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/space-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
     <script>
       // Runs before first paint so dark-theme visitors never see a white flash.
       ;(function () {

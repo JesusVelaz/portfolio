@@ -35,6 +35,20 @@ class MockIntersectionObserver {
 window.IntersectionObserver = MockIntersectionObserver
 global.IntersectionObserver = MockIntersectionObserver
 
+// jsdom has no ResizeObserver either. Components that observe their own box
+// (FlowField) construct one on mount, so without this they throw before they
+// ever render.
+class MockResizeObserver {
+  constructor(callback) {
+    this.callback = callback
+  }
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+window.ResizeObserver = MockResizeObserver
+global.ResizeObserver = MockResizeObserver
+
 window.scrollTo = vi.fn()
 
 // jsdom has no canvas implementation and logs a noisy "Not implemented" error for every
