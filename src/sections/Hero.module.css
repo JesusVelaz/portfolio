@@ -1,30 +1,22 @@
 .hero {
-  --hero-stage-max-height: 820px;
-
   padding-block: 140px clamp(88px, 11vw, 150px);
   content-visibility: visible;
 }
 
-/* One grid so the stage can span the copy and the capabilities. The left
-   column scrolls; the right one sticks. */
+/* Copy beside the field. The field is fixed in place and sized by its own
+   aspect ratio, so the hero is the height of its own content. */
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(48px, 7vw, 110px);
-  align-items: start;
-}
-
-.left {
-  min-width: 0;
+  align-items: center;
 }
 
 .copy {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* The opening message owns the first viewport. The capabilities should only
-     begin after the visitor has made an intentional scroll. */
-  min-height: min(max(760px, calc(100svh - 140px)), var(--hero-stage-max-height));
+  min-width: 0;
 }
 
 .eyebrow {
@@ -39,7 +31,12 @@
 .name {
   font-size: clamp(3rem, 7.1vw, 5.8rem);
   font-weight: 600;
-  max-width: 10ch;
+  /* 6.46em is 10ch measured in Space Grotesk. Deliberately not written as ch:
+     ch is the width of the font's own "0", so before the webfont arrives it
+     resolves against the fallback and comes out ~16% narrower — enough to wrap
+     this headline onto five lines instead of three, then jump when the font
+     swaps in. em depends only on font-size, so both states lay out the same. */
+  max-width: 6.46em;
   margin-bottom: 30px;
   letter-spacing: -0.055em;
 }
@@ -56,7 +53,8 @@
 }
 
 .intro {
-  max-width: 58ch;
+  /* 36.6em is 58ch in Inter — see .name for why this is not written in ch. */
+  max-width: 36.6em;
   color: var(--muted-foreground);
   font-size: clamp(1rem, 1.5vw, 1.14rem);
   margin-bottom: 36px;
@@ -72,11 +70,12 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
+  /* Centred under the copy rather than aligned to its left edge. */
   align-self: center;
   gap: 8px;
-  /* Sit near the bottom of the first viewport, above the capabilities rule. */
-  margin-top: auto;
-  padding-top: 34px;
+  /* The copy no longer stretches to fill a viewport-tall column, so this sits
+     a fixed distance below the buttons rather than being pushed to the bottom. */
+  margin-top: clamp(40px, 5vw, 64px);
   color: var(--muted-foreground);
   font-family: var(--font-mono);
   font-size: 0.62rem;
@@ -97,10 +96,12 @@
   height: 34px;
   border: 1px solid var(--border-strong);
   border-radius: 50%;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1;
   animation: scrollNudge 1.8s var(--ease-out) infinite;
+}
+
+/* Block, so the svg sits on no baseline and the grid can centre it exactly. */
+.scrollArrow svg {
+  display: block;
 }
 
 @keyframes scrollNudge {
@@ -149,102 +150,25 @@
   border-color: var(--foreground);
 }
 
-.capabilities {
-  display: grid;
-  margin-top: clamp(120px, 16vw, 220px);
-  padding-top: clamp(52px, 7vw, 84px);
-  border-top: 1px solid var(--border);
-}
-
-.capabilitiesIntro {
-  max-width: 440px;
-}
-
-.capabilitiesEyebrow,
-.capabilityLabel,
-.capabilityNumber {
-  color: var(--muted-foreground);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-
-.capabilitiesEyebrow {
-  margin-bottom: 18px;
-}
-
-.capabilitiesTitle {
-  max-width: 15ch;
-  font-size: clamp(2rem, 4vw, 3.35rem);
-}
-
-.capabilityList {
-  display: grid;
-  grid-template-columns: 1fr;
-  margin-top: clamp(44px, 6vw, 72px);
-}
-
-.capabilityCard {
-  position: relative;
-  display: grid;
-  grid-template-columns: 30px minmax(0, 1fr);
-  gap: 14px;
-  padding-block: 30px;
-  border-top: 1px solid var(--border);
-}
-
-.capabilityAnchor {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  pointer-events: none;
-}
-
-.capabilityCard:first-child {
-  padding-top: 0;
-  border-top: 0;
-}
-
-.capabilityLabel {
-  margin-bottom: 10px;
-}
-
-.capabilityTitle {
-  margin-bottom: 10px;
-  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
-  line-height: 1.4;
-}
-
-.capabilityDetail {
-  color: var(--muted-foreground);
-  font-size: 0.9rem;
-  line-height: 1.65;
-  max-width: 48ch;
-}
-
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;
   }
 
-  .copy {
-    min-height: auto;
-  }
-
   .name {
-    max-width: 12ch;
-  }
-
-  .capabilitiesIntro {
-    max-width: 620px;
+    max-width: 7.75em;
   }
 }
 
 @media (max-width: 650px) {
+  /* The flow field does not render below 900px, so on a phone the copy is the
+     whole hero. Give it the screen rather than letting it stop halfway down
+     with the next section already showing. svh, not vh, so the mobile browser
+     chrome collapsing does not change the height mid-scroll. */
   .hero {
+    display: grid;
+    align-content: center;
+    min-height: 100svh;
     padding-block: 116px var(--section-gap);
   }
 
@@ -253,8 +177,18 @@
     text-align: center;
   }
 
+  /* More air between each line of the opening, now that there is room for it. */
+  .eyebrow {
+    margin-bottom: 34px;
+  }
+
+  .name {
+    margin-bottom: 38px;
+  }
+
   .intro {
     margin-inline: auto;
+    margin-bottom: 44px;
   }
 
   .ctas {
@@ -315,9 +249,8 @@
   animation-delay: 240ms;
 }
 
-/* The capabilities block's entry reveal is handled by the Reveal component, so
-   it works in browsers without animation-timeline. Only the parallax below
-   needs a scroll timeline, and it degrades to a static hero where unsupported.
+/* Only the parallax below needs a scroll timeline, and it degrades to a static
+   hero where unsupported.
 
    Parallax is desktop-only. Below 900px .layout collapses to one column, so
    drifting the copy and the canvas apart would read as broken rather than

@@ -21,17 +21,18 @@ test('primary CTA targets the work section and secondary targets contact', () =>
   expect(screen.getByRole('link', { name: /get in touch/i }).getAttribute('href')).toBe('/#contact')
 })
 
-test('shows grounded capabilities instead of the old metric cards', () => {
+test('no longer carries the What I bring block', () => {
   renderHero()
-  expect(screen.getByRole('heading', { name: /ambiguous workflow to a durable product/i })).toBeInTheDocument()
-  expect(screen.getByText(/Product engineering/i)).toBeInTheDocument()
-  expect(screen.queryByText('+35%')).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: /ambiguous workflow to a durable product/i })
+  ).not.toBeInTheDocument()
+  expect(screen.queryByText(/what i bring/i)).not.toBeInTheDocument()
 })
 
-test('offers a visible cue to continue into the capabilities', () => {
+test('offers a visible cue that continues into the work section', () => {
   renderHero()
-  expect(screen.getByRole('link', { name: /scroll to what i bring/i })).toHaveAttribute(
+  expect(screen.getByRole('link', { name: /scroll to selected work/i })).toHaveAttribute(
     'href',
-    '/#capabilities'
+    '/#work'
   )
 })

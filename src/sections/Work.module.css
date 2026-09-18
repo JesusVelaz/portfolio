@@ -24,6 +24,15 @@
   margin-bottom: 56px;
 }
 
+/* Work sits in .container-wide (1760px), but the cards were then running the
+   full width while About's grid caps at 1480px — so the two sections did not
+   line up. Both the intro and the cards now share About's frame. */
+.intro,
+.list {
+  max-width: 1480px;
+  margin-inline: auto;
+}
+
 .list {
   display: grid;
   /* The cards are tall and self-contained, so they need more separation than a

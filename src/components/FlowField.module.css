@@ -1,0 +1,25 @@
+.field {
+  position: relative;
+  width: 100%;
+  /* Taller than wide, so the panel reads as a column beside the headline
+     rather than a banner under it. */
+  aspect-ratio: 4 / 5;
+  max-height: 720px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  /* The canvas carries only the trails; its ground is painted here, so it is
+     always exactly the theme's own colour and cannot drift as frames stack. */
+  background: var(--background);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* No narrow-viewport rules: below 900px the component renders nothing at all,
+   so there is no box here to restyle. */
