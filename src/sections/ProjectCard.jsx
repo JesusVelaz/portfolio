@@ -1,19 +1,21 @@
 import { Link } from 'react-router-dom'
-import { ProjectImage } from '../components/ProjectImage.jsx'
+import { CardCarousel } from '../components/CardCarousel.jsx'
+import { cardSlides } from '../data/projects.js'
 import styles from './ProjectCard.module.css'
 
-export function ProjectCard({ project, index }) {
+export function ProjectCard({ project, index, featured = false }) {
   const number = String(index + 1).padStart(2, '0')
+  const to = `/work/${project.slug}`
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${featured ? '' : styles.compact}`}>
       <div>
         <span className={styles.number}>{number}</span>
         {/* The card's only link, so it is named by the project rather than by
             a CTA that reads identically on every card. Its ::after covers the
             whole panel, which is what makes the card clickable. */}
         <h3 className={styles.title}>
-          <Link to={`/work/${project.slug}`} className={styles.titleLink}>
+          <Link to={to} className={styles.titleLink}>
             {project.title}
           </Link>
         </h3>
@@ -24,11 +26,11 @@ export function ProjectCard({ project, index }) {
       </div>
 
       <div className={styles.mediaWrap}>
-        <ProjectImage
-          src={project.thumb}
-          alt={`${project.title} screenshot`}
-          label={project.title}
-          className={styles.media}
+        <CardCarousel
+          slides={cardSlides(project)}
+          to={to}
+          title={project.title}
+          trackClassName={styles.media}
         />
       </div>
 

@@ -16,11 +16,23 @@ export function Work() {
       </Reveal>
 
       <ul className={styles.list}>
-        {projects.map((project, i) => (
-          <Reveal as="li" key={project.slug} delay={i * 0.06}>
-            <ProjectCard project={project} index={i} />
-          </Reveal>
-        ))}
+        {projects.map((project, i) => {
+          // The first project leads at full width; the rest pair up beneath it.
+          // A project left without a partner takes the full row too, rather
+          // than sitting alone at half width.
+          const wide = i === 0 || (i === projects.length - 1 && i % 2 === 1)
+          return (
+            <Reveal
+              as="li"
+              key={project.slug}
+              delay={(wide ? 0 : (i - 1) % 2) * 0.06}
+              className={wide ? styles.wide : undefined}
+              data-layout={wide ? 'wide' : 'pair'}
+            >
+              <ProjectCard project={project} index={i} featured={wide} />
+            </Reveal>
+          )
+        })}
       </ul>
     </section>
   )

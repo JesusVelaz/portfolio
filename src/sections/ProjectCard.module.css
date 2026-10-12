@@ -4,6 +4,10 @@
 .card {
   position: relative;
   display: grid;
+  /* Paired cards stretch to the taller of the two; the slack goes above the
+     CTA so both buttons sit on the same line. */
+  height: 100%;
+  grid-template-rows: auto auto 1fr;
   gap: clamp(22px, 2.4vw, 32px);
   padding: clamp(24px, 2.4vw, 40px);
   border-radius: var(--radius-card);
@@ -86,8 +90,28 @@
 
 .footer {
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: flex-start;
+}
+
+/* Half-width cards in the paired row. Only once the list is two columns; a
+   stacked compact card is as wide as the featured one and is sized like it. */
+@media (min-width: 980px) {
+  .compact {
+    padding: clamp(22px, 2vw, 32px);
+  }
+
+  .compact .title {
+    font-size: clamp(1.4rem, 2.1vw, 1.8rem);
+  }
+
+  .compact .tagline {
+    font-size: 0.95rem;
+  }
+
+  .compact .media {
+    aspect-ratio: 16 / 10;
+  }
 }
 
 /* Reads as a button rather than a caption, so it's obvious the card is

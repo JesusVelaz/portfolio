@@ -39,3 +39,15 @@
      list gap — at 28px they read as one continuous block rather than two. */
   gap: clamp(48px, 6vw, 88px);
 }
+
+/* Featured + pair: the lead project spans the row, the rest sit two across. */
+@media (min-width: 980px) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(32px, 3vw, 44px);
+  }
+
+  .wide {
+    grid-column: 1 / -1;
+  }
+}
