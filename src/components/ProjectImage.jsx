@@ -13,10 +13,11 @@ export function ProjectImage({
   contain = false,
   compact = false,
   split = false,
+  captionAs,
   className = '',
 }) {
   const [failed, setFailed] = useState(false)
-  const CaptionHeading = compact ? 'h4' : 'h3'
+  const CaptionHeading = captionAs ?? (compact ? 'h4' : 'h3')
   const frameRatio = ratio ?? (width && height ? width / height : null)
 
   return (

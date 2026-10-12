@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../App.jsx'
 import projects from '../data/projects.js'
@@ -32,6 +32,35 @@ test.each(projects.map((p) => [p.slug, p.title]))(
     expect(await screen.findByRole('heading', { level: 1, name: title })).toBeInTheDocument()
   }
 )
+
+test('a case study links to its source only when the project has a repo', async () => {
+  const { unmount } = renderAt('/work/agents-cafe')
+  expect(await screen.findByRole('link', { name: /view source/i })).toHaveAttribute(
+    'href',
+    'https://github.com/JesusVelaz/agent-cafe'
+  )
+  unmount()
+
+  renderAt('/work/waiver-director')
+  await screen.findByRole('heading', { level: 1, name: 'Waiver Director' })
+  expect(screen.queryByRole('link', { name: /view source/i })).toBeNull()
+})
+
+test('a case study lists its sections in the rail, each linking to that section', async () => {
+  const { container } = renderAt('/work/agents-cafe')
+  const toc = await screen.findByRole('navigation', { name: 'Sections' })
+  const links = within(toc).getAllByRole('link')
+  const sections = projects.find((p) => p.slug === 'agents-cafe').gallerySections
+
+  expect(links.map((a) => a.textContent)).toEqual(
+    sections.map((s, i) => `${String(i + 1).padStart(2, '0')}${s.name}`)
+  )
+  links.forEach((a, i) => {
+    const target = container.querySelector(a.getAttribute('href'))
+    expect(target).not.toBeNull()
+    expect(within(target).getByRole('heading', { level: 2 })).toHaveTextContent(sections[i].name)
+  })
+})
 
 test('an unknown project slug renders the not-found page', async () => {
   renderAt('/work/not-a-real-project')
