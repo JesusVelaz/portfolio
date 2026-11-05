@@ -16,12 +16,17 @@ export function Hero() {
           <p className={styles.intro}>{profile.intro}</p>
 
           <div className={styles.ctas}>
-            <Link to="/#work" className={`${styles.btn} ${styles.btnPrimary}`}>
-              View my work
-            </Link>
-            <Link to="/#contact" className={`${styles.btn} ${styles.btnGhost}`}>
+            <Link to="/#contact" className={`${styles.btn} ${styles.btnPrimary}`}>
               Get in touch
             </Link>
+            <a
+              href={profile.resumeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={`${styles.btn} ${styles.btnGhost}`}
+            >
+              View my résumé
+            </a>
           </div>
 
           <Link to="/#work" className={styles.scrollCue} aria-label="Scroll to selected work">
